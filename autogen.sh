@@ -3,7 +3,14 @@
 
 echo "Generating configure script using autoconf, automake and gettext"
 
-gettextize --intl --no-changelog
+# only call gettextize if developer uses a new version of gettext
+case $1 in
+
+    "--gettext")
+	gettextize --copy --intl --no-changelog	;;
+
+esac
+
 aclocal -I m4
 autoconf
 autoheader
