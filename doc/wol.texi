@@ -1,14 +1,14 @@
 \input texinfo
 @setfilename wol.info
-@settitle @code{wol}
+@settitle Wake On LAN client
 @afourpaper
 @finalout
 @setcontentsaftertitlepage
 
 
-@set UPDATED 21 March 2002
-@set EDITION 0.6.0
-@set VERSION 0.6.0
+@set UPDATED 27 March 2002
+@set EDITION 0.6.1
+@set VERSION 0.6.1
 
 
 @comment Tell install-info what to do
@@ -21,6 +21,7 @@
 @ifinfo
 This file documents wol @value{VERSION}, the Wake On LAN client.
 
+@c man begin COPYRIGHT
 Copyright 2001-2002 Thomas Krennwallner @email{krennwallner@@aon.at}
 
 Permission is granted to copy, distribute and/or modify this document
@@ -30,6 +31,7 @@ with no Invariant Sections, with no
 Front-Cover Texts, and with no Back-Cover Texts.
 A copy of the license is included in the section entitled ``GNU
 Free Documentation License''.
+@c man end
 @end ifinfo
 
 
@@ -39,6 +41,20 @@ Free Documentation License''.
 @subtitle Edition @value{EDITION}
 @subtitle @value{UPDATED}
 @author Thomas Krennwallner
+
+@ignore
+@c man begin SYNOPSIS
+wol [@var{OPTION}] @dots{} @var{MAC-ADDRESS} @dots{}
+@c man end
+@c man end
+@c man begin AUTHOR
+Originally written by Thomas Krennwallner <krennwallner@aon.at>.
+@c man end
+@c man begin SEEALSO
+GNU info entry for @file{wol}.
+@c man end
+@end ignore
+
 
 @page
 @vskip 0pt plus 1filll
@@ -60,6 +76,7 @@ Free Documentation License''.
 @node Top, Description, (dir), (dir)
 @top wol - Wake On LAN client
 
+@c man begin DESCRIPTION
 This manual gives you an introduction into @code{wol}, the Wake On LAN client.
 It remotely turns on computers that supports Magic Packet(TM)
 @footnote{Magic Packet is a trademark of Advanced Micro Devices, Inc.}
@@ -69,6 +86,7 @@ Some workstations support SecureON(TM) @footnote{SecureON is a trademark of
 Digital Equipment Corporation.} password feature. These machines only
 wake up if you provide the correct password. @code{wol} also provides this
 feature.
+@c man end
 
 See @url{http://ahh.sourceforge.net/wol/} for updates and further readings.
 
@@ -143,7 +161,8 @@ Packet(TM) which is intended to wake up the NIC with hardware address
 @node Options
 @chapter Options
 
-@table @option
+@c man begin OPTIONS
+@table @samp
 @item -h
 @itemx --help
 
@@ -206,12 +225,14 @@ one byte of the password. To set the password of your SecureON(TM) capable
 NIC, you can use ethtool @url{http://www.sourceforge.net/projects/gkernel/}.
 
 @end table
+@c man end
 
 
 @node Examples
 @chapter Examples
 
-@table @option
+@c man begin EXAMPLES
+@table @samp
 @item wol 00:4F:49:07:0B:5F 00:4F:50:06:12:4F
 
 Sends packet addressed to 255.255.255.255:40000 and is intended to wake up
@@ -263,6 +284,7 @@ host hugo
 @end example
 
 @end table
+@c man end
 
 
 @bye

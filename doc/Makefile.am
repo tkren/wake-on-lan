@@ -1,11 +1,18 @@
-EXTRA_DIST = wol.sgml
 info_TEXINFOS = wol.texi
-MAINTAINERCLEANFILES = Makefile.in texinfo.tex
+man_MANS = wol.1
+EXTRA_DIST = texi2pod.pl $(man_MANS)
+MAINTAINERCLEANFILES = Makefile.in texinfo.tex wol.1 wol.pod
 
-wol.pdf:
+wol.pod: wol.texi
+	$(srcdir)/texi2pod.pl $? $@
+
+wol.1: wol.pod
+	pod2man --section=1 --center="wol" --release="wol @VERSION@" $? > $@
+
+wol.pdf: wol.texi
 	texi2pdf wol.texi
 
-wol.html:
+wol.html: wol.texi
 	texi2html -no-section_navigation wol.texi
 
 clean-local:
