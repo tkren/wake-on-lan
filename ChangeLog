@@ -1,3 +1,18 @@
+2003-08-13  Thomas Krennwallner  <djmaecki@localhost>
+
+	* lib/ether.h: Include with guards all possible
+	ether_hostton header files.
+
+	* doc/texi2pod.pl: Add texi2pod.pl from	gcc cvs.
+
+	* doc/Makefile.am (wol.1): Run $(PERL) with arg
+	instead	of texi2pod.pl -> some machines don't
+	have perl in /usr/bin.
+
+	* configure.ac: Check for PERL, add patchlevel to
+	version string, do sane ether_hostton and struct
+	ether_addr checks.
+
 2003-08-12  Thomas Krennwallner  <krennwallner@aon.at>
 
 	* m4/intdiv0.m4: New file, from gettext-0.12.1.
