@@ -3,12 +3,20 @@
 * Bugs
 
 
-** fix translations
+** fix translations for proxy support and other
+
+** document proxy support
 
 ** 255.255.255.255 doesn't work with HP-UX gethostbyname
 
 
+
 * New features
+
+
+** WOL Proxy
+
+wolp (Wake On LAN proxy) support http://etherboot.sf.net/wolp, maybe a reimplementation
 
 
 ** better resolving error output
@@ -67,11 +75,6 @@ fails, so the packet never goes out.
 
 My thought is that if an optional subnet mask is specified, then both a
 broadcast and a directed packet are sent. One of them should get through :-)
-
-
-** WOL Proxy
-
-wolp (Wake On LAN proxy) support http://etherboot.sf.net/wolp, maybe a reimplementation
 
 
 ** WOL GUI
