@@ -14,6 +14,11 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
+#: lib/error.c:125
+#, c-format
+msgid "Unknown system error"
+msgstr "Errore di sistema sconosciuto"
+
 #: lib/getopt.c:693
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
@@ -191,6 +196,3 @@ msgstr "su...\n"
 #, c-format
 msgid "Invalid IP address given: %s"
 msgstr "Non valido IP indirizzo è dato: %s"
-
-#~ msgid "Unknown system error"
-#~ msgstr "Errore di sistema sconosciuto"

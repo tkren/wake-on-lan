@@ -15,6 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: lib/error.c:125
+#, c-format
 msgid "Unknown system error"
 msgstr "Error del sistema desconocido"
 
