@@ -1,3 +1,4 @@
+- implement a "make test" -> automate the testing process
 - fix fr translation
 - fix documentation
 - debianise it ;-)
