@@ -3,9 +3,9 @@
  *
  *	main program
  * 
- *	$Id: wol.c,v 1.11 2002/03/21 19:18:09 wol Exp $
+ *	$Id: wol.c,v 1.12 2002/04/12 05:53:00 wol Exp $
  *
- *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
+ *	Copyright (C) 2000-2003 Thomas Krennwallner <krennwallner@aon.at>
  *
  *	This program is free software; you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@
 #include "magic.h"
 #include "net.h"
 #include "macfile.h"
-
+#include "getpass4.h"
 
 
 
@@ -62,7 +62,7 @@ static char *pathname = NULL;
 /* udp port */
 static unsigned short port = DEFAULT_PORT;
 
-/* SecureON (tm) password */
+/* SecureON password */
 static char *passwd = NULL;
 
 /* default is not to read from stdin */
@@ -95,14 +95,16 @@ usage (int status)
 			fprintf (stdout, _("\
 Usage: %s [OPTION] ... MAC-ADDRESS ...\n\
 Wake On LAN client - wakes up magic packet compliant machines.\n\n\
--h, --help          display this help and exit\n\
+    --help          display this help and exit\n\
 -V, --version       output version information and exit\n\
 -v, --verbose       verbose output\n\
 -w, --wait=NUM      wait NUM millisecs after sending\n\
--i, --ipaddr=HOST   broadcast to this IP address or hostname\n\
+-h, --host=HOST     broadcast to this IP address or hostname\n\
+-i, --ipaddr=HOST   same as --host\n\
 -p, --port=NUM      broadcast to this UDP port\n\
 -f, --file=FILE     read addresses from file FILE (\"-\" reads from stdin)\n\
--P, --passwd=PASS   send SecureON password PASS\n\
+    --passwd[=PASS] send SecureON password PASS (if no PASS is given, you\n\
+                    will be prompted for the password)\n\
 \n\
 Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n\
 between 0 and ff which represents one byte of the address, which is in\n\
@@ -125,7 +127,7 @@ version (void)
 {
 	fprintf (stdout, PACKAGE " " VERSION "\n\n");
 	fprintf (stdout, _("\
-Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>\n\
+Copyright (C) 2000-2003 Thomas Krennwallner <krennwallner@aon.at>\n\
 This is free software; see the source for copying conditions. There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\
 \n"));
@@ -139,17 +141,19 @@ parse_args (int argc, char *argv[])
 {
 	int c;
 	int option_index;
-	char *options = "hVvw:i:p:f:P:-";
+	int password_set = 0;
+	char *options = "Vvw:h:i:p:f:-";
 	static struct option long_options[] = 
 		{
-			{ "help", no_argument, NULL, 'h' },
+			{ "help", no_argument, NULL, 'H' },
 			{ "version", no_argument, NULL, 'V' },
 			{ "verbose", no_argument, NULL, 'v' },
 			{ "wait", required_argument, NULL, 'w' },
+			{ "host", required_argument, NULL, 'h' },
 			{ "ipaddr", required_argument, NULL, 'i' },
 			{ "port", required_argument, NULL, 'p' },
 			{ "file", required_argument, NULL, 'f' },
-			{ "passwd", required_argument, NULL, 'P' },
+			{ "passwd", optional_argument, NULL, 'P' },
 			{ NULL, 0, NULL, 0 }
 		};
 
@@ -169,7 +173,7 @@ parse_args (int argc, char *argv[])
 
 			switch (c)
 				{
-					case 'h':
+					case 'H':
 						usage (0);
 						break;
 
@@ -195,6 +199,7 @@ parse_args (int argc, char *argv[])
 						break;
 
 
+					case 'h':
 					case 'i':
 						host_str = optarg;
 						break;
@@ -215,7 +220,21 @@ parse_args (int argc, char *argv[])
 
 
 					case 'P':
-						passwd = optarg;
+						if (optarg == NULL)
+							{
+								if (password_set)
+									break;
+
+								int n;
+
+								if (getpass4 (_("Password"), &passwd, &n, stdin) == -1)
+									{
+										error (1, 0, "getpass4 failed");
+									}
+								password_set = 1;
+							}
+						else
+							passwd = optarg;
 						break;
 
 
@@ -224,7 +243,7 @@ parse_args (int argc, char *argv[])
 				}
 		}
 
-	if (optind == argc)
+	if ((optind == argc) && (pathname == NULL))
 		{
 			error (0, 0, _("You must specify at least one MAC-ADDRESS."));
 			usage (1);
