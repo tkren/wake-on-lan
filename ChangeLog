@@ -1,3 +1,9 @@
+2004-05-15  Thomas Krennwallner  <djmaecki@ull.at>
+
+	* po/sv.po: Fix an annoying translation bug. gettext secretly
+	merged two lines because of a missing \n at EOL (due a bugreport
+	from Johan Fredin <griffin@legonet.org>).
+
 2004-05-14  Thomas Krennwallner  <djmaecki@ull.at>
 
 	* src/wol.c (parse_args): Add --raw and --udp options.
