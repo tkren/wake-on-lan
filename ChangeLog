@@ -1,3 +1,7 @@
+2004-04-18  Thomas Krennwallner  <djmaecki@ull.at>
+
+	* TODO: error.c depends on libintl.h.
+
 2004-04-17  Thomas Krennwallner  <krennwallner@aon.at>
 
 	* TODO: Add disable-nls bug.
