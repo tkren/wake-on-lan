@@ -9,10 +9,6 @@
 #include <netinet/ether.h>
 #endif /* HAVE_NETINET_ETHER_H */
 
-#ifdef HAVE_NET_ETHERNET_H
-#include <net/ethernet.h>
-#endif /* HAVE_NET_ETHERNET_H */
-
 #ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h>
 #endif /* HAVE_SYS_TYPES_H */
@@ -20,6 +16,10 @@
 #ifdef HAVE_SYS_SOCKET_H
 #include <sys/socket.h>
 #endif /* HAVE_SYS_SOCKET_H */
+
+#ifdef HAVE_NET_ETHERNET_H
+#include <net/ethernet.h>
+#endif /* HAVE_NET_ETHERNET_H */
 
 #ifdef HAVE_NET_IF_H
 #include <net/if.h>
