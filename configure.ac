@@ -69,10 +69,26 @@ AC_SUBST(EXTRA_LIBS)
 dnl arguments
 AC_MSG_CHECKING(wheter you want ANSI emulation)
 AC_ARG_ENABLE(ansi,
-[  --enable-ansi          enables strict ANSI checking [default=no]],
+[  --enable-ansi           enables strict ANSI checking [default=no]],
 with_ansi=$enableval, with_ansi=no)
 test "$with_ansi" = "yes" && CFLAGS="$CFLAGS -ansi -pedantic"
 AC_MSG_RESULT($with_ansi)
+
+dnl checking for your awk
+AC_MSG_CHECKING(path to your awk)
+AC_ARG_WITH(myawk,
+[  --with-awk=PATH_TO_AWK  path to your awk binary],
+with_myawk=$withval, with_myawk="")
+AC_MSG_RESULT($with_myawk)
+if test x$with_myawk = x ; then
+	AC_PATH_PROG(MY_AWK, awk, "")
+else
+	MY_AWK=$with_myawk
+fi
+if test x$MY_AWK = x ; then
+	AC_MSG_ERROR([*** Unable to find your awk, specify it with --with-awk= ***])
+fi
+AC_SUBST(MY_AWK)
 
 
 dnl full featured warnings
@@ -89,7 +105,8 @@ intl/Makefile
 lib/Makefile
 m4/Makefile
 po/Makefile.in
-src/Makefile)
+src/Makefile
+src/wol-dhcpdconf, [chmod +x src/wol-dhcpdconf])
 
 
 dnl output configuration
@@ -108,4 +125,5 @@ $PACKAGE configuration:
 
 	EXTRA_LIBS: $EXTRA_LIBS
 	ANSI emulation: $with_ansi
+	AWK binary: $MY_AWK
 "

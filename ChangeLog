@@ -1,3 +1,9 @@
+2002-02-21	Thomas Krennwallner <krennwallner@aon.at>
+
+	* src/wol-dhcpdconf.in: new awk script for dhcpd.conf parsing
+	* src/Makefile.am: install wol-dhcpdconf
+	* configure.ac: searching for awk binary
+
 2002-02-15	Thomas Krennwallner <krennwallner@aon.at>
 
 	* doc/wol.texi: fixed trademark info and added info about ethtool
