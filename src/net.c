@@ -1,7 +1,7 @@
 /*
  * wol - wake on lan client
  *
- * $Id: net.c,v 1.7 2004/04/18 09:34:21 wol Exp $
+ * $Id: net.c,v 1.8 2004/04/20 19:51:18 wol Exp $
  *
  * Copyright (C) 2000,2001,2002,2003,2004 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -71,6 +71,41 @@ net_close (int socket)
     }
 
   return 0;
+}
+
+
+
+int
+raw_open (void)
+{
+  int optval;
+  int sockfd;
+
+  sockfd = socket(PF_PACKET, SOCK_RAW, 0);
+  if (sockfd < 0)
+    {
+      if (errno == EPERM)
+	{
+	  error (0, 0, "No root privilegious");
+	}
+      else
+	{
+	  perror ("socket() failed");
+	}
+
+      return -1;
+    }
+
+  optval = 1;
+
+  if (setsockopt (sockfd, SOL_SOCKET, SO_BROADCAST, &optval, sizeof (optval)))
+    {
+      perror ("setsockopt() failed");
+      close (sockfd);
+      return -1;
+    }
+
+  return sockfd;
 }
 
 
