@@ -1,0 +1,133 @@
+# Turkish messages for wol.
+# Copyright (C) 2001-2002 Free Software Foundation, Inc.
+# Mesut Kara, 2002.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: wol 0.6.0\n"
+"POT-Creation-Date: 2001-11-06 09:58+0100\n"
+"PO-Revision-Date: 2001-09-25 16:31+0200\n"
+"Last-Translator: Mesut Kara <>\n"
+"Language-Team:\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-9\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: src/wol.c:73
+#, c-format
+msgid ""
+"Usage: %s [OPTION] ... MAC-ADDRESS ...\n"
+"Wake On LAN client - wakes up magic packet compliant machines.\n"
+"\n"
+"-h, --help          display this help and exit\n"
+"-V, --version       output version information and exit\n"
+"-v, --verbose       verbose output\n"
+"-w, --wait=NUM      wait NUM millisecs after sending\n"
+"-i, --ipaddr=IPADDR broadcast to this IP address\n"
+"-p, --port=NUM      broadcast to this UDP port\n"
+"-f, --file=FILE     read addresses from file FILE\n"
+"-P, --passwd=PASS   send SecureON password PASS\n"
+"\n"
+"Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n"
+"between 0 and ff which represents one byte of the address, which is in\n"
+"network byte order (big endian).\n"
+msgstr ""
+"Kullanýmý: %s [SEÇENEK] ... MAC-ADDRESS ...\n"
+"Wake On LAN client - Magic packet bilgisayarýný uyandýrýr.\n"
+"\n"
+"-h, --help          bu yardým iletisi gösterilir ve çýkar\n"
+"-V, --version       sürüm bilgileri gösterilir ve çýkar\n"
+"-v, --verbose       verbose output\n"
+"-w, --wait=NUM      gönderdikten sonra NUM Millisekunde bekle\n"
+"-i, --ipaddr=IPADDR IPADDR IP adressine gönder\n"
+"-p, --port=NUM      UDP baglantisini NUM a gönder\n"
+"-f, --file=FILE     FILE dosyasýndan adressleri oku\n"
+"-P, --passwd=PASS   send SecureON password PASS\n"
+"\n"
+"Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n"
+"between 0 and ff which represents one byte of the address, which is in\n"
+"network byte order (big endian).\n"
+#"Benutzung: %s [OPTION] ... MAC-ADRESSE ...\n"
+#"Wake On LAN client - weckt Magic Packet-fähige Maschinen auf.\n"
+#"\n"
+#"-h, --help          Anzeigen dieser Hilfe und beenden\n"
+#"-V, --version       Ausgabe der Versionsinformation und beenden\n"
+#"-v, --verbose       wortreiche Ausgabe\n"
+#"-w, --wait=NUM      warte NUM Millisekunden nach dem Senden\n"
+#"-i, --ipaddr=IPADDR übertrage zu IP Adresse IPADDR\n"
+#"-p, --port=NUM      übertrage zu UDP Anschluss NUM\n"
+#"-f, --file=FILE     lese Adressen von Datei FILE\n"
+#"-P, --passwd=PASS   sende SecureON Passwort PASS\n"
+#"\n"
+#"Jede MAC-ADRESSE wird als x:x:x:x:x:x geschrieben, wobei x eine "
+#"hexadezimale\n"
+#"Zahl zwischen 0 und ff ist, die ein Byte der Adresse repräsentiert, die in\n"
+#"Netzwerk Byte Ordnung (Big Endian) ist.\n"
+
+#: src/wol.c:88
+msgid ""
+"\n"
+"Report bugs to <krennwallner@aon.at>\n"
+msgstr ""
+"\n"
+"Yazýlým hatalarýný <krennwallner@aon.at> adresinen\n"
+
+#: src/wol.c:97
+msgid ""
+"Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>\n"
+"This is free software; see the source for copying conditions. There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Telif Hakký (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>\n"
+"Bu bir serbest yazýlýmdýr; kopyalama koþullarý için kaynak koduna bakýnýz.\n"
+"Hiçbir garantisi yoktur; hatta SATILABÝLÝRLÝÐÝ veya ÞAHSÝ KULLANIMINIZA\n"
+"UYGUNLUÐU için bile garanti verilmez.\n"
+
+#: src/wol.c:136
+#, c-format
+msgid ""
+"%s: Too few arguments.\n"
+"Try `%s --help' for more information.\n"
+msgstr ""
+"%s: Too few arguments.\n"
+"Daha fazla bilgilendirilmek için `%s --help' yazýnýz.\n"
+
+#: src/wol.c:170
+#, c-format
+msgid "%s: Invalid time given\n"
+msgstr ""
+
+#: src/wol.c:186
+#, c-format
+msgid "%s: Invalid port given\n"
+msgstr ""
+
+#: src/wol.c:219
+#, c-format
+msgid "%s: Cannot assemble magic packet for '%s': %s\n"
+msgstr ""
+
+#: src/wol.c:227
+#, c-format
+msgid "%s: Cannot send magic packet for '%s' to %s:%d: %s\n"
+msgstr ""
+
+#: src/wol.c:232
+#, c-format
+msgid "Waking up %s"
+msgstr ""
+
+#: src/wol.c:233
+#, c-format
+msgid " with %s:%d"
+msgstr ""
+
+#: src/wol.c:234
+msgid "...\n"
+msgstr ""
+
+#: src/net.c:98
+#, c-format
+msgid "Invalid IP address given: %s\n"
+msgstr ""

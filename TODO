@@ -1,4 +1,6 @@
+- hack stdin mode
 - hack nu macfile.l and SecureON support
+- try a win32 port
 - wol.gmo in hpux isn't here? bug in gettext?
 - parse dhcpd.conf
 - magic packets > 1 -> put several packets into one buffer for sending over the

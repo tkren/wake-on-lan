@@ -3,7 +3,7 @@
  *
  *	main program
  * 
- *	$Id: wol.c,v 1.3 2002/01/10 07:43:59 wol Exp $
+ *	$Id: wol.c,v 1.4 2002/01/11 06:32:51 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -124,7 +124,7 @@ parse_args (int argc, char *argv[])
 {
 	int c;
 	int option_index;
-	char *options = "hVvw:i:p:f:P:";
+	char *options = "hVvw:i:p:f:P:-";
 	static struct option long_options[] = 
 		{
 			{ "help", no_argument, NULL, 'h' },
@@ -135,6 +135,7 @@ parse_args (int argc, char *argv[])
 			{ "port", required_argument, NULL, 'p' },
 			{ "file", required_argument, NULL, 'f' },
 			{ "passwd", required_argument, NULL, 'P' },
+			{ "--", no_argument, NULL, '-' },
 			{ NULL, 0, NULL, 0 }
 		};
 
@@ -207,6 +208,10 @@ Try `%s --help' for more information.\n"), name, name);
 						passwd = optarg;
 						break;
 
+
+					/* FIXME: hack stdin mode */
+					case '-':
+						break;
 
 					case '?':
 						break;
