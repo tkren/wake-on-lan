@@ -1,13 +1,12 @@
 wol was developed on an i586-pc-linux-gnu machine.
 
 This wol release was tested on following machines:
-i586-pc-linux-gnu
-i386-unknown-freebsd4.5
-sparc-sun-solaris2.8
-powerpc-apple-darwin5.3
-sparc64-unknown-linux-gnu
-powerpc-unknown-linux-gnu
-alphaev67-unknown-linux-gnu
-i386-unknown-openbsd3.0
+i386-pc-linux-gnu
+i386-unknown-freebsd4.10
 hppa2.0w-hp-hpux11.00
-i686-pc-cygwin
+i386-pc-solaris2.9
+i386-unknown-netbsdelf1.6.1
+powerpc-apple-darwin6.8
+x86_64-unknown-linux-gnu
+alphaev67-unknown-linux-gnu
+sparc-sun-solaris2.9
