@@ -1,6 +1,8 @@
 [0.6.0]
+* can read macfiles from stdin
 * new lex macfile parser
 * add SecureON (tm) support to magic packets
+* added french, italian, spanish and turkish translation
 [0.5.1]
 * fixed memory leak in option parsing
 * to simplify things default IP address is now 255.255.255.255

@@ -4,7 +4,7 @@
  *
  *	parse a macfile
  *
- *	$Id: macfile.l,v 1.1 2002/01/10 07:41:18 wol Exp $
+ *	$Id: macfile.l,v 1.2 2002/01/11 06:32:51 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -88,5 +88,6 @@ macfile_parse (FILE *fp, char *mac, char *ip, unsigned short *port,
 {
 	yyin = fp;
 	yyout = fopen ("/dev/null", "w");
+	if (yyout == NULL) return -1;
 	return yylex (mac, ip, port, passwd);
 }

@@ -49,6 +49,8 @@ AC_CHECK_HEADERS(unistd.h getopt.h sys/time.h locale.h libintl.h)
 
 
 dnl check system functions
+jm_FUNC_MALLOC
+jm_FUNC_REALLOC
 AC_CHECK_FUNCS(usleep)
 AC_CHECK_FUNCS(getopt_long)
 AC_CHECK_FUNC(inet_aton, [], [

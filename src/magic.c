@@ -3,7 +3,7 @@
  *
  *	create and assemble magic packets
  *
- *	$Id: magic.c,v 1.2 2002/01/10 07:41:18 wol Exp $
+ *	$Id: magic.c,v 1.3 2002/01/11 06:32:51 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -34,7 +34,7 @@
 #include <errno.h>
 #include <string.h> /* memset() in HP-UX */
 
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "wol.h"
 #include "magic.h"
 
@@ -112,8 +112,8 @@ magic_create (int with_passwd)
 void
 magic_destroy (struct magic *m)
 {
-	xfree ((void *) m->packet);
-  xfree ((void *) m);
+	XFREE ((void *) m->packet);
+  XFREE ((void *) m);
 }
 
 

@@ -3,7 +3,7 @@
  *
  *	main program
  * 
- *	$Id: wol.c,v 1.5 2002/02/12 07:11:09 wol Exp $
+ *	$Id: wol.c,v 1.6 2002/02/12 08:00:11 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -37,7 +37,7 @@
 #include <errno.h>
 
 #include "wrappers.h"
-#include "xmalloc.h"
+#include "xalloc.h"
 #include "wol.h"
 #include "magic.h"
 #include "net.h"
@@ -235,9 +235,9 @@ Try `%s --help' for more information.\n"), name, name);
 						}
 				}
 		}
-	else if (!strncmp (pathname, "-", 1))
+	else if (pathname != NULL)
 		{
-			request_stdin = 1;
+			if (!strncmp (pathname, "-", 1)) request_stdin = 1;
 		}
 
 	/* return the offset of the GNU getopt sorted parameters */
@@ -344,9 +344,9 @@ main (int argc, char *argv[])
 																		sockfd);
 				}
 
-			xfree (mac_str);
-			xfree (in_addr_str);
-			xfree (passwd);
+			XFREE (mac_str);
+			XFREE (in_addr_str);
+			XFREE (passwd);
 
 			fclose (fp);
 		}

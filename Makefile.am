@@ -1,4 +1,5 @@
 AUTOMAKE_OPTIONS = gnu no-dependencies 1.5
+ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_DIST = autogen.sh
 

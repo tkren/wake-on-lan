@@ -14,6 +14,74 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
+
+#: lib/getopt.c:693
+#, c-format
+msgid "%s: option `%s' is ambiguous\n"
+msgstr "%s: la opción `%s' es ambigua\n"
+
+#: lib/getopt.c:718
+#, c-format
+msgid "%s: option `--%s' doesn't allow an argument\n"
+msgstr "%s: la opción `--%s' no admite ningún argumento\n"
+
+#: lib/getopt.c:723
+#, c-format
+msgid "%s: option `%c%s' doesn't allow an argument\n"
+msgstr "%s: la opción `%c%s' no admite ningún argumento\n"
+
+#: lib/getopt.c:741 lib/getopt.c:914
+#, c-format
+msgid "%s: option `%s' requires an argument\n"
+msgstr "%s: la opción `%s' requiere un argumento\n"
+
+#. --option
+#: lib/getopt.c:770
+#, c-format
+msgid "%s: unrecognized option `--%s'\n"
+msgstr "%s: opción no reconocida `--%s'\n"
+
+#. +option or -option
+#: lib/getopt.c:774
+#, c-format
+msgid "%s: unrecognized option `%c%s'\n"
+msgstr "%s: opción no reconocida `%c%s'\n"
+
+#. 1003.2 specifies the format of this message.
+#: lib/getopt.c:800
+#, c-format
+msgid "%s: illegal option -- %c\n"
+msgstr "%s: opción ilegal -- %c\n"
+
+#: lib/getopt.c:803
+#, c-format
+msgid "%s: invalid option -- %c\n"
+msgstr "%s: opción inválida -- %c\n"
+
+#. 1003.2 specifies the format of this message.
+#: lib/getopt.c:833 lib/getopt.c:963
+#, c-format
+msgid "%s: option requires an argument -- %c\n"
+msgstr "%s: la opción requiere un argumento -- %c\n"
+
+#: lib/getopt.c:880
+#, c-format
+msgid "%s: option `-W %s' is ambiguous\n"
+msgstr "%s: la opción `-W %s' es ambigua\n"
+
+#: lib/getopt.c:898
+#, c-format
+msgid "%s: option `-W %s' doesn't allow an argument\n"
+msgstr "%s: la opción `-W %s' no admite ningún argumento\n"
+
+
+#. If XALLOC_FAIL_FUNC is NULL, or does return, display this message
+#. before exiting when memory is exhausted.  Goes through gettext.
+#: lib/xmalloc.c:66
+msgid "memory exhausted"
+msgstr "memoria agotada"
+
+
 #: src/wol.c:73
 #, c-format
 msgid ""

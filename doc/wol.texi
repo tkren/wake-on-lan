@@ -19,7 +19,7 @@ Free Documentation License''.
 @end ifinfo
 
 
-@set UPDATED 09 Januar 2002
+@set UPDATED 12 February 2002
 @set EDITION 0.6.0
 @set VERSION 0.6.0
 
@@ -49,7 +49,7 @@ Free Documentation License''.
 
 
 This manual gives you a short introduction into wol, the Wake On LAN client.
-See @url{http://ahh.sourceforge.net/wol} for updates.
+See @url{http://ahh.sourceforge.net/wol/} for updates.
 
 
 @menu

@@ -1,3 +1,9 @@
 # list of translatable files
+
+# library files
+lib/getopt.c
+lib/xmalloc.c
+
+# package files
 src/wol.c
 src/net.c

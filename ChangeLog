@@ -1,3 +1,19 @@
+2002-02-12	Thomas Krennwallner <krennwallner@aon.at>
+
+	* src/wol.c: added stdin support through `-f -' and `-', #include "xalloc.h"
+	* src/magic.c: #include "xalloc.h"
+	* lib/getopt.{c,h}: newer GNU version
+	* lib/getopt1.c: newer GNU version
+	* lib/{xmalloc.c,xalloc.h}: GNU version
+	* lib/xmalloc.h: removed
+	* m4/{malloc.c,realloc.c}: added
+	* po/{de,fr,it,es,tr}.po: added translation of lib/getopt.c and lib/xmalloc.c
+	* configure.ac: add jm_FUNC_MALLOC and jm_FUNC_REALLOC for GNU xmalloc
+	* Makefile.am: add ACLOCAL_AMFLAGS to "-I m4" for the jm macros
+	* autogen.sh: add -I m4 to aclocal for the jm macros
+	* README: typo
+	* doc/wol.texi: typo
+
 2002-02-11	Thomas Krennwallner <krennwallner@aon.at>
 
 	* po/fr.po: french translation completed and fixed by Florian Träxler
