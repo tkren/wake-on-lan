@@ -1,7 +1,7 @@
 Summary: The Wake On Lan client.
 Name: wol
 Version: 0.7.0
-Release: 1
+Release: 2
 Copyright: GPL
 Group: Application/Networking
 Source: %{name}-%{version}.tar.gz
@@ -40,11 +40,14 @@ fi
 %files
 %doc ABOUT-NLS AUTHORS ChangeLog COPYING NEWS README TODO
 %{_infodir}/wol.*
-%{_mandir}/wol.*
+%{_mandir}/*/*
 %{_bindir}/*
 %{_datadir}/locale/*/*/*
 
 %changelog
+* Mon Aug 11 2003 Thomas Hager <duke@bofh.at>
+- fixed man path in %files section
+
 * Sat Aug 09 2003 Thomas Krennwallner <krennwallner@aon.at>
 - new version 0.7.0
 - manpage added

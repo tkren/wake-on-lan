@@ -2,6 +2,7 @@
 
 	* wol.spec: manpath fix by
 	Thomas Hager <duke@bofh.at>
+	* configure.ac (ALL_LINGUAS): added es
 	* po/es.po: added spanish translation from
 	Magin Lopez <magin@giodental.com>
 

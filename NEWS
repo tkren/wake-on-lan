@@ -1,6 +1,7 @@
 [0.7.0]
 * add manpage
-* fixed italian and french translation
+* fixed german, italian and french translation
+* added spanish translation
 * can resolv names
 * added wol-bootptab: reads mac and host from bootptab file
 * wol-dhcpdconf now reads mac and host

@@ -73,8 +73,7 @@ fi
 								
 
 dnl i18n
-dnl ALL_LINGUAS="de fr es it tr"
-ALL_LINGUAS="de fr it"
+ALL_LINGUAS="de fr it es"
 AM_GNU_GETTEXT
 
 
