@@ -1,13 +1,13 @@
 # German messages for wol.
-# Copyright (C) 2001-2003 Free Software Foundation, Inc.
-# Thomas Krennwallner <krennwallner@aon.at>, 2001-2003.
+# Copyright (C) 2001-2004 Free Software Foundation, Inc.
+# Thomas Krennwallner <krennwallner@aon.at>, 2001-2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: wol 0.7.1\n"
 "Report-Msgid-Bugs-To: krennwallner@aon.at\n"
-"POT-Creation-Date: 2004-04-29 05:02+0200\n"
-"PO-Revision-Date: 2004-04-18 11:26+0200\n"
+"POT-Creation-Date: 2004-05-09 12:58+0200\n"
+"PO-Revision-Date: 2004-05-09 12:55+0200\n"
 "Last-Translator: Thomas Krennwallner <krennwallner@aon.at>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
@@ -77,12 +77,12 @@ msgstr "%s: Option `-W %s' erlaubt keinen Parameter.\n"
 msgid "memory exhausted"
 msgstr "Kein Speicher mehr"
 
-#: src/wol.c:93
+#: src/wol.c:94
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "»%s --help« gibt Ihnen mehr Informationen.\n"
 
-#: src/wol.c:97
+#: src/wol.c:98
 #, c-format
 msgid ""
 "Usage: %s [OPTION] ... MAC-ADDRESS ...\n"
@@ -98,6 +98,7 @@ msgid ""
 "-f, --file=FILE     read addresses from file FILE (\"-\" reads from stdin)\n"
 "    --passwd[=PASS] send SecureON password PASS (if no PASS is given, you\n"
 "                    will be prompted for the password)\n"
+"-s, --proxy=HOST    send wake up information to wolp proxy HOST\n"
 "\n"
 "Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n"
 "between 0 and ff which represents one byte of the address, which is in\n"
@@ -117,13 +118,14 @@ msgstr ""
 "                    Standardeingabe)\n"
 "    --passwd[=PASS] sende SecureON Kennwort PASS (falls kein Kennwort\n"
 "                    gegeben ist wird, folgt ein Passwortprompt)\n"
+"-s, --proxy=HOST    sende wake up Information zum wolp Proxy HOST\n"
 "\n"
 "Jede MAC-ADRESSE wird als x:x:x:x:x:x geschrieben, wobei x eine "
 "hexadezimale\n"
 "Zahl zwischen 0 und ff ist, die ein Byte der Adresse repräsentiert, die in\n"
 "Netzwerk Byte Ordnung (Big Endian) ist.\n"
 
-#: src/wol.c:115
+#: src/wol.c:117
 #, c-format
 msgid ""
 "\n"
@@ -134,7 +136,7 @@ msgstr ""
 "PASS wird als x-x-x-x-x-x geschrieben, wobei x eine hexadezimale Zahl\n"
 "zwischen 0 und ff ist, die ein Byte des Kennworts repräsentiert.\n"
 
-#: src/wol.c:119
+#: src/wol.c:121
 #, c-format
 msgid ""
 "\n"
@@ -143,7 +145,7 @@ msgstr ""
 "\n"
 "Berichten Sie Fehler (auf Englisch, mit LC_ALL=C) an <krennwallner@aon.at>\n"
 
-#: src/wol.c:131
+#: src/wol.c:133
 #, c-format
 msgid ""
 "Copyright (C) 2000-2004 Thomas Krennwallner <krennwallner@aon.at>\n"
@@ -156,62 +158,62 @@ msgstr ""
 "Einsatz-\n"
 "fähigkeit für einen bestimmte Zweck.\n"
 
-#: src/wol.c:166
+#: src/wol.c:168
 msgid "Too few arguments."
 msgstr "Zu wenige Argumente."
 
-#: src/wol.c:198
+#: src/wol.c:200
 msgid "Invalid time given"
 msgstr "Unzulässige Zeitangabe"
 
-#: src/wol.c:217
+#: src/wol.c:219
 msgid "Invalid port given"
 msgstr "Unzulässige Anschlussangabe"
 
-#: src/wol.c:236
+#: src/wol.c:238 src/wol.c:332
 msgid "Password"
 msgstr "Kennwort"
 
-#: src/wol.c:256
+#: src/wol.c:258
 msgid "You must specify at least one MAC-ADDRESS."
 msgstr "Wenigstens eine MAC-ADRESSE ist notwendig."
 
-#: src/wol.c:301
+#: src/wol.c:305
 #, c-format
 msgid "Cannot assemble magic packet for '%s'"
 msgstr "Kann kein magic packet für »%s« erstellen"
 
-#: src/wol.c:306
+#: src/wol.c:310
 #, c-format
 msgid "Invalid password given for '%s'"
 msgstr "Ungültiges Kennword für »%s« angegeben"
 
-#: src/wol.c:313
+#: src/wol.c:317 src/wol.c:346
 #, c-format
 msgid "Cannot send magic packet for '%s' to %s:%d"
 msgstr "Kann kein magic packet für »%s« zu %s:%d senden"
 
-#: src/wol.c:319
+#: src/wol.c:353
 #, c-format
 msgid "Waking up %s"
 msgstr "Wecke %s"
 
-#: src/wol.c:322
+#: src/wol.c:356
 #, c-format
 msgid " with %s:%d"
 msgstr " mit %s:%d"
 
-#: src/wol.c:324
+#: src/wol.c:358
 #, c-format
 msgid "...\n"
 msgstr " auf...\n"
 
-#: src/net.c:121 src/net.c:167
+#: src/net.c:156 src/net.c:202
 #, c-format
 msgid "Invalid IP address given: %s"
 msgstr "Ungültige IP Adresse angegeben: %s"
 
-#: src/net.c:137
+#: src/net.c:172
 #, c-format
 msgid "Couldn't connect to %s:%hu: %s"
 msgstr "Konnte keine Verbindung zu %s:%hu herstellen: %s"
