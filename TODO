@@ -9,6 +9,10 @@
 
 ** 255.255.255.255 doesn't work with HP-UX gethostbyname
 
+** lib/getopt.c:78
+
+getopt.c doesn't check ENABLE_NLS so if someone has libintl.h
+installed it enables NLS even if someone called --disable-nls
 
 
 * New features
