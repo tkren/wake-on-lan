@@ -1,5 +1,11 @@
 2004-05-09  Thomas Krennwallner  <djmaecki@ull.at>
 
+	* po/de.po: Add translation for --proxy.
+
+	* include/net.h: Add raw_open definition.
+
+	* src/net.c (raw_open): New function.
+
 	* TODO: Add raw packet feature.
 
 2004-05-08  Thomas Krennwallner  <djmaecki@ull.at>
