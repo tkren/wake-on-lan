@@ -1,7 +1,7 @@
 /*
  *	wol - wake on lan client
  *
- *	$Id: magic.h,v 1.1.1.1 2001/11/06 19:31:23 wol Exp $
+ *	$Id: magic.h,v 1.2 2002/01/10 07:47:49 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -21,12 +21,10 @@
  *	USA.
  */
 
-
-
 #ifndef _MAGIC_H
 #define _MAGIC_H
 
-
+#include <sys/types.h>
 
 #define MAGIC_HEADER    6
 #define MAC_LEN         6
