@@ -3,7 +3,7 @@
  *
  * main program
  * 
- * $Id: wol.c,v 1.17 2004/02/05 18:14:19 wol Exp $
+ * $Id: wol.c,v 1.18 2004/04/18 11:42:11 wol Exp $
  *
  * Copyright (C) 2000,2001,2002,2003,2004 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -44,6 +44,7 @@
 #include "net.h"
 #include "macfile.h"
 #include "getpass4.h"
+#include "proxy.h"
 
 
 
@@ -107,6 +108,7 @@ Wake On LAN client - wakes up magic packet compliant machines.\n\n\
 -f, --file=FILE     read addresses from file FILE (\"-\" reads from stdin)\n\
     --passwd[=PASS] send SecureON password PASS (if no PASS is given, you\n\
                     will be prompted for the password)\n\
+-s, --proxy=HOST    send wake up information to wolp proxy HOST\n\
 \n\
 Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n\
 between 0 and ff which represents one byte of the address, which is in\n\
@@ -156,7 +158,7 @@ parse_args (int argc, char *argv[])
       { "port", required_argument, NULL, 'p' },
       { "file", required_argument, NULL, 'f' },
       { "passwd", optional_argument, NULL, 'P' },
-      /* { "proxy", required_argument, NULL, 's' }, */
+      { "proxy", required_argument, NULL, 's' },
       { NULL, 0, NULL, 0 }
     };
 
@@ -202,8 +204,8 @@ parse_args (int argc, char *argv[])
 	  break;
 
 
-	/* case 's': */
-	/*   proxy_mode = 1; */
+	case 's':
+	  proxy_mode = 1;
 	case 'h':
 	case 'i':
 	  host_str = optarg;
@@ -293,27 +295,59 @@ assemble_and_send (struct magic *m,
 		   const char *pass_str,
 		   int socketfd)
 {
-  int ret = magic_assemble (m, mac_str, pass_str);
+  if (!proxy_mode)
+    {
+      int ret = magic_assemble (m, mac_str, pass_str);
 	
-  switch (ret)
-    {
-    case -1:
-      error (0, errno, _("Cannot assemble magic packet for '%s'"), mac_str);
-      errno = 0;
-      return -1;
+      switch (ret)
+	{
+	case -1:
+	  error (0, errno, _("Cannot assemble magic packet for '%s'"), mac_str);
+	  errno = 0;
+	  return -1;
+	  
+	case -2:
+	  error (0, 0, _("Invalid password given for '%s'"), mac_str);
+	  errno = 0;
+	  return -1;
+	}
 
-    case -2:
-      error (0, 0, _("Invalid password given for '%s'"), mac_str);
-      errno = 0;
-      return -1;
+      if (udp_send (socketfd, host_str, portnum, m->packet, m->size))
+	{
+	  error (0, errno, _("Cannot send magic packet for '%s' to %s:%d"),
+		 mac_str, host_str, portnum);
+	  errno = 0;
+	  return -1;
+	}
     }
-
-  if (udp_send (socketfd, host_str, portnum, m->packet, m->size))
+  else /* proxy_mode */
     {
-      error (0, errno, _("Cannot send magic packet for '%s' to %s:%d"),
-	     mac_str, host_str, portnum);
-      errno = 0;
-      return -1;
+      size_t n;
+      char *proxy_pass = (char *) pass_str;
+      int errval;
+
+      /* request proxy password if it's not given */
+      if (proxy_pass == NULL)
+	{
+	  if (getpass4 (_("Password"), &proxy_pass, &n, stdin) == -1)
+	    {
+	      error (1, 0, "getpass4 failed");
+	    }
+	}
+      
+      errval = proxy_send (socketfd, mac_str, proxy_pass);
+
+      /* free possible new password */
+      XFREE (proxy_pass);
+      proxy_pass = NULL;
+
+      if (errval)
+	{
+	  error (0, errno, _("Cannot send magic packet for '%s' to %s:%d"),
+		 mac_str, host_str, portnum);
+	  errno = 0;
+	  return -1;
+	}
     }
 
   fprintf (stdout, _("Waking up %s"), mac_str);
@@ -360,7 +394,7 @@ main (int argc, char *argv[])
     {
       sockfd = udp_open ();
     }
-  else
+  else /* proxy_mode needs tcp socket */
     {
       sockfd = tcp_open (host_str, port);
     }
@@ -374,16 +408,9 @@ main (int argc, char *argv[])
   /* loop through possible MAC addresses */
   if (!request_stdin)
     {
-      if (!proxy_mode)
+      for (; i < argc; i++)
 	{
-	  for (; i < argc; i++)
-	    {
-	      ret -= assemble_and_send (magic, argv[i], host_str, port, passwd,	sockfd);
-	    }
-	}
-      else
-	{
-	  /* FIXME: proxy mode */
+	  ret -= assemble_and_send (magic, argv[i], host_str, port, passwd, sockfd);
 	}
     }
 
@@ -406,28 +433,21 @@ main (int argc, char *argv[])
 	    }
 	}
 
-      if (!proxy_mode)
+      /* loop through fp */
+      for (;;)
 	{
-	  /* loop through fp */
-	  for (;;)
-	    {
-	      if (macfile_parse (fp, &mac_str, &host_str, &port, &passwd)) break;
-	      
-	      if (port == 0 || port > 65535)
-		{
-		  port = DEFAULT_PORT;
-		}
-
-	      ret -= assemble_and_send (magic, mac_str, host_str, port, passwd,	sockfd);
+	  if (macfile_parse (fp, &mac_str, &host_str, &port, &passwd)) break;
 	  
-	      XFREE (mac_str);
-	      XFREE (host_str);
-	      XFREE (passwd);
+	  if (port == 0 || port > 65535)
+	    {
+	      port = DEFAULT_PORT;
 	    }
-	}
-      else
-	{
-	  /* FIXME: proxy mode */
+	  
+	  ret -= assemble_and_send (magic, mac_str, host_str, port, passwd, sockfd);
+	  
+	  XFREE (mac_str);
+	  XFREE (host_str);
+	  XFREE (passwd);
 	}
 
       fclose (fp);
