@@ -1,8 +1,8 @@
-#!@AWK@ -f
+#!/bin/sh
 #
 #	wol-bootptab - parse a bootptab and output it in macfile format
 #
-#	$Id: wol-bootptab.in,v 1.1 2002/04/12 05:53:00 wol Exp $
+#	$Id: wol-bootptab.in,v 1.2 2003/08/09 08:53:52 wol Exp $
 #
 #	Copyright (C) 2002 Thomas Krennwallner <krennwallner@aon.at>
 #
@@ -21,7 +21,7 @@
 #	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
 
-
+@AWK@ '
 
 BEGIN	{
 	mac = "" # all MAC Addresses are stored in this string
@@ -57,4 +57,4 @@ END	{
 
 	for (i = 1; i <= len; ++i)
 		print MAC[i], IP[i]
-}
+}'
