@@ -3,7 +3,7 @@
  *
  *	main program
  * 
- *	$Id: wol.c,v 1.8 2002/02/13 18:36:50 wol Exp $
+ *	$Id: wol.c,v 1.9 2002/02/25 19:27:01 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -46,8 +46,8 @@
 
 
 
-/* My name is argv[0] */
-static char *name;
+/* My name is argv[0], used by error() */
+char *program_name;
 
 /* pointer to a MAC address */
 static char *mac_str = NULL;
@@ -98,7 +98,7 @@ Wake On LAN client - wakes up magic packet compliant machines.\n\n\
 \n\
 Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n\
 between 0 and ff which represents one byte of the address, which is in\n\
-network byte order (big endian).\n"), name);
+network byte order (big endian).\n"), program_name);
 
 	fprintf (stdout, _("\nReport bugs to <krennwallner@aon.at>\n"));
 }
@@ -143,7 +143,7 @@ parse_args (int argc, char *argv[])
 		{
 			fprintf (stderr, _("\
 %s: Too few arguments.\n\
-Try `%s --help' for more information.\n"), name, name);
+Try `%s --help' for more information.\n"), program_name, program_name);
 			exit (1);
 		}
 
@@ -175,7 +175,7 @@ Try `%s --help' for more information.\n"), name, name);
 					case 'w':
 						if (sscanf (optarg, "%u", &msecs) != 1)
 							{
-								fprintf (stderr, _("%s: Invalid time given\n"), name);
+								fprintf (stderr, _("%s: Invalid time given\n"), program_name);
 								usage ();
 								exit (1);
 							}
@@ -191,7 +191,7 @@ Try `%s --help' for more information.\n"), name, name);
 					case 'p':
 						if ((sscanf (optarg, "%5hu", &port) != 1) || port > 65535)
 							{
-								fprintf (stderr, _("%s: Invalid port given\n"), name);
+								fprintf (stderr, _("%s: Invalid port given\n"), program_name);
 								usage ();
 								exit (1);
 							}
@@ -250,7 +250,7 @@ assemble_and_send (struct magic *m, const char *mac_str, const char *ip_str,
 	if (magic_assemble (m, mac_str, pass_str))
 		{
 			fprintf (stderr, _("%s: Cannot assemble magic packet for '%s': %s\n"),
-								name, mac_str, strerror (errno));
+								program_name, mac_str, strerror (errno));
 			return -1;
 		}
 
@@ -258,7 +258,7 @@ assemble_and_send (struct magic *m, const char *mac_str, const char *ip_str,
 		{
 			fprintf (stderr,
 								_("%s: Cannot send magic packet for '%s' to %s:%d: %s\n"),
-								name, mac_str, ip_str, portnum, strerror (errno));
+								program_name, mac_str, ip_str, portnum, strerror (errno));
 			return -1;
 		}
 
@@ -280,7 +280,7 @@ main (int argc, char *argv[])
 	int ret = 0;
 
 	/* my name is ... */
-	name = argv[0];
+	program_name = argv[0];
 
 #if ENABLE_NLS
 	setlocale (LC_ALL, "");
@@ -323,7 +323,7 @@ main (int argc, char *argv[])
 					if (fp == NULL)
 						{
 							fprintf (stderr, "%s: %s: %s\n",
-																name, pathname, strerror (errno));
+																program_name, pathname, strerror (errno));
 							exit (1);
 						}
 				}

@@ -49,6 +49,7 @@ AC_CHECK_HEADERS(unistd.h getopt.h sys/time.h locale.h libintl.h)
 
 
 dnl check system functions
+jm_PREREQ_ERROR dnl for GNU error
 jm_FUNC_MALLOC	dnl for GNU xmalloc
 jm_FUNC_REALLOC	dnl for GNU xmalloc
 AM_FUNC_GETLINE dnl for GNU getline

@@ -1,3 +1,4 @@
+- add error.c into *.po
 - use GNU error instead of fprintf
 - wolp (Wake On LAN proxy) support http://etherboot.sf.net/wolp, maybe a
   reimplementation
