@@ -1,7 +1,8 @@
 - fix it and fr translation
-
-
 - add manpage
+- debianise it ;-)
+
+
 - wolp (Wake On LAN proxy) support http://etherboot.sf.net/wolp, maybe a
   reimplementation
 - resolv names
