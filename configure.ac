@@ -49,11 +49,11 @@ AC_CHECK_HEADERS(unistd.h getopt.h sys/time.h locale.h libintl.h)
 
 
 dnl check system functions
-jm_FUNC_MALLOC
-jm_FUNC_REALLOC
-AM_FUNC_GETLINE
+jm_FUNC_MALLOC	dnl for GNU xmalloc
+jm_FUNC_REALLOC	dnl for GNU xmalloc
+AM_FUNC_GETLINE dnl for GNU getline
 AC_CHECK_FUNCS(usleep)
-AC_CHECK_FUNCS(getopt_long)
+AC_CHECK_FUNCS(getopt_long) dnl for GNU getopt
 AC_CHECK_FUNC(inet_aton, [], [
 	dnl check libresolv for inet_aton() as seen on solaris
 	AC_CHECK_LIB(resolv, inet_aton,

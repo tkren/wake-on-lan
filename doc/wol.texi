@@ -2,10 +2,16 @@
 @setfilename wol.info
 @settitle @code{wol}
 @finalout
+@setcontentsaftertitlepage
+
+
+@set UPDATED 19 March 2002
+@set EDITION 0.6.0
+@set VERSION 0.6.0
 
 
 @ifinfo
-This file documents wol, the Wake On LAN client.
+This file documents wol @value{VERSION}, the Wake On LAN client.
 
 Copyright 2001-2002 Thomas Krennwallner @email{krennwallner@@aon.at}
 
@@ -18,15 +24,11 @@ A copy of the license is included in the section entitled ``GNU
 Free Documentation License''.
 @end ifinfo
 
-
-@set UPDATED 15 February 2002
-@set EDITION 0.6.0
-@set VERSION 0.6.0
-
 @titlepage
 @title wol
 @subtitle Wake On LAN client
-@subtitle Edition @value{EDITION}, @value{UPDATED}
+@subtitle Edition @value{EDITION}
+@subtitle @value{UPDATED}
 @author Thomas Krennwallner
 
 @page
@@ -43,14 +45,23 @@ Free Documentation License''.
 @end titlepage
 
 
+@contents
+
 
 @node Top, Description, (dir), (dir)
-@top @code{wol}
+@top wol - Wake On LAN client
 
+This manual gives you an introduction into @code{wol}, the Wake On LAN client.
+It remotely turns on computers that supports Magic Packet(TM) technology (also
+known as Wake On LAN).
 
-This manual gives you a short introduction into wol, the Wake On LAN client.
-See @url{http://ahh.sourceforge.net/wol/} for updates.
+Some workstations support SecureON(TM) password feature. These machines only
+wake up if you provide the correct password. @code{wol} also provides this
+feature.
 
+See @url{http://ahh.sourceforge.net/wol/} for updates and further readings.
+
+This edition documents version @value{VERSION}.
 
 @menu
 * Description::                   Description
@@ -63,92 +74,129 @@ See @url{http://ahh.sourceforge.net/wol/} for updates.
 @node Description
 @chapter Description
 
-@code{wol} broadcasts so called Magic Packet (TM) Frames across a network to
-wake up hardware, that understands such packets. These are normally NIC's with
-Wake On Lan function.
+@code{wol} broadcasts so called Magic Packet(TM) frames across a network to
+wake up hardware that understands such packets. These are normally NIC's with
+Wake On Lan function. To make use of this feature your motherboard and your
+power supply have to support Wake On LAN. But there are still some things
+needed to have a working Wake On LAN setup. Most PCI NIC's come with a so-called
+WOL-connector and a 3 pin wire. This wire has to be connected from the
+motherboards WOL connector to the NIC's. After this basic hardware requirements
+you have to enable Wake On LAN in your systems BIOS (or whatever called). If
+you have a builtin network card with WOL support, you don't have to wire,
+enabling WOL in the BIOS should be enough.
 
-@code{wol MAC-ADDRESS} assembles a Wake On Lan packet for hardware address
-@code{MAC-ADDRESS}. The hardware address is written as x:x:x:x:x:x, where x is
-a hexadeciml number between 0 and ff which represents one byte of the address,
-which is in network byte order.
+If you are intending to switch on a computer, you need his @code{MAC address}.
+This is the 48 bit hardware address of the network card which is written as
+x:x:x:x:x:x, where x is a hexadecimal number between 0 and ff which represents
+one byte of the address, which is in network byte order (big-endian).
 
+@code{wol} assembles this @code{hardware address} to a Magic Packet(TM) and
+sends it over the network. The Wake On LAN enabled computer provides enough
+power for the NIC to listen to the attached network and waits for arriving
+Wake On LAN packets. The NIC recognizes the wake up call and turns on.
+
+To simplify things @code{wol} encapsulates such Magic Packets(TM) inside an
+UDP packet. This gives various benefits over raw ethernet frames, one is
+OS interoperability.
+
+An example of usage is @code{wol MAC-ADDRESS} which assembles a Magic
+Packet(TM) which is intended to wake up the NIC with hardware address
+@code{MAC-ADDRESS}.
 
 
 @node Options
 @chapter Options
 
-@itemize
-@item
--i xxx.xxx.xxx.xxx, --ipaddr=xxx.xxx.xxx.xxx
+@table @option
+@item -h
+@item --help
+Print a summary of the command line options and exit.
+
+
+@item -V
+@itemx --version
+Print the version number of @code{wol} and exit.
+
+
+@item -i xxx.xxx.xxx.xxx
+@itemx --ipaddr==xxx.xxx.xxx.xxx
 
 Broadcast packet to this IP address. This is important if your wol client is
 a multihomed host and you want to send only to one subnet (default IP address
 is 255.255.255.255).
 
 
-@item
--p NUM, --port=NUM
+@item -p NUM
+@itemx --port=NUM
 
 Send packet with this destination port. This option is important, if a packet
 filter would block the default destination port 40000.
 
-@item
--f FILE, --file=FILE
 
-Read hardware addresses, IP addresses and optional ports and SecureON (TM)
-password from file FILE. If FILE is "-", read from stdin.
+@item -f FILE
+@itemx --file=FILE
 
-@item
--v, --verbose
+Read hardware addresses, IP addresses, optional ports and SecureON(TM)
+password from file @file{FILE}. If @file{FILE} is "-", read from stdin.
+
+
+@item -
+
+Read hardware addresses, IP addresses, optional ports and SecureON(TM)
+password from stdin.
+
+
+@item -v
+@itemx --verbose
 
 Turns on verbose output.
 
-@item
--w NUM, --wait=NUM
 
-Waits NUM milliseconds between magic packets (TM). Also known as fuse health
+@item -w NUM
+@itemx --wait=NUM
+
+Waits NUM milliseconds between Magic Packets(TM). Also known as fuse health
 pack.
 
-@item
--P PASS, --passwd=PASS
 
-Send a magic packet with SecureON (TM) password feature. PASS is written as
+@item -P PASS
+@itemx --passwd=PASS
+
+Send a magic packet with SecureON(TM) password feature. PASS is written as
 x-x-x-x-x-x, where x is a hexadecimal number between 0 and ff which represents
-one byte of the password. To set the password of your SecureON (TM) capable
+one byte of the password. To set the password of your SecureON(TM) capable
 NIC, you can use ethtool @url{http://www.sourceforge.net/projects/gkernel/}.
-@end itemize
+
+@end table
 
 
 
 @node Examples
 @chapter Examples
 
-@itemize
-@item
-wol 00:4F:49:07:0B:5F 00:4F:50:06:12:4F
+@table @option
+@item wol 00:4F:49:07:0B:5F 00:4F:50:06:12:4F
 
 Sends packet addressed to 255.255.255.255:40000 and is intended to wake up
 hardware address 00:4F:49:07:0B:5F and 00:4F:50:06:12:4F.
 
 
-@item
-wol -i 192.168.3.255 -p 69 00:4F:49:07:0B:5F 
+@item wol -i 192.168.3.255 -p 69 00:4F:49:07:0B:5F 
 
 Sends packet addressed to 192.168.3.255:69 and is intended to wake up hardware
 address 00:4F:49:07:0B:5F.
 
 
-@item
-wol --passwd=09-e6-f5-f3-dc-4e 00:4F:49:07:0B:5F
+@item wol --passwd=09-e6-f5-f3-dc-4e 00:4F:49:07:0B:5F
 
-Sends packet addressed to 255.255.255.255:40000 with SecureON (TM) password
+Sends packet addressed to 255.255.255.255:40000 with SecureON(TM) password
 09-e6-f5-f3-dc-4e.
 
 
-@item
-wol -f /etc/ethers
+@item wol -f /etc/ethers
 
-Read hardware address and corresponding ip address from file /etc/ethers.
+Read hardware addresses and corresponding IP addresses from file
+@file{/etc/ethers}.
 
 File looks like:
 
@@ -158,7 +206,25 @@ Hardware-Address  IP-Address
 # Comment
 Hardware-Address  IP-Address:Port	SecureON-Password
 @end example
-@end itemize
+
+@item wol-dhcpdconf < /etc/dhcpd.conf | wol -
+
+@code{wol-dhcpdconf} filters MAC addresses and corresponding IP addresses from
+@file{/etc/dhcpd.conf} (config file of ISC dhcpd) and outputs it in macfile
+format (native wol format). @code{wol} sends the corresponding
+Magic Packets(TM).
+
+A valid dhcp entry:
+
+@example
+host hugo
+@{
+	hardware ethernet 11:ab:e3:5f:7f:8c;
+	fixed-address 10.0.0.1;
+@}
+@end example
+
+@end table
 
 
 @bye

@@ -1,3 +1,11 @@
+2002-03-19	Thomas Krennwallner <krennwallner@aon.at>
+
+	* demo/nic-fake.py: improvements
+	* src/magic.c: improvements
+	* src/macfile.c: fixed passwd support through parser state
+	* src/macfile.c: fixed a memory corruption bug
+	* doc/wol.texi: documentation enhancements and fixes
+
 2002-03-11	Thomas Krennwallner <krennwallner@aon.at>
 
 	* po/it.po: fixed a translation bug

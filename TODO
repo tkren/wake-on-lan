@@ -1,8 +1,8 @@
+- wolp (Wake On LAN proxy) support http://etherboot.sf.net/wolp, maybe a
+  reimplementation
+- resolv names
+- catch argument cases where no MAC-ADDRESS is given but eg -v
 - fix it and fr translation
-- document stdin mode
-- document password mode
-- hack nu SecureON support
-- check dhcpd.conf
 - wol.gmo in hpux isn't here? bug in gettext?
 - magic packets > 1 -> put several packets into one buffer for sending over the
 	line
