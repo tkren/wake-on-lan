@@ -3,7 +3,7 @@
  *
  *	create and assemble magic packets
  *
- *	$Id: magic.c,v 1.6 2002/03/19 23:00:03 wol Exp $
+ *	$Id: magic.c,v 1.7 2003/08/08 22:55:31 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -181,7 +181,7 @@ magic_assemble (struct magic *magic_buf, const char *mac_str,
 									&s[0], &s[1], &s[2], &s[3], &s[4], &s[5]) != MAGIC_SECUREON)
 				{
 					errno = EINVAL;
-					return -1;
+					return -2;
 				}
 
 			for (j = 0; j < MAGIC_SECUREON; j++)
