@@ -2,7 +2,6 @@
 # Copyright (C) 2004 Free Software Foundation, Inc.
 # Johan Fredin <griffin@legonet.org>, 2004.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: wol 0.7.1\n"
