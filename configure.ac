@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
-dnl we need autoconf 2.57 (this is tested)
-AC_PREREQ(2.57)
+dnl we need at least autoconf 2.52
+AC_PREREQ(2.52)
 
 AC_INIT(README)
 AM_CONFIG_HEADER(config.h)
@@ -11,7 +11,8 @@ PACKAGE=wol
 MAJOR=0
 MINOR=7
 MICRO=0
-VERSION=$MAJOR.$MINOR.$MICRO
+PATCH=-pre0
+VERSION=$MAJOR.$MINOR.$MICRO$PATCH
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 AC_SUBST(PACKAGE)
@@ -28,20 +29,21 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 AC_PROG_AWK
+AC_PATH_PROG(SED, sed, "")
 
-do_pod2texi=""
-AC_PATH_PROG(PL, perl, "")
-if test x$PL = x ; then
+do_pod2texi="no"
+AC_PATH_PROG(PERL, perl, "")
+if test x$PERL = x ; then
   AC_MSG_WARN([*** Unable to find perl. Disabling manpage creation ***])
 else
   AC_PATH_PROG(P2M, pod2man, "")
-	if test x$P2M = x ; then
-    AC_MSG_WARN([*** Unable to find pod2man. Disabling manpage creation ***])
-	else
-	  do_pod2texi="true"
-	fi
+  if test x$P2M = x ; then
+     AC_MSG_WARN([*** Unable to find pod2man. Disabling manpage creation ***])
+  else
+     do_pod2texi="yes"
+  fi
 fi
-AM_CONDITIONAL([POD2TEXI], [test x$do_pod2texi = xtrue])
+AM_CONDITIONAL([POD2TEXI], [test x$do_pod2texi = xyes])
 
 
 
@@ -52,25 +54,58 @@ AC_C_BIGENDIAN
 
 dnl check data types
 AC_CHECK_SIZEOF(unsigned char, 1)
-AC_CHECK_TYPE([struct ether_addr], , , [#include <netinet/ether.h>])
+
+ether_includes=""
+AC_CHECK_TYPE([struct ether_addr], , , [#include <netinet/ether.h>]) dnl Linux
 if test "$ac_cv_type_struct_ether_addr" = "yes"; then
 	AC_DEFINE_UNQUOTED(HAVE_STRUCT_ETHER_ADDR, 1)
+	ether_includes="#include <netinet/ether.h>"
+else dnl BSD
+	AC_CHECK_TYPE([struct ether_addr], , , [#include <net/ethernet.h>])
+	if test "$ac_cv_type_struct_ether_addr" = "yes"; then
+		AC_DEFINE_UNQUOTED(HAVE_STRUCT_ETHER_ADDR, 1)
+		ether_includes="#include <net/ethernet.h>"
+	else dnl Solaris
+		ac_cv_type_struct_ether_addr="no"
+		AC_MSG_CHECKING([for struct ether_addr])
+		AC_TRY_COMPILE([
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/if_ether.h>],
+				[struct ether_addr ea;],
+				[ac_cv_type_struct_ether_addr="yes"], [])
+		AC_MSG_RESULT($ac_cv_type_struct_ether_addr)
+		if test "$ac_cv_type_struct_ether_addr" = "yes"; then
+			AC_DEFINE_UNQUOTED(HAVE_STRUCT_ETHER_ADDR, 1)
+			ether_includes="#include <sys/types.h>
+#include <sys/socket.h>
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/if_ether.h>"
+		else
+			AC_MSG_WARN([*** Unable to find struct ether_addr. Disabling ethernet name mapping.***])
+		fi
+	fi
 fi
-
-
 
 dnl check struct members
-AC_CHECK_MEMBER([struct ether_addr.octet], , , [#include <netinet/ether.h>])
-if test "$ac_cv_member_struct_ether_addr_octet" = "yes"; then
-	AC_DEFINE_UNQUOTED(HAVE_STRUCT_ETHER_ADDR_OCTET, 1)
+if test "$ac_cv_type_struct_ether_addr" = "yes"; then
+	AC_CHECK_MEMBER([struct ether_addr.octet], , , [$ether_includes])
+	if test "$ac_cv_member_struct_ether_addr_octet" = "yes"; then
+		AC_DEFINE_UNQUOTED(HAVE_STRUCT_ETHER_ADDR_OCTET, 1)
+	else
+		AC_CHECK_MEMBER([struct ether_addr.ether_addr_octet], , , [$ether_includes])
+		if test "$ac_cv_member_struct_ether_addr_ether_addr_octet" = "yes"; then
+			AC_DEFINE_UNQUOTED(HAVE_STRUCT_ETHER_ADDR_ETHER_ADDR_OCTET, 1)
+		else
+			AC_MSG_ERROR([*** Found struct ether_addr, but no usable octet member... ***])
+		fi
+	fi
 fi
 
-AC_CHECK_MEMBER([struct ether_addr.ether_addr_octet], , ,
-								[#include <netinet/ether.h>])
-if test "$ac_cv_member_struct_ether_addr_ether_addr_octet" = "yes"; then
-	AC_DEFINE_UNQUOTED(HAVE_STRUCT_ETHER_ADDR_ETHER_ADDR_OCTET, 1)
-fi
-								
+
 
 dnl i18n
 ALL_LINGUAS="de fr it es"
@@ -80,8 +115,8 @@ AM_GNU_GETTEXT
 dnl check header files
 AC_HEADER_STDC
 AC_HEADER_TIME
-AC_CHECK_HEADERS(unistd.h getopt.h sys/time.h locale.h libintl.h netinet/ether.h)
-
+AC_CHECK_HEADERS(unistd.h getopt.h sys/time.h locale.h libintl.h netinet/ether.h net/ethernet.h sys/socket.h net/if.h netinet/in.h netinet/if_ether.h)
+	
 
 dnl check system functions
 jm_PREREQ_ERROR dnl for GNU error
@@ -91,7 +126,6 @@ AM_FUNC_GETLINE dnl for GNU getline
 AC_CHECK_FUNCS(usleep)
 AC_CHECK_FUNCS(getopt_long) dnl for GNU getopt
 AC_CHECK_FUNCS(getdelim)
-AC_CHECK_FUNCS(ether_hostton)
 AC_CHECK_FUNC(inet_aton, [], [
 	dnl check libresolv for inet_aton() as seen on solaris
 	AC_CHECK_LIB(resolv, inet_aton,
@@ -107,7 +141,19 @@ AC_CHECK_FUNC(gethostbyname, [], [
 	AC_CHECK_LIB(nsl, gethostbyname,
 	              EXTRA_LIBS="$EXTRA_LIBS -lnsl", EXTRA_LIBS="$EXTRA_LIBS")
 ])
+
+ether_hostton="no"
+AC_CHECK_FUNC(ether_hostton, [ether_hostton="yes"], [
+	dnl check libsocket for ether_hostton() as seen on solaris
+	AC_CHECK_LIB(socket, ether_hostton,
+								EXTRA_LIBS="$(echo $EXTRA_LIBS | $SED s/-lsocket//g) -lsocket"
+								ether_hostton="yes",
+								EXTRA_LIBS="$EXTRA_LIBS")
+])
 AC_SUBST(EXTRA_LIBS)
+if test x$ether_hostton = xyes; then
+	AC_DEFINE_UNQUOTED(HAVE_ETHER_HOSTTON, 1)
+fi
 
 
 dnl arguments
@@ -131,6 +177,7 @@ dnl config.h.in defines
 AC_DEFINE([HAVE_STRUCT_ETHER_ADDR], 0, [struct ether_addr])
 AC_DEFINE([HAVE_STRUCT_ETHER_ADDR_ETHER_ADDR_OCTET], 0, [struct ether_addr.ether_addr_octet])
 AC_DEFINE([HAVE_STRUCT_ETHER_ADDR_OCTET], 0, [struct ether_addr.octet])
+AC_DEFINE([HAVE_ETHER_HOSTTON], 0, [ether_hostton])
 
 
 dnl full featured warnings
@@ -153,7 +200,7 @@ src/wol-bootptab], [chmod +x src/wol-dhcpdconf src/wol-bootptab])
 dnl output configuration
 echo "\
 
-$PACKAGE configuration:
+$PACKAGE $VERSION configuration:
 
 	prefix: $prefix
 	exec_prefix: $exec_prefix
@@ -163,6 +210,9 @@ $PACKAGE configuration:
 	datadir: $datadir
 	mandir: $mandir
 	infodir: $infodir
+
+	ether_hostton support: $ether_hostton
+	generate wol manpage: $do_pod2texi
 
 	EXTRA_LIBS: $EXTRA_LIBS
 	ANSI emulation: $with_ansi
