@@ -5,54 +5,6 @@
 
 ** fix translations
 
-** configure.ac
-
-autoconf infopage (Section Portability of Headers) describes 'check
-for missing prerequisite headers?' buglet:
-
-
-`net/if.h'
-     On Darwin, this file requires that `sys/socket.h' be included
-     beforehand.  One should run:
-
-          AC_CHECK_HEADERS([sys/socket.h])
-          AC_CHECK_HEADERS([net/if.h], [], [],
-          [#include <stdio.h>
-          #if STDC_HEADERS
-          # include <stdlib.h>
-          # include <stddef.h>
-          #else
-          # if HAVE_STDLIB_H
-          #  include <stdlib.h>
-          # endif
-          #endif
-          #if HAVE_SYS_SOCKET_H
-          # include <sys/socket.h>
-          #endif
-          ])
-
-`netinet/if_ether.h'
-     On Darwin, this file requires that `stdio.h' and `sys/socket.h' be
-     included beforehand.  One should run:
-
-          AC_CHECK_HEADERS([sys/socket.h])
-          AC_CHECK_HEADERS([netinet/if_ether.h], [], [],
-          [#include <stdio.h>
-          #if STDC_HEADERS
-          # include <stdlib.h>
-          # include <stddef.h>
-          #else
-          # if HAVE_STDLIB_H
-          #  include <stdlib.h>
-          # endif
-          #endif
-          #if HAVE_SYS_SOCKET_H
-          # include <sys/socket.h>
-          #endif
-          ])
-
-
-
 ** 255.255.255.255 doesn't work with HP-UX gethostbyname
 
 

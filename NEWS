@@ -1,6 +1,7 @@
 [0.7.1]
 * fix --disable-gettext bug
 * fix documentation
+* fix prerequisite-headers bug
 [0.7.0]
 * add manpage
 * fixed german, italian and french translation
