@@ -1,7 +1,7 @@
 2002-04-23	Thomas Krennwallner <krennwallner@aon.at>
 
 	* src/wol-dhcpdconf.in: fixed a parsing bug - # doesn't always comment lines
-		out :-( (due a bugreport from FIXME <FIXME@FIXME.COM>)
+		out :-( (due a bugreport from Kurt Neufeld <kneufeld@usa.net>)
 
 2002-04-12	Thomas Krennwallner <krennwallner@aon.at>
 

@@ -2,7 +2,7 @@
 #
 #	wol-dhcpdconf - parse a dhcpd.conf and output it in macfile format
 #
-#	$Id: wol-dhcpdconf.in,v 1.1 2002/02/21 17:04:00 wol Exp $
+#	$Id: wol-dhcpdconf.in,v 1.2 2002/04/12 05:53:00 wol Exp $
 #
 #	Copyright (C) 2002 Thomas Krennwallner <krennwallner@aon.at>
 #
@@ -29,13 +29,13 @@ BEGIN	{
 }
 
 
-/[ \t]*hardware[ \t\n]+ethernet[ \t\n]+[0-9a-zA-Z:]+;/	{
+/^[ \t]*hardware[ \t\n]+ethernet[ \t\n]+[0-9a-zA-Z:]+;/	{
 	sub (/;/, "", $3) # rm semicolon
 	mac = mac " " $3
 }
 
 
-/[ \t]*fixed-address[ \t\n]+[0-9a-zA-Z._-]+[ \t\n]*;/	{
+/^[ \t]*fixed-address[ \t\n]+[0-9a-zA-Z._-]+[ \t\n]*;/	{
 	sub (/;/, "", $2) # rm semicolon
 	ip = ip " " $2
 }
