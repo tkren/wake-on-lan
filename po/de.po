@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wol 0.7.0\n"
 "Report-Msgid-Bugs-To: krennwallner@aon.at\n"
-"POT-Creation-Date: 2003-08-08 21:51+0200\n"
+"POT-Creation-Date: 2003-08-09 11:09+0200\n"
 "PO-Revision-Date: 2001-09-25 16:31+0200\n"
 "Last-Translator: Thomas Krennwallner <krennwallner@aon.at>\n"
 "Language-Team:\n"
@@ -163,39 +163,39 @@ msgstr "Zu wenige Argumente."
 msgid "Invalid time given"
 msgstr "Unzulässige Zeitangabe"
 
-#: src/wol.c:211
+#: src/wol.c:212
 msgid "Invalid port given"
 msgstr "Unzulässige Anschlussangabe"
 
-#: src/wol.c:230
+#: src/wol.c:231
 msgid "Password"
 msgstr "Kennwort"
 
-#: src/wol.c:248
+#: src/wol.c:249
 msgid "You must specify at least one MAC-ADDRESS."
 msgstr "Wenigstens eine MAC-ADRESSE ist notwendig."
 
-#: src/wol.c:283
+#: src/wol.c:284
 #, c-format
 msgid "Cannot assemble magic packet for '%s'"
 msgstr "Kann kein magic packet für »%s« erstellen"
 
-#: src/wol.c:289
+#: src/wol.c:290
 #, c-format
 msgid "Cannot send magic packet for '%s' to %s:%d"
 msgstr "Kann kein magic packet für »%s« zu %s:%d senden"
 
-#: src/wol.c:294
+#: src/wol.c:295
 #, c-format
 msgid "Waking up %s"
 msgstr "Wecke %s"
 
-#: src/wol.c:296
+#: src/wol.c:297
 #, c-format
 msgid " with %s:%d"
 msgstr " mit %s:%d"
 
-#: src/wol.c:297
+#: src/wol.c:298
 msgid "...\n"
 msgstr " auf...\n"
 
