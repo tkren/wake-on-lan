@@ -9,7 +9,7 @@ AC_CANONICAL_HOST
 
 PACKAGE=wol
 MAJOR=0
-MINOR=7
+MINOR=8
 MICRO=0
 PATCH=
 VERSION=$MAJOR.$MINOR.$MICRO$PATCH
@@ -20,6 +20,11 @@ AC_SUBST(VERSION)
 
 dnl ready for automake
 AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
+
+
+dnl Enable extensions in standard headers
+dnl gl_USE_SYSTEM_EXTENSIONS must be added quite early to configure.ac.
+gl_USE_SYSTEM_EXTENSIONS
 
 
 dnl check for programs
@@ -122,6 +127,9 @@ dnl check system functions
 jm_PREREQ_ERROR dnl for GNU error
 jm_FUNC_MALLOC	dnl for GNU xmalloc
 jm_FUNC_REALLOC	dnl for GNU xmalloc
+jm_FUNC_GLIBC_UNLOCKED_IO dnl for GNU unlocked-io
+gl_MD5 dnl for GNU md5
+
 AM_FUNC_GETLINE dnl for GNU getline
 AC_CHECK_FUNCS(usleep)
 AC_CHECK_FUNCS(getopt_long) dnl for GNU getopt
