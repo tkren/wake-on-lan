@@ -1,3 +1,21 @@
+2004-04-20  Thomas Krennwallner  <djmaecki@ull.at>
+
+	* NOTES: List current test machines.
+
+	* Makefile.am (dist-hook): Clean backup files.
+
+	* NEWS: Fix prerequisite-headers bug.
+
+	* debian/changelog: Add new version.
+
+	* TODO: Fix prerequisite-headers bug.
+
+	* src/net.c (tcp_open): Cast 2nd argument of connect() to (const
+	struct sockaddr *).
+
+	* configure.ac: Add checks for net/if.h and netinet/if_ether.h to
+	fix annoying prerequisite-headers bug.
+
 2004-04-18  Thomas Krennwallner  <djmaecki@ull.at>
 
 	* src/wol.c (parse_args): Disable proxy argument.
