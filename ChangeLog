@@ -1,5 +1,7 @@
 2003-08-10  Thomas Krennwallner <krennwallner@aon.at>
 
+	* configure.ac: check for gethostbyname, perl and pod2man -> disable manpage
+	* doc/Makefile.am: disable manpage creation if there's no perl/pod2man there
 	* include/magic.h: include <sys/types.h>
 	* lib/ether.h: fixes for self define struct ether_addr
 	* src/wol.c (parse_args): use size_t instead of int for getpass4
