@@ -1,3 +1,7 @@
+2002-02-15	Thomas Krennwallner <krennwallner@aon.at>
+
+	* doc/wol.texi: fixed trademark info and added info about ethtool
+
 2002-02-14	Thomas Krennwallner <krennwallner@aon.at>
 
 	* doc/wol.texi: fixed -i option docu error

@@ -19,7 +19,7 @@ Free Documentation License''.
 @end ifinfo
 
 
-@set UPDATED 14 February 2002
+@set UPDATED 15 February 2002
 @set EDITION 0.6.0
 @set VERSION 0.6.0
 
@@ -63,8 +63,8 @@ See @url{http://ahh.sourceforge.net/wol/} for updates.
 @node Description
 @chapter Description
 
-@code{wol} broadcasts so called Magic Packet Frames across a network to wake up 
-hardware, that understands such packets. These are normally NIC's with
+@code{wol} broadcasts so called Magic Packet (TM) Frames across a network to
+wake up hardware, that understands such packets. These are normally NIC's with
 Wake On Lan function.
 
 @code{wol MAC-ADDRESS} assembles a Wake On Lan packet for hardware address
@@ -95,8 +95,8 @@ filter would block the default destination port 40000.
 @item
 -f FILE, --file=FILE
 
-Read hardware addresses, IP addresses and optional ports and SecureON password
-from file FILE. If FILE is "-", read from stdin.
+Read hardware addresses, IP addresses and optional ports and SecureON (TM)
+password from file FILE. If FILE is "-", read from stdin.
 
 @item
 -v, --verbose
@@ -106,14 +106,16 @@ Turns on verbose output.
 @item
 -w NUM, --wait=NUM
 
-Waits NUM milliseconds between magic packets. Also known as fuse health pack.
+Waits NUM milliseconds between magic packets (TM). Also known as fuse health
+pack.
 
 @item
 -P PASS, --passwd=PASS
 
-Send a magic packet with SecureON (TM) password feature found on some Compaq
-workstation. PASS is written as x-x-x-x-x-x, where x is a hexadecimal number
-between 0 and ff which represents one byte of the password.
+Send a magic packet with SecureON (TM) password feature. PASS is written as
+x-x-x-x-x-x, where x is a hexadecimal number between 0 and ff which represents
+one byte of the password. To set the password of your SecureON (TM) capable
+NIC, you can use ethtool @url{http://www.sourceforge.net/projects/gkernel/}.
 @end itemize
 
 
@@ -139,7 +141,7 @@ address 00:4F:49:07:0B:5F.
 @item
 wol --passwd=09-e6-f5-f3-dc-4e 00:4F:49:07:0B:5F
 
-Sends packet addressed to 255.255.255.255:40000 with SecureON password
+Sends packet addressed to 255.255.255.255:40000 with SecureON (TM) password
 09-e6-f5-f3-dc-4e.
 
 
