@@ -1,7 +1,7 @@
 AUTOMAKE_OPTIONS = gnu no-dependencies 1.5
 ACLOCAL_AMFLAGS = -I m4
 
-EXTRA_DIST = config.rpath mkinstalldirs autogen.sh debian
+EXTRA_DIST = config.rpath mkinstalldirs autogen.sh debian wol.spec
 
 SUBDIRS = intl demo doc include lib src m4 po
 
