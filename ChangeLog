@@ -1,5 +1,7 @@
 2004-04-18  Thomas Krennwallner  <djmaecki@ull.at>
 
+	* ABOUT-NLS: New file.
+
 	* NEWS: Update user visible changes for 0.7.1.
 
 	* autogen.sh: Remove --force invocation of gettextize.
