@@ -1,0 +1,8 @@
+wol was developed on an i586-pc-linux-gnu machine.
+
+wol was tested on following machines:
+i586-pc-openbsd2.9
+powerpc-apple-darwin1.4
+sparc-sun-solaris2.8
+hppa2.0w-hp-hpux11.00
+i386-unknown-freebsd4.4
