@@ -3,6 +3,7 @@
 	* doc/texi2pod.pl: added
 	* doc/wol.texi: include changes for manpage creation
 	* doc/Makefile.am: add wol.1 to EXTRA_DIST
+	* po/it.po: fixes and improvements
 
 2002-03-25	Thomas Krennwallner <krennwallner@aon.at>
 

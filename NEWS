@@ -1,3 +1,6 @@
+[0.6.1]
+* add manpage
+* fixed italian translation
 [0.6.0]
 * wol-dhcpdconf reads mac and ip from dhcpd.conf file
 * can read macfiles from stdin

@@ -107,19 +107,19 @@ msgid ""
 "between 0 and ff which represents one byte of the address, which is in\n"
 "network byte order (big endian).\n"
 msgstr ""
-"Uso: %s [OPTIONE] ... MAC-ADDRESS ...\n"
-"Wake On LAN client - wakes up magic packet compliant machines.\n"
+"Uso: %s [OPTIONE] ... MAC-INDIRIZZO ...\n"
+"Wake On LAN client - si alzano macchine che sono capace con magic packet.\n"
 "\n"
 "-h, --help          mostra questo aiuto ed esce\n"
 "-V, --version       stampa le informazioni sulla versione ed esce\n"
-"-v, --verbose       verbose output\n"
+"-v, --verbose       dettagliata uscita\n"
 "-w, --wait=NUM      aspetti NUM millisecondi dopo l'invio\n"
 "-i, --ipaddr=IPADDR trasmetta a questo IP indirizzo\n"
 "-p, --port=NUM      trasmetta a questo UDP port\n"
-"-f, --file=FILE     legga indirizzi del file FILE (\"-\" reads from stdin)\n"
+"-f, --file=FILE     legga indirizzi del file FILE (\"-\" legge dal stdin)\n"
 "-P, --passwd=PASS   invia SecureON codice PASS\n"
 "\n"
-"Ogni MAC-indirizzo è scritto come x:x:x:x:x:x, dove x è a esadecimale "
+"Ogni MAC-INDIRIZZO è scritto come x:x:x:x:x:x, dove x è a esadecimale "
 "numero\n"
 "fra 0 e ff che representa un byte del indirizzo, che è nel\n"
 "rete byte ordine (big endian).\n"
@@ -130,6 +130,9 @@ msgid ""
 "PASS is written as x-x-x-x-x-x, where x is a hexadecimal number between 0\n"
 "and ff which represents one byte of the password.\n"
 msgstr ""
+"\n"
+"PASS è scritto come x-x-x-x-x-x, dove x è a esadecimale numero fra 0 e ff\n"
+"che representa un byte della parola d'accesso.\n"
 
 #: src/wol.c:115
 msgid ""
@@ -165,7 +168,7 @@ msgstr "Non valido port è dato"
 
 #: src/wol.c:229
 msgid "You must specify at least one MAC-ADDRESS."
-msgstr ""
+msgstr "Devi specificare almeno un MAC-INDIRIZZO."
 
 #: src/wol.c:264
 #, c-format
@@ -189,7 +192,7 @@ msgstr " con %s:%d"
 
 #: src/wol.c:278
 msgid "...\n"
-msgstr "su...\n"
+msgstr "...\n"
 
 #: src/net.c:100
 #, c-format
