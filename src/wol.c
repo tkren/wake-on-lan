@@ -3,7 +3,7 @@
  *
  * main program
  * 
- * $Id: wol.c,v 1.16 2003/08/10 08:18:38 wol Exp $
+ * $Id: wol.c,v 1.17 2004/02/05 18:14:19 wol Exp $
  *
  * Copyright (C) 2000,2001,2002,2003,2004 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -156,7 +156,7 @@ parse_args (int argc, char *argv[])
       { "port", required_argument, NULL, 'p' },
       { "file", required_argument, NULL, 'f' },
       { "passwd", optional_argument, NULL, 'P' },
-      { "proxy", required_argument, NULL, 's' },
+      /* { "proxy", required_argument, NULL, 's' }, */
       { NULL, 0, NULL, 0 }
     };
 
@@ -202,8 +202,8 @@ parse_args (int argc, char *argv[])
 	  break;
 
 
-	case 's':
-	  proxy_mode = 1;
+	/* case 's': */
+	/*   proxy_mode = 1; */
 	case 'h':
 	case 'i':
 	  host_str = optarg;
