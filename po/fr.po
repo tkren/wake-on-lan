@@ -4,12 +4,11 @@
 # Brigitta Roenig <roenig@uta.net>, 2002.
 # Florian Träxler <traexler.josef@aon.at>, 2002.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: wol 0.7.0\n"
 "Report-Msgid-Bugs-To: krennwallner@aon.at\n"
-"POT-Creation-Date: 2003-08-09 11:09+0200\n"
+"POT-Creation-Date: 2003-08-09 16:58+0200\n"
 "PO-Revision-Date: 2002-04-08 13:06+0200\n"
 "Last-Translator: Florian Träxler <traexler.josef@aon.at>\n"
 "Language-Team:\n"
@@ -143,7 +142,6 @@ msgstr ""
 "Rapporter toutes anomalies à <krennwallner@aon.at>\n"
 
 #: src/wol.c:129
-#, fuzzy
 msgid ""
 "Copyright (C) 2000-2003 Thomas Krennwallner <krennwallner@aon.at>\n"
 "This is free software; see the source for copying conditions. There is NO\n"
@@ -174,27 +172,32 @@ msgstr ""
 msgid "You must specify at least one MAC-ADDRESS."
 msgstr "Vous devez sélectionner au minimum une MAC-ADDRESS."
 
-#: src/wol.c:284
+#: src/wol.c:287
 #, c-format
 msgid "Cannot assemble magic packet for '%s'"
 msgstr "Ne peut pas assembler magic packet pour '%s'"
 
-#: src/wol.c:290
+#: src/wol.c:292
+#, c-format
+msgid "Invalid password given for '%s'"
+msgstr "Le port choisé invalide pour '%s'"
+
+#: src/wol.c:299
 #, c-format
 msgid "Cannot send magic packet for '%s' to %s:%d"
 msgstr "Ne peut pas envoyer magic packet pour '%s' à %s:%d"
 
-#: src/wol.c:295
+#: src/wol.c:305
 #, c-format
 msgid "Waking up %s"
 msgstr "Réveille %s"
 
-#: src/wol.c:297
+#: src/wol.c:307
 #, c-format
 msgid " with %s:%d"
 msgstr " avec %s:%d"
 
-#: src/wol.c:298
+#: src/wol.c:308
 msgid "...\n"
 msgstr "...\n"
 

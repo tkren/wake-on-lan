@@ -2,12 +2,11 @@
 # Copyright (C) 2001-2002 Free Software Foundation, Inc.
 # Eva Krennwallner <wally2k@gmx.net>, 2001-2002.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: wol 0.7.0\n"
 "Report-Msgid-Bugs-To: krennwallner@aon.at\n"
-"POT-Creation-Date: 2003-08-09 11:09+0200\n"
+"POT-Creation-Date: 2003-08-09 16:58+0200\n"
 "PO-Revision-Date: 2001-09-25 16:31+0200\n"
 "Last-Translator: Eva Krennwallner <wally2k@gmx.net>\n"
 "Language-Team:\n"
@@ -140,7 +139,6 @@ msgstr ""
 "Segnalare i bug a <krennwallner@aon.at>\n"
 
 #: src/wol.c:129
-#, fuzzy
 msgid ""
 "Copyright (C) 2000-2003 Thomas Krennwallner <krennwallner@aon.at>\n"
 "This is free software; see the source for copying conditions. There is NO\n"
@@ -172,27 +170,32 @@ msgstr ""
 msgid "You must specify at least one MAC-ADDRESS."
 msgstr "Devi specificare almeno un MAC-INDIRIZZO."
 
-#: src/wol.c:284
+#: src/wol.c:287
 #, c-format
 msgid "Cannot assemble magic packet for '%s'"
 msgstr "Non puo comporre un magic packet per '%s'"
 
-#: src/wol.c:290
+#: src/wol.c:292
+#, c-format
+msgid "Invalid password given for '%s'"
+msgstr "Non valido port è dato per '%s'"
+
+#: src/wol.c:299
 #, c-format
 msgid "Cannot send magic packet for '%s' to %s:%d"
 msgstr "Non puo mandare un magic packet per '%s' a '%s':%d"
 
-#: src/wol.c:295
+#: src/wol.c:305
 #, c-format
 msgid "Waking up %s"
 msgstr "Si alzi %s"
 
-#: src/wol.c:297
+#: src/wol.c:307
 #, c-format
 msgid " with %s:%d"
 msgstr " con %s:%d"
 
-#: src/wol.c:298
+#: src/wol.c:308
 msgid "...\n"
 msgstr "...\n"
 
