@@ -1,7 +1,9 @@
 /*
  *	wol - wake on lan client
  *
- *	$Id$
+ *	main program
+ * 
+ *	$Id: wol.c,v 1.3 2002/01/10 07:43:59 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -42,9 +44,16 @@
 #include "macfile.h"
 
 
+#define MAC_STRING_LEN 22
+#define IP_STRING_LEN 18
+#define PASSWD_STRING_LEN 18
+
 
 /* My name is argv[0] */
 static char *name;
+
+/* pointer to a MAC address */
+static char *mac_str = NULL;
 
 /* IP Address magic packet is addressed to */
 static char *in_addr_str = DEFAULT_IPADDR;
@@ -69,7 +78,6 @@ static struct magic *magic = NULL;
 
 /* socket file descriptor */
 static int sockfd = -1;
-
 
 
 
@@ -218,7 +226,7 @@ Try `%s --help' for more information.\n"), name, name);
 
 static int
 assemble_and_send (struct magic *m, const char *mac_str, const char *ip_str,
-										unsigned short portnum, char *pass_str, int socketfd)
+										unsigned short portnum, const char *pass_str, int socketfd)
 {
 	if (magic_assemble (m, mac_str, pass_str))
 		{
@@ -282,11 +290,6 @@ main (int argc, char *argv[])
 	if (pathname)
 		{
 			FILE *fp;
-			unsigned short p;
-			char mac[18];
-			char ip[22];
-			char pass[18];
-			char *pass_ptr = NULL;
 
 			fp = fopen (pathname, "r");
 			if (fp == NULL)
@@ -296,13 +299,22 @@ main (int argc, char *argv[])
 					exit (1);
 				}
 
+			mac_str = (char *) xmalloc (MAC_STRING_LEN);
+			in_addr_str = (char *) xmalloc (IP_STRING_LEN);
+			passwd = (char *) xmalloc (PASSWD_STRING_LEN);
+
 			/* loop through fp */
 			for (;;)
 				{
-					if (macfile_parse (fp, mac, ip, &p, pass)) break;
+					if (macfile_parse (fp, mac_str, in_addr_str, &port, passwd)) break;
 
-					ret -= assemble_and_send (magic, mac, ip, p, pass_ptr, sockfd);
+					ret -= assemble_and_send (magic, mac_str, in_addr_str, port, passwd,
+																		sockfd);
 				}
+
+			xfree (mac_str);
+			xfree (in_addr_str);
+			xfree (passwd);
 
 			fclose (fp);
 		}

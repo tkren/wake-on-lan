@@ -1,7 +1,9 @@
 /*
  *	wol - wake on lan client
  *
- *	$Id: magic.c,v 1.1.1.1 2001/11/06 19:31:33 wol Exp $
+ *	create and assemble magic packets
+ *
+ *	$Id: magic.c,v 1.2 2002/01/10 07:41:18 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -152,8 +154,11 @@ magic_assemble (struct magic *magic_buf, const char *mac_str,
 			if (sscanf (passwd_str, "%2x-%2x-%2x-%2x-%2x-%2x",
 									&s[0], &s[1], &s[2], &s[3], &s[4], &s[5]) != MAGIC_SECUREON)
 				{
+#if 0
 					errno = EINVAL;
 					return -1;
+#endif
+					return 0;
 				}
 
 			if (magic_buf->size != sizeof (struct secureon))

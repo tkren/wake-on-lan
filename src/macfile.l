@@ -2,7 +2,9 @@
 /*
  *	wol - wake on lan client
  *
- *	$Id$
+ *	parse a macfile
+ *
+ *	$Id: macfile.l,v 1.1 2002/01/10 07:41:18 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *

@@ -1,7 +1,7 @@
 /*
- *	$Id$
+ *	$Id: xmalloc.h,v 1.1.1.1 2001/11/06 19:31:32 wol Exp $
  *
- *	Copyright (C) 2000-2001 Thomas Krennwallner <krennwallner@aon.at>
+ *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
  *	This program is free software; you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by

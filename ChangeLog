@@ -1,3 +1,9 @@
+2002-01-10	Thomas Krennwallner <krennwallner@aon.at>
+
+	* NOTES: added
+	* README: update
+	* src/wol.c: beautifiers
+
 2002-01-09	Thomas Krennwallner <krennwallner@aon.at>
 
 	* schedule 0.6.0 in configure.ac
