@@ -7,6 +7,6 @@ gettextize --force --intl --no-changelog
 aclocal -I m4
 autoconf
 autoheader
-automake --ignore-deps --add-missing --gnu
+automake --add-missing --gnu
 
 echo "Now you are ready to run ./configure with the desired options"
