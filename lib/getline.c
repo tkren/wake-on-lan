@@ -17,6 +17,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
 
 /* Written by Jan Brittenson, bson@gnu.ai.mit.edu.  */
+/* Fixed return values of functions from int to ssize_t -> helps compiling
+ * on alphaev67-unknown-linux-gnu */
 
 #if HAVE_CONFIG_H
 # include <config.h>
@@ -33,7 +35,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. */
 
 #if defined __GNU_LIBRARY__ && HAVE_GETDELIM
 
-int
+ssize_t
 getline (char **lineptr, size_t *n, FILE *stream)
 {
   return getdelim (lineptr, n, '\n', stream);
@@ -43,13 +45,13 @@ getline (char **lineptr, size_t *n, FILE *stream)
 
 # include "getstr.h"
 
-int
+ssize_t
 getline (char **lineptr, size_t *n, FILE *stream)
 {
   return getstr (lineptr, n, stream, '\n', 0, 0);
 }
 
-int
+ssize_t
 getdelim (char **lineptr, size_t *n, int delimiter, FILE *stream)
 {
   return getstr (lineptr, n, stream, delimiter, 0, 0);
