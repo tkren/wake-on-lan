@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wol 0.5.0\n"
-"POT-Creation-Date: 2001-11-06 09:58+0100\n"
+"POT-Creation-Date: 2002-01-08 21:34+0100\n"
 "PO-Revision-Date: 2001-09-25 16:31+0200\n"
 "Last-Translator: Thomas Krennwallner <krennwallner@aon.at>\n"
 "Language-Team: German <de@li.org>\n"
