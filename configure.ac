@@ -114,7 +114,8 @@ fi
 
 dnl i18n
 ALL_LINGUAS="de fr it es"
-AM_GNU_GETTEXT([external])
+dnl don't pass symbol [external] since it will disable local intl directory
+AM_GNU_GETTEXT
 
 
 dnl check header files
@@ -129,6 +130,7 @@ jm_PREREQ_ERROR dnl for GNU error
 jm_FUNC_MALLOC	dnl for GNU xmalloc
 jm_FUNC_REALLOC	dnl for GNU xmalloc
 jm_FUNC_GLIBC_UNLOCKED_IO dnl for GNU unlocked-io
+gl_ERROR dnl for GNU error
 gl_MD5 dnl for GNU md5
 
 AM_FUNC_GETLINE dnl for GNU getline
