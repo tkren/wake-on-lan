@@ -3,7 +3,7 @@
  *
  *	create and assemble magic packets
  *
- *	$Id: magic.c,v 1.5 2002/02/25 19:27:01 wol Exp $
+ *	$Id: magic.c,v 1.6 2002/03/19 23:00:03 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -33,6 +33,7 @@
 #include <errno.h>
 #include <string.h> /* memset() in HP-UX */
 
+#include "wrappers.h"
 #include "xalloc.h"
 #include "wol.h"
 #include "magic.h"
@@ -129,8 +130,17 @@ magic_assemble (struct magic *magic_buf, const char *mac_str,
 	if (sscanf (mac_str, "%2x:%2x:%2x:%2x:%2x:%2x",
 							&m[0], &m[1], &m[2], &m[3], &m[4], &m[5]) != MAC_LEN)
 		{
-			errno = EINVAL;
-			return -1;
+			struct ether_addr ea;
+
+			/* lets parse /etc/ethers for ethernet name resolving */
+			if (ether_hostton (mac_str, &ea))
+				{
+					errno = EINVAL;
+					return -1;
+				}
+
+			for (j = 0; j < MAC_LEN; ++j)
+				m[j] = ea.ETHER_ADDR_OCTET[j];
 		}
 
 	/* accommodate the packet chunk's size to the packet type */
