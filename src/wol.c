@@ -1,7 +1,7 @@
 /*
  *	wol - wake on lan client
  *
- *	$Id$
+ *	$Id: wol.c,v 1.1.1.1 2001/11/06 19:31:37 wol Exp $
  *
  *	Copyright (C) 2000-2001 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -102,11 +102,11 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\
 }
 
 
+
 static void
 cleanup (void)
 {
-	if (pathname) xfree (pathname);
-	if (in_addr_str) xfree (in_addr_str);
+		return; /* FIXME: nothing to clean */
 }
 
 
@@ -176,7 +176,7 @@ Try `%s --help' for more information.\n"), name, name);
 
 
 					case 'i':
-						in_addr_str = xstrdup (optarg);
+						in_addr_str = optarg;
 						break;
 
 
@@ -191,7 +191,7 @@ Try `%s --help' for more information.\n"), name, name);
 
 
 					case 'f':
-						pathname = xstrdup (optarg);
+						pathname = optarg;
 						break;
 
 
@@ -259,7 +259,7 @@ main (int argc, char *argv[])
 
 	i = parse_args (argc, argv);
 
-	if (in_addr_str == NULL) in_addr_str = xstrdup (DEFAULT_IPADDR);
+	if (in_addr_str == NULL) in_addr_str = DEFAULT_IPADDR;
 
 	magic = magic_create ();
 	if (magic == NULL) exit (1);

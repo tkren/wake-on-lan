@@ -1,3 +1,6 @@
+[0.5.1]
+* fixed memory leak in option parsing
+* to simplify things default IP address is now 255.255.255.255
 [0.5.0]
 * complete rewrite
 * better auto* support, removed shtool

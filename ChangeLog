@@ -1,7 +1,11 @@
+2002-01-08	Thomas Krennwallner <krennwallner@aon.at>
+
+	* src/wol.c: fixed memory leak in parse_args() -> braindead strdups
+
 2001-11-20	Thomas Krennwallner <krennwallner@aon.at>
 
 	* include/wol.h: DEFAULT_IPADDR is now 255.255.255.255 and not 0.0.0.0 (due
-	a bugreport from Johan Rudholm <chm@ed.chalmers.se>)
+		a bugreport from Johan Rudholm <chm@ed.chalmers.se>)
 
 2001-11-13	Thomas Krennwallner <krennwallner@aon.at>
 
