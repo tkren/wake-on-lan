@@ -3,7 +3,7 @@
  *
  *	main program
  * 
- *	$Id: wol.c,v 1.6 2002/02/12 08:00:11 wol Exp $
+ *	$Id: wol.c,v 1.7 2002/02/13 08:27:44 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -96,7 +96,7 @@ Wake On LAN client - wakes up magic packet compliant machines.\n\n\
 -w, --wait=NUM      wait NUM millisecs after sending\n\
 -i, --ipaddr=IPADDR broadcast to this IP address\n\
 -p, --port=NUM      broadcast to this UDP port\n\
--f, --file=FILE     read addresses from file FILE\n\
+-f, --file=FILE     read addresses from file FILE (\"-\" reads from stdin)\n\
 -P, --passwd=PASS   send SecureON password PASS\n\
 \n\
 Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n\

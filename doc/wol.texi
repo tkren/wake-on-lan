@@ -95,7 +95,7 @@ filter would block the default destination port 40000.
 -f FILE, --file=FILE
 
 Read hardware addresses, IP addresses and optional ports and SecureON password
-from file FILE.
+from file FILE. If FILE is "-", read from stdin.
 
 @item
 -v, --verbose
