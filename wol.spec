@@ -40,12 +40,14 @@ fi
 %files
 %doc ABOUT-NLS AUTHORS ChangeLog COPYING NEWS README TODO
 %{_infodir}/wol.*
+%{_mandir}/wol.*
 %{_bindir}/*
 %{_datadir}/locale/*/*/*
 
 %changelog
 * Sat Aug 09 2003 Thomas Krennwallner <krennwallner@aon.at>
 - new version 0.7.0
+- manpage added
 
 * Wed Jul 09 2003 Thomas Hager <duke@bofh.at>
 - added wol-pathname.patch
