@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
-dnl we need autoconf 2.52 (this is tested)
-AC_PREREQ(2.52)
+dnl we need autoconf 2.57 (this is tested)
+AC_PREREQ(2.57)
 
 AC_INIT(README)
 AM_CONFIG_HEADER(config.h)
@@ -27,6 +27,7 @@ AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_RANLIB
+AC_PROG_AWK
 
 
 dnl check compiler characteristic
@@ -97,22 +98,6 @@ AC_ARG_ENABLE(ansi,
 with_ansi=$enableval, with_ansi=no)
 test "$with_ansi" = "yes" && CFLAGS="$CFLAGS -ansi -pedantic"
 AC_MSG_RESULT($with_ansi)
-
-dnl checking for your awk
-AC_MSG_CHECKING(path to your awk)
-AC_ARG_WITH(myawk,
-[  --with-awk=PATH_TO_AWK  path to your awk binary],
-with_myawk=$withval, with_myawk="")
-AC_MSG_RESULT($with_myawk)
-if test x$with_myawk = x ; then
-	AC_PATH_PROG(MY_AWK, awk, "")
-else
-	MY_AWK=$with_myawk
-fi
-if test x$MY_AWK = x ; then
-	AC_MSG_ERROR([*** Unable to find your awk, specify it with --with-awk= ***])
-fi
-AC_SUBST(MY_AWK)
 
 dnl check for python
 dnl AC_PATH_PROG(PY, python, "")
