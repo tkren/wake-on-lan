@@ -1,0 +1,10 @@
+Makefile
+Makefile.in
+POTFILES
+de.gmo
+es.gmo
+fr.gmo
+it.gmo
+remove-potcdate.sed
+stamp-po
+wol.pot

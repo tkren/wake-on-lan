@@ -1,0 +1,5 @@
+Makefile
+Makefile.in
+wol
+wol-bootptab
+wol-dhcpdconf
