@@ -10,7 +10,7 @@ EXTRA_DIST = texi2pod.pl $(man_MANS)
 MAINTAINERCLEANFILES = Makefile.in texinfo.tex wol.1 wol.pod
 
 wol.pod: wol.texi
-	$(srcdir)/texi2pod.pl $? $@
+	$(PERL) -w $(srcdir)/texi2pod.pl $? $@
 
 wol.1: wol.pod
 	pod2man --section=1 --center="wol" --release="wol @VERSION@" $? > $@
