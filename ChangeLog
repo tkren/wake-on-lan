@@ -1,3 +1,12 @@
+2002-03-11	Thomas Krennwallner <krennwallner@aon.at>
+
+	* po/it.po: fixed a translation bug
+	* configure.ac: removed half-translated files tr.po and es.po
+
+2002-02-26	Thomas Krennwallner <krennwallner@aon.at>
+
+	* po/it.po: updated italian translation
+
 2002-02-25	Thomas Krennwallner <krennwallner@aon.at>
 
 	* demo/nic-fake.py: added SecureON support and some improvements
@@ -8,7 +17,7 @@
 
 	* src/macfile.l: remove
 	* src/macfile.c: added old version of my own parser with GNU getline support
-		and SecureON password support
+		and SecureON (tm) password support
 	* m4/getline.m4: added
 	* lib/getstr.{c,h}: added
 	* lib/getline.{c,h}: added

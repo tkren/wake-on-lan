@@ -2,7 +2,7 @@
 * wol-dhcpdconf reads mac and ip from dhcpd.conf file
 * can read macfiles from stdin
 * add SecureON (tm) support to magic packets (tm) and macfile
-* added french, italian, spanish and turkish translation
+* added french and italian translation
 [0.5.1]
 * fixed memory leak in option parsing
 * to simplify things default IP address is now 255.255.255.255

@@ -37,7 +37,8 @@ AC_CHECK_SIZEOF(unsigned char, 1)
 
 
 dnl i18n
-ALL_LINGUAS="de fr es it tr"
+dnl ALL_LINGUAS="de fr es it tr"
+ALL_LINGUAS="de fr it"
 AM_GNU_GETTEXT
 
 

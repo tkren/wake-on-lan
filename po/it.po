@@ -107,31 +107,15 @@ msgstr ""
 "-h, --help          mostra questo aiuto ed esce\n"
 "-V, --version       stampa le informazioni sulla versione ed esce\n"
 "-v, --verbose       verbose output\n"
-"-w, --wait=NUM      wait NUM millisecs after sending\n"
-"-i, --ipaddr=IPADDR broadcast to this IP address\n"
-"-p, --port=NUM      broadcast to this UDP port\n"
-"-f, --file=FILE     read addresses from file FILE\n"
-"-P, --passwd=PASS   send SecureON password PASS\n"
+"-w, --wait=NUM      aspetti NUM millisecondi dopo l'invio\n"
+"-i, --ipaddr=IPADDR trasmetta a questo IP indirizzo\n"
+"-p, --port=NUM      trasmetta a questo UDP port\n"
+"-f, --file=FILE     legga indirizzi del file FILE (\"-\" reads from stdin)\n"
+"-P, --passwd=PASS   invia SecureON codice PASS\n"
 "\n"
-"Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n"
-"between 0 and ff which represents one byte of the address, which is in\n"
-"network byte order (big endian).\n"
-#"Benutzung: %s [OPTION] ... MAC-ADRESSE ...\n"
-#"Wake On LAN client - weckt Magic Packet-fähige Maschinen auf.\n"
-#"\n"
-#"-h, --help          Anzeigen dieser Hilfe und beenden\n"
-#"-V, --version       Ausgabe der Versionsinformation und beenden\n"
-#"-v, --verbose       wortreiche Ausgabe\n"
-#"-w, --wait=NUM      warte NUM Millisekunden nach dem Senden\n"
-#"-i, --ipaddr=IPADDR übertrage zu IP Adresse IPADDR\n"
-#"-p, --port=NUM      übertrage zu UDP Anschluss NUM\n"
-#"-f, --file=FILE     lese Adressen von Datei FILE\n"
-#"-P, --passwd=PASS   sende SecureON Passwort PASS\n"
-#"\n"
-#"Jede MAC-ADRESSE wird als x:x:x:x:x:x geschrieben, wobei x eine "
-#"hexadezimale\n"
-#"Zahl zwischen 0 und ff ist, die ein Byte der Adresse repräsentiert, die in\n"
-#"Netzwerk Byte Ordnung (Big Endian) ist.\n"
+"Ogni MAC-indirizzo è scritto come x:x:x:x:x:x, dove x è a esadecimale numero\n"
+"fra 0 e ff che representa un byte del indirizzo, che è nel\n"
+"rete byte ordine (big endian).\n"
 
 #: src/wol.c:88
 msgid ""
@@ -164,46 +148,38 @@ msgstr ""
 #: src/wol.c:170
 #, c-format
 msgid "%s: Invalid time given\n"
-msgstr ""
-#msgstr "%s: Falsche Zeit gegeben\n"
+msgstr "%s: non valido tempo è dato\n"
 
 #: src/wol.c:186
 #, c-format
 msgid "%s: Invalid port given\n"
-msgstr ""
-#msgstr "%s: Falscher Anschluss gegeben\n"
+msgstr "%s: non valido port è dato\n"
 
 #: src/wol.c:219
 #, c-format
 msgid "%s: Cannot assemble magic packet for '%s': %s\n"
-msgstr ""
-#msgstr "%s: Kann kein magic packet für »%s« zusammenstellen: %s\n"
+msgstr "s: non puo comporre un magic packet per '%s': %s\n"
 
 #: src/wol.c:227
 #, c-format
 msgid "%s: Cannot send magic packet for '%s' to %s:%d: %s\n"
-msgstr ""
-#msgstr "%s: Kann kein magic packet für »%s« zu %s:%d senden: %s\n"
+msgstr "%s: non puo mandare un magic packet per '%s' a '%s':%d: %s\n"
 
 #: src/wol.c:232
 #, c-format
 msgid "Waking up %s"
-msgstr ""
-#msgstr "Wecke %s"
+msgstr "si alzi %s"
 
 #: src/wol.c:233
 #, c-format
 msgid " with %s:%d"
-msgstr ""
-#msgstr " mit %s:%d"
+msgstr " con %s:%d"
 
 #: src/wol.c:234
 msgid "...\n"
-msgstr ""
-#msgstr " auf...\n"
+msgstr "su...\n"
 
 #: src/net.c:98
 #, c-format
 msgid "Invalid IP address given: %s\n"
-msgstr ""
-#msgstr "Ungültige IP Adresse gegeben: %s\n"
+msgstr "non valido IP indirizzo è dato: %s\n"
