@@ -1,3 +1,10 @@
+2003-08-11  Thomas Krennwallner <krennwallner@aon.at>
+
+	* wol.spec: manpath fix by
+	Thomas Hager <duke@bofh.at>
+	* po/es.po: added spanish translation from
+	Magin Lopez <magin@giodental.com>
+
 2003-08-10  Thomas Krennwallner <krennwallner@aon.at>
 
 	* configure.ac: check for gethostbyname, perl and pod2man -> disable manpage
