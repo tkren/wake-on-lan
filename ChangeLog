@@ -1,3 +1,7 @@
+2004-04-30  Thomas Krennwallner  <djmaecki@ull.at>
+
+	Release 0.7.1.
+
 2004-04-29  Thomas Krennwallner  <djmaecki@ull.at>
 
 	* po/remove-potcdate.sed: New file.
