@@ -3,7 +3,7 @@
  *
  *	main program
  * 
- *	$Id: wol.c,v 1.4 2002/01/11 06:32:51 wol Exp $
+ *	$Id: wol.c,v 1.5 2002/02/12 07:11:09 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -66,6 +66,9 @@ static unsigned short port = DEFAULT_PORT;
 
 /* SecureON (tm) password */
 static char *passwd = NULL;
+
+/* default is not to read from stdin */
+static int request_stdin = 0;
 
 /* be verbose */
 static int verbose = 0;
@@ -135,7 +138,6 @@ parse_args (int argc, char *argv[])
 			{ "port", required_argument, NULL, 'p' },
 			{ "file", required_argument, NULL, 'f' },
 			{ "passwd", required_argument, NULL, 'P' },
-			{ "--", no_argument, NULL, '-' },
 			{ NULL, 0, NULL, 0 }
 		};
 
@@ -209,10 +211,6 @@ Try `%s --help' for more information.\n"), name, name);
 						break;
 
 
-					/* FIXME: hack stdin mode */
-					case '-':
-						break;
-
 					case '?':
 						break;
 
@@ -221,6 +219,25 @@ Try `%s --help' for more information.\n"), name, name);
 						usage ();
 						exit (1);
 				}
+		}
+
+	/* check if stdin is requested */
+	if (optind < argc)
+		{
+			int i;
+
+			for (i = optind; i < argc; ++i)
+				{
+					if (argv[i][0] == '-' && argv[i][1] == 0)
+						{
+							request_stdin = 1;
+							break;
+						}
+				}
+		}
+	else if (!strncmp (pathname, "-", 1))
+		{
+			request_stdin = 1;
 		}
 
 	/* return the offset of the GNU getopt sorted parameters */
@@ -284,24 +301,34 @@ main (int argc, char *argv[])
 
 
 	/* loop through possible MAC addresses */
-	for (; i < argc; i++)
+	if (!request_stdin)
 		{
-			ret -= assemble_and_send (magic, argv[i], in_addr_str, port, passwd,
-																sockfd);
+			for (; i < argc; i++)
+				{
+					ret -= assemble_and_send (magic, argv[i], in_addr_str, port, passwd,
+																		sockfd);
+				}
 		}
 
 
 	/* -f given */
-	if (pathname)
+	if (pathname || request_stdin)
 		{
 			FILE *fp;
 
-			fp = fopen (pathname, "r");
-			if (fp == NULL)
+			if (request_stdin)
 				{
-					fprintf (stderr, "%s: %s: %s\n",
-														name, pathname, strerror (errno));
-					exit (1);
+					fp = stdin;
+				}
+			else
+				{
+					fp = fopen (pathname, "r");
+					if (fp == NULL)
+						{
+							fprintf (stderr, "%s: %s: %s\n",
+																name, pathname, strerror (errno));
+							exit (1);
+						}
 				}
 
 			mac_str = (char *) xmalloc (MAC_STRING_LEN);
