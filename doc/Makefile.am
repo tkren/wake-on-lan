@@ -1,5 +1,11 @@
 info_TEXINFOS = wol.texi
+
+if POD2TEXI
 man_MANS = wol.1
+else
+man_MANS =
+endif
+
 EXTRA_DIST = texi2pod.pl $(man_MANS)
 MAINTAINERCLEANFILES = Makefile.in texinfo.tex wol.1 wol.pod
 
