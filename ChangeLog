@@ -73,6 +73,8 @@
 
 	* TODO: error.c depends on libintl.h.
 	Remove disable-nls bug.
+	Remove document bug.
+	Add prerequisite-headers bug.
 	
 2004-04-17  Thomas Krennwallner  <krennwallner@aon.at>
 
