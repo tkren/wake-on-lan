@@ -33,6 +33,8 @@ error.m4 \
 md5.m4 \
 unlocked-io.m4 \
 extensions.m4 \
-onceonly.m4
+onceonly.m4 \
+getopt.m4 \
+strerror_r.m4
 
 MAINTAINERCLEANFILES = Makefile.in
