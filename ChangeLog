@@ -1,3 +1,13 @@
+2004-04-29  Thomas Krennwallner  <djmaecki@ull.at>
+
+	* po/remove-potcdate.sed: New file.
+
+	* NEWS: Add swedish translation.
+
+	* configure.ac (ALL_LINGUAS): Add sv.
+
+	* po/sv.po: New file.
+	
 2004-04-23  Thomas Krennwallner  <djmaecki@ull.at>
 
 	* autogen.sh: Only call gettextize when invoked with --gettext.
