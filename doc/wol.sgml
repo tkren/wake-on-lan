@@ -1,0 +1,368 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.1//EN" [
+<!ENTITY year "2002">
+<!ENTITY edition "0.6.1">
+<!ENTITY version "0.6.1">
+]>
+
+<book>
+	<bookinfo>
+		<title>wol</title>
+		<author>
+			<firstname>Thomas</firstname>
+			<surname>Krennwallner</surname>
+		</author>
+		<copyright>
+			<year>&year;</year>
+			<holder>Thomas Krennwallner</holder>
+		</copyright>
+		<legalnotice>
+			<para>
+				This file documents wol &version;, the Wake On LAN client.
+			</para>
+
+			<para>
+				Copyright (C) &year; Thomas Krennwallner
+				<email>krennwallner@aon.at</email>
+			</para>
+
+			<para>
+				Permission is granted to copy, distribute and/or modify this document
+				under the terms of the GNU Free Documentation License, Version 1.1 or
+				any later version published by the Free Software Foundation; with no
+				Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+				Texts.
+			</para>
+		</legalnotice>
+	</bookinfo>
+
+
+
+<preface>
+	<title>Introduction</title>
+	<para>
+		This manual gives you an introduction into <application>wol</application>,
+		the Wake On LAN client. It remotely turns on computers that supports Magic
+		Packet(TM)
+		<footnote>
+			<para>Magic Packet is a trademark of Advanced Micro Devices, Inc.</para>
+		</footnote>
+		technology (also known as Wake On LAN).
+	</para>
+
+	<para>
+		Some workstations support SecureON(TM)
+		<footnote>
+			<para>SecureON is a trademark of Digital Equipment Corporation.</para>
+		</footnote>
+		password feature. These machines
+		only wake up if you provide the correct password.
+		<application>wol</application> also provides this feature.
+	</para>
+
+	<para>
+		See <ulink url="http://ahh.sourceforge.net/wol/">wol homepage</ulink> for
+		updates and further readings.
+	</para>
+
+	<para>
+		This edition documents version &version;.
+	</para>
+</preface>
+
+
+
+<chapter>
+	<title>Description</title>
+	<para>
+		<application>wol</application> broadcasts so-called Magic Packet(TM) frames
+		across a network to wake up hardware that understands such packets. These
+		are normally NIC's with Wake On Lan function. To make use of this feature
+		your motherboard and your power supply have to support Wake On LAN. But
+		there are still some things needed to have a working Wake On LAN setup.
+		Most PCI NIC's come with a so-called WOL-connector and a 3 pin wire. This
+		wire has to be connected from the motherboards WOL connector to the NIC's.
+		After this basic hardware requirements you have to enable Wake On LAN in
+		your systems BIOS (or whatever called). If you have a builtin network card
+		with WOL support, you don't have to wire, enabling WOL in the BIOS should
+		be enough.
+	</para>
+
+	<para>
+		If you are intending to switch on a computer, you need his
+		<application>MAC address</application>. This is the 48 bit hardware address
+		of the network card which is written as x:x:x:x:x:x, where x is a
+		hexadecimal number between 0 and ff which represents one byte of the
+		address, which is in network byte order (big-endian).  
+	</para>
+
+	<para>
+		<application>wol</application> assembles a
+		<application>hardware address</application> to a Magic Packet(TM) and sends
+		it over the network. The Wake On LAN enabled computer provides enough power
+		for the NIC to listen to the attached network and waits for arriving Wake
+		On LAN packets. The NIC recognizes the wake up call and turns on.  
+	</para>
+
+	<para>
+		A Magic Packet(TM) consists of a header (6 bytes of 0xff) and 16 times the
+		repetition of the MAC address. The optional SecureON(TM) password is
+		attached at the end of the packet. So if you want to wake up the computer
+		with the <application>hardware address 00:E0:98:13:45:E2</application>, the
+		corresponding Magic Packet(TM) looks like:
+	</para>
+
+		<informalexample>
+			<programlisting>
+				ff ff ff ff ff ff
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+				00 E0 98 13 45 E2
+			</programlisting>
+		</informalexample>
+
+	<para>
+		To simplify things <application>wol</application> encapsulates such Magic
+		Packets(TM) inside an UDP packet. This gives various benefits over raw
+		ethernet frames, one is OS interoperability.
+	</para>
+
+	<para>
+		An example of usage is <application>wol MAC-ADDRESS</application> which
+		assembles a Magic Packet(TM) which is intended to wake up the NIC with
+		hardware address <application>MAC-ADDRESS</application>. See
+		Examples for additional examples.
+	</para>
+</chapter>
+
+
+<chapter>
+	<title>Options</title>
+	<para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					<option>-h, --help</option>
+				</para>
+
+				<para>
+					Print a summary of the command line options and exit.
+				</para>
+			</listitem>
+
+
+			<listitem>
+				<para>
+					<option>-V, --version</option>
+				</para>
+
+				<para>
+					Print the version number of <application>wol</application> and exit.
+				</para>
+			</listitem>
+
+
+			<listitem>
+				<para>
+					<option>-i xxx.xxx.xxx.xxx, --ipaddr==xxx.xxx.xxx.xxx</option>
+				</para>
+
+				<para>
+					Broadcast packet to this IP address. This is important if your wol
+					client is a multihomed host and you want to send only to one subnet
+					(default IP address is 255.255.255.255).
+				</para>
+			</listitem>
+
+
+			<listitem>
+				<para>
+					<option>-p NUM, --port=NUM</option>
+				</para>
+
+				<para>
+					Send packet with this destination port. This option is important, if
+					a packet filter would block the default destination port 40000.
+				</para>
+			</listitem>
+
+
+			<listitem>
+				<para>
+					<option>-f FILE, --file=FILE</option>
+				</para>
+
+				<para>
+					Read hardware addresses, IP addresses, optional ports and SecureON(TM)
+					password from file <filename>FILE</filename>. If
+					<filename>FILE</filename> is "-", read from stdin.
+				</para>
+			</listitem>
+
+
+			<listitem>
+				<para>
+					<option>-</option>
+				</para>
+
+				<para>
+					Read hardware addresses, IP addresses, optional ports and SecureON(TM)
+					password from stdin.
+				</para>
+			</listitem>
+
+
+			<listitem>
+				<para>
+					<option>-v, --verbose</option>
+				</para>
+
+				<para>
+					Turns on verbose output.
+				</para>
+			</listitem>
+
+
+			<listitem>
+				<para>
+					<option>-w NUM, --wait=NUM</option>
+				</para>
+
+				<para>
+					Waits NUM milliseconds between Magic Packets(TM). Also known as fuse
+					health pack.
+				</para>
+			</listitem>
+
+
+			<listitem>
+				<para>
+					<option>-P PASS, --passwd=PASS</option>
+				</para>
+
+				<para>
+					Send a magic packet with SecureON(TM) password feature. PASS is
+					written as x-x-x-x-x-x, where x is a hexadecimal number between 0 and
+					ff which represents one byte of the password. To set the password of
+					your SecureON(TM) capable NIC, you can use 
+					<ulink url="http://www.sourceforge.net/projects/gkernel/">
+						ethtool
+					</ulink>.
+				</para>
+			</listitem>
+
+		</itemizedlist>
+	</para>
+</chapter>
+
+
+<chapter id="ex">
+	<title>Examples</title>
+	<para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					wol 00:4F:49:07:0B:5F 00:4F:50:06:12:4F
+				</para>
+
+				<para>
+					Sends packet addressed to 255.255.255.255:40000 and is intended to
+					wake up hardware address 00:4F:49:07:0B:5F and 00:4F:50:06:12:4F.
+				</para>
+			</listitem>
+
+
+			<listitem>
+				<para>
+					wol -i 192.168.3.255 -p 69 00:4F:49:07:0B:5F 
+				</para>
+
+				<para>
+					Sends packet addressed to 192.168.3.255:69 and is intended to wake
+					up hardware address 00:4F:49:07:0B:5F.
+				</para>
+			</listitem>
+
+
+			<listitem>
+				<para>
+					wol --passwd=09-e6-f5-f3-dc-4e 00:4F:49:07:0B:5F
+				</para>
+
+				<para>
+					Sends packet addressed to 255.255.255.255:40000 with SecureON(TM)
+					password 09-e6-f5-f3-dc-4e.
+				</para>
+			</listitem>
+
+
+			<listitem>
+				<para>
+					wol -f /etc/ethers
+				</para>
+
+				<para>
+					Read hardware addresses and corresponding IP addresses from file
+					<filename>/etc/ethers</filename>.
+				</para>
+
+				<para>
+					File looks like:
+				</para>
+
+				<informalexample>
+					<programlisting>
+						Hardware-Address  IP-Address:Port
+						Hardware-Address  IP-Address
+						# Comment
+						Hardware-Address  IP-Address:Port	SecureON-Password
+					</programlisting>
+				</informalexample>
+			</listitem>
+
+
+			<listitem>
+				<para>
+					wol-dhcpdconf < /etc/dhcpd.conf | wol -
+				</para>
+
+				<para>
+					<application>wol-dhcpdconf</application> filters MAC addresses and
+					corresponding IP addresses from <filename>/etc/dhcpd.conf</filename>
+					(config file of ISC dhcpd) and outputs it in macfile format
+					(native wol format). <application>wol</application> sends the
+					corresponding Magic Packets(TM).
+				</para>
+
+				<para>
+					A valid dhcp entry:
+				</para>
+
+				<informalexample>
+					<programlisting>
+						host hugo
+						{
+						  hardware ethernet 11:ab:e3:5f:7f:8c;
+						  fixed-address 10.0.0.1;
+						}
+					</programlisting>
+				</informalexample>
+			</listitem>
+
+		</itemizedlist>
+	</para>
+</chapter>
+
+</book>

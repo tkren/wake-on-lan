@@ -1,3 +1,4 @@
+EXTRA_DIST = wol.sgml
 info_TEXINFOS = wol.texi
 MAINTAINERCLEANFILES = Makefile.in texinfo.tex
 
