@@ -3,7 +3,7 @@
  *
  *	parses a macfile and return its tokens
  * 
- *	$Id: macfile.c,v 1.5 2002/03/25 09:34:01 wol Exp $
+ *	$Id: macfile.c,v 1.6 2002/04/12 05:53:00 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -93,7 +93,7 @@ get_tokens (const char *str, char *mac, char *host, unsigned int *port,
 
 
 int
-macfile_parse (FILE *fp, char **mac_str, char **host_str, unsigned short *port,
+macfile_parse (FILE *fp, char **mac_str, char **host_str, unsigned int *port,
 								char **passwd_str)
 {
 	char *willy = NULL;
@@ -109,8 +109,8 @@ macfile_parse (FILE *fp, char **mac_str, char **host_str, unsigned short *port,
 			if ((ret = getline (&willy, &whale, fp)) == -1)
 				return -1;
 
-			if ((parsed_tokens = get_tokens (willy, mac, host, (unsigned int *) port,
-																				passwd)) == 0) continue;	
+			if ((parsed_tokens = get_tokens (willy, mac, host, port, passwd)) == 0)
+				continue;	
 
 			XFREE (willy);
 			break;

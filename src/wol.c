@@ -3,7 +3,7 @@
  *
  *	main program
  * 
- *	$Id: wol.c,v 1.12 2002/04/12 05:53:00 wol Exp $
+ *	$Id: wol.c,v 1.13 2003/08/08 23:00:18 wol Exp $
  *
  *	Copyright (C) 2000-2003 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -60,7 +60,7 @@ static char *host_str = DEFAULT_IPADDR;
 static char *pathname = NULL;
 
 /* udp port */
-static unsigned short port = DEFAULT_PORT;
+static unsigned int port = DEFAULT_PORT;
 
 /* SecureON password */
 static char *passwd = NULL;
@@ -206,7 +206,8 @@ parse_args (int argc, char *argv[])
 
 
 					case 'p':
-						if ((sscanf (optarg, "%5hu", &port) != 1) || port > 65535)
+						if ((sscanf (optarg, "%5u", &port) != 1)
+								|| port > 65535 || port == 0)
 							{
 								error (0, 0, _("Invalid port given"));
 								usage (1);
@@ -276,7 +277,7 @@ parse_args (int argc, char *argv[])
 
 static int
 assemble_and_send (struct magic *m, const char *mac_str, const char *host_str,
-										unsigned short portnum, const char *pass_str, int socketfd)
+										unsigned int portnum, const char *pass_str, int socketfd)
 {
 	if (magic_assemble (m, mac_str, pass_str))
 		{
