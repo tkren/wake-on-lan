@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wol 0.6.0\n"
-"POT-Creation-Date: 2002-03-25 10:49+0100\n"
+"POT-Creation-Date: 2002-03-25 11:45+0100\n"
 "PO-Revision-Date: 2001-09-25 16:31+0200\n"
 "Last-Translator: Florian Träxler <traexler.josef@aon.at>\n"
 "Language-Team:\n"
@@ -16,8 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: lib/error.c:125
-#, c-format
+#: lib/error.c:117
 msgid "Unknown system error"
 msgstr "Erreur système inconnue."
 
