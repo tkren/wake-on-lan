@@ -1,7 +1,7 @@
 /*
  * wol - wake on lan client
  *
- * $Id: net.h,v 1.3 2002/04/12 05:53:00 wol Exp $
+ * $Id: net.h,v 1.4 2004/02/05 18:20:07 wol Exp $
  *
  * Copyright (C) 2000,2001,2002,2004 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -31,6 +31,8 @@
 int udp_open (void);
 
 int tcp_open (const char *ip_str, unsigned int port);
+
+int raw_open (void);
 
 int net_close (int socket);
 
