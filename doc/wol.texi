@@ -6,7 +6,7 @@
 @setcontentsaftertitlepage
 
 
-@set UPDATED 28 March 2002
+@set UPDATED 04 April 2002
 @set EDITION 0.6.1
 @set VERSION 0.6.1
 
@@ -77,12 +77,10 @@ Free Documentation License''.
 
 @c man begin DESCRIPTION
 This manual gives you an introduction into @code{wol}, the Wake On LAN client.
-It remotely turns on computers that supports Magic Packet(TM)
-@footnote{Magic Packet is a trademark of Advanced Micro Devices, Inc.}
-technology (also known as Wake On LAN).
+It remotely turns on computers that supports Magic Packet technology
+(also known as Wake On LAN).
 
-Some workstations support SecureON(TM) @footnote{SecureON is a trademark of
-Digital Equipment Corporation.} password feature. These machines only
+Some workstations support SecureON password feature. These machines only
 wake up if you provide the correct password. @code{wol} also provides this
 feature.
 @c man end
@@ -107,7 +105,7 @@ This chapter explains the Wake On LAN basics.
 @menu
 * How does it work::              Technical explanation of Wake On LAN
 * Wake On LAN requirements::      What is needed to have Wake On LAN?
-* Magic Packet::                  How does a Magic Packet(TM) look like?
+* Magic Packet::                  How does a Magic Packet look like?
 @end menu
 
 
@@ -119,7 +117,7 @@ This is the 48 bit hardware address of the network card which is written as
 x:x:x:x:x:x, where x is a hexadecimal number between 0 and ff which represents
 one byte of the address, which is in network byte order (big-endian).
 
-@code{wol} assembles a hardware address to a Magic Packet(TM) and
+@code{wol} assembles a hardware address to a Magic Packet and
 sends it over the network. The Wake On LAN enabled computer provides enough
 power for the NIC to listen to the attached network and waits for arriving
 Wake On LAN packets. The NIC recognizes the wake up call and turns on.
@@ -128,7 +126,7 @@ Wake On LAN packets. The NIC recognizes the wake up call and turns on.
 @node Wake On LAN requirements, Magic Packet, How does it work, Basics
 @section Wake On LAN requirements
 
-@code{wol} broadcasts so-called Magic Packet(TM) frames across a network to
+@code{wol} broadcasts so-called Magic Packet frames across a network to
 wake up hardware that understands such packets. These are normally NIC's with
 Wake On Lan function. To make use of this feature your motherboard and your
 power supply have to support Wake On LAN. But there are still some things
@@ -143,10 +141,10 @@ enabling WOL in the BIOS should be enough.
 @node Magic Packet, , Wake On LAN requirements, Basics
 @section Magic Packet
 
-A Magic Packet(TM) consists of a header (6 bytes of 0xff) and 16 times the
-repetition of the MAC address. The optional SecureON(TM) password is attached
+A Magic Packet consists of a header (6 bytes of 0xff) and 16 times the
+repetition of the MAC address. The optional SecureON password is attached
 at the end of the packet. So if you want to wake up the computer with the
-@code{hardware address 00:E0:98:13:45:E2}, the corresponding Magic Packet(TM)
+@code{hardware address 00:E0:98:13:45:E2}, the corresponding Magic Packet
 looks like:
 
 @multitable {ff} {ff} {ff} {ff} {ff} {ff}
@@ -169,7 +167,7 @@ looks like:
 @item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
 @end multitable
 
-To simplify things @code{wol} encapsulates such Magic Packets(TM) inside an
+To simplify things @code{wol} encapsulates such Magic Packets inside an
 UDP packet. This gives various benefits over raw ethernet frames, one is
 OS interoperability.
 
@@ -178,18 +176,18 @@ OS interoperability.
 @chapter Description
 
 @code{wol} is a feature rich Wake On LAN utility. Beyond the basic Wake On LAN
-function it also provides the ability to send a SecureON(TM) password along
-with the Magic Packet(TM). Another useful feature is the capability to read
+function it also provides the ability to send a SecureON password along
+with the Magic Packet. Another useful feature is the capability to read
 MAC addresses and the corresponding IP addresses from a file or from standard
 input. Along with this file you can optionally specify the corresponding
-UDP destination port and a SecureON(TM) password.
+UDP destination port and a SecureON password.
 
 An additional AWK script that parses ISC dhcpd's @file{dhcpd.conf} and outputs
 in @code{wol's} native fileformat named @code{wol-dhcpdconf} is also provided.
 You can invoke it as followed: @code{wol-dhcpdconf < /etc/dhcpd.conf | wol -}.
 
 An example of usage is @code{wol MAC-ADDRESS} which assembles a Magic
-Packet(TM) which is intended to wake up the NIC with hardware address
+Packet which is intended to wake up the NIC with hardware address
 @code{MAC-ADDRESS}. See @ref{Examples} for additional examples.
 
 
@@ -228,14 +226,14 @@ filter would block the default destination port 40000.
 @item -f FILE
 @itemx --file=FILE
 
-Read hardware addresses, IP addresses, optional ports and SecureON(TM)
-password from file @file{FILE}. If @file{FILE} is "-", read from stdin.
+Read hardware addresses, IP addresses, optional ports and SecureON password
+from file @file{FILE}. If @file{FILE} is "-", read from stdin.
 
 
 @item -
 
-Read hardware addresses, IP addresses, optional ports and SecureON(TM)
-password from stdin.
+Read hardware addresses, IP addresses, optional ports and SecureON password
+from stdin.
 
 
 @item -v
@@ -247,16 +245,16 @@ Turns on verbose output.
 @item -w NUM
 @itemx --wait=NUM
 
-Waits NUM milliseconds between Magic Packets(TM). Also known as fuse health
+Waits NUM milliseconds between Magic Packets. Also known as fuse health
 pack.
 
 
 @item -P PASS
 @itemx --passwd=PASS
 
-Send a magic packet with SecureON(TM) password feature. PASS is written as
+Send a magic packet with SecureON password feature. PASS is written as
 x-x-x-x-x-x, where x is a hexadecimal number between 0 and ff which represents
-one byte of the password. To set the password of your SecureON(TM) capable
+one byte of the password. To set the password of your SecureON capable
 NIC, you can use ethtool @url{http://www.sourceforge.net/projects/gkernel/}.
 
 @end table
@@ -282,7 +280,7 @@ address 00:4F:49:07:0B:5F.
 
 @item wol --passwd=09-e6-f5-f3-dc-4e 00:4F:49:07:0B:5F
 
-Sends packet addressed to 255.255.255.255:40000 with SecureON(TM) password
+Sends packet addressed to 255.255.255.255:40000 with SecureON password
 09-e6-f5-f3-dc-4e.
 
 
@@ -306,7 +304,7 @@ Hardware-Address  IP-Address:Port	SecureON-Password
 @code{wol-dhcpdconf} filters MAC addresses and corresponding IP addresses from
 @file{/etc/dhcpd.conf} (config file of ISC dhcpd) and outputs it in macfile
 format (native wol format). @code{wol} sends the corresponding
-Magic Packets(TM).
+Magic Packets.
 
 A valid dhcp entry:
 

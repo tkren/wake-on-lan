@@ -1,3 +1,7 @@
+2002-04-04	Thomas Krennwallner <krennwallner@aon.at>
+
+	* doc/wol.texi: remove trademark info
+
 2002-04-03	Thomas Krennwallner <krennwallner@aon.at>
 
 	* check/nicfake.py: fixes
