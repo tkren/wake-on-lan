@@ -1,7 +1,7 @@
 /*
  * wol - wake on lan client
  *
- * $Id$
+ * $Id: proxy.c,v 1.1 2004/02/05 18:14:48 wol Exp $
  *
  * Copyright (C) 2004 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -28,6 +28,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #include "wrappers.h"
 #include "xalloc.h"
@@ -54,10 +55,15 @@ proxy_send (int sock,
 
   /* receive challenge in hex format */
 
-  if (tcp_recv (sock, &rsbuf, HEX_CHALLENGE))
+  len = tcp_recv (sock, &rsbuf, HEX_CHALLENGE);
+
+  if (len < HEX_CHALLENGE)
     {
+      errno = EINVAL;
       return -1;
     }
+
+  printf ("recvd: %s", rsbuf);
 
   for (i = j = 0; i < HEX_CHALLENGE - 1; i += 2, j++)
     {
@@ -78,16 +84,21 @@ proxy_send (int sock,
   tmp += MAC_LEN;
   memcpy (tmp, passwd, strlen (passwd));
 
+  memset (md5sum, 0, sizeof (md5sum));
   md5_buffer (buf, len, md5sum);
 
   XFREE (buf);
 
-  for (i = j = 0; i < HEX_CHALLENGE - 1; i += 2, j++)
+  printf ("sum %c%c%c %d\n", md5sum[0],md5sum[1],md5sum[2],len);
+
+  for (i = j = 0; i < MD5_LENGTH; i++, j += 2)
     {
-      snprintf (&rsbuf[i], 2, "%2x", md5sum[j]);
+      snprintf (&rsbuf[j], 2, "%2x", md5sum[i]);
     }
 
   rsbuf[HEX_CHALLENGE] = '\n';
+
+  printf ("reply: %s", rsbuf);
 
   /* send to proxy */
 
