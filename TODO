@@ -14,6 +14,15 @@
 * New features
 
 
+** WOL raw packet support
+
+Donald Becker's ether-wake.c states:
+
+An alternative to needing 'root' is using a UDP broadcast socket,
+however doing so only works with adapters configured for
+unicast+broadcast Rx filter.  That configuration consumes more power.
+
+
 ** WOL Proxy
 
 wolp (Wake On LAN proxy) support http://etherboot.sf.net/wolp, maybe a reimplementation
