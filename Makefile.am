@@ -12,4 +12,4 @@ po/Makefile.in po/ChangeLog po/wol.pot
 
 dist-hook:
 	rm -rf $(distdir)/debian/wol $(distdir)/debian/wol.substvars \
-		$(distdir)/debian/CVS
+		$(distdir)/debian/CVS $(distdir)/debian/*~
