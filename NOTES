@@ -10,3 +10,4 @@ powerpc-unknown-linux-gnu
 alphaev67-unknown-linux-gnu
 i386-unknown-openbsd3.0
 hppa2.0w-hp-hpux11.00
+i686-pc-cygwin

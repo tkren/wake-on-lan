@@ -6,7 +6,7 @@
 @setcontentsaftertitlepage
 
 
-@set UPDATED 27 March 2002
+@set UPDATED 28 March 2002
 @set EDITION 0.6.1
 @set VERSION 0.6.1
 
@@ -14,7 +14,7 @@
 @comment Tell install-info what to do
 @dircategory Net utilities
 @direntry
-* wol                           Wake On LAN client.
+* Wol: (wol).              A Wake On LAN client.
 @end direntry
 
 
@@ -46,7 +46,6 @@ Free Documentation License''.
 @c man begin SYNOPSIS
 wol [@var{OPTION}] @dots{} @var{MAC-ADDRESS} @dots{}
 @c man end
-@c man end
 @c man begin AUTHOR
 Originally written by Thomas Krennwallner <krennwallner@aon.at>.
 @c man end
@@ -73,7 +72,7 @@ Free Documentation License''.
 @contents
 
 
-@node Top, Description, (dir), (dir)
+@node Top, Basics, (dir), (dir)
 @top wol - Wake On LAN client
 
 @c man begin DESCRIPTION
@@ -93,14 +92,41 @@ See @url{http://ahh.sourceforge.net/wol/} for updates and further readings.
 This edition documents version @value{VERSION}.
 
 @menu
+* Basics::                        Wake On LAN basics
 * Description::                   Description
 * Options::                       Options to wol
 * Examples::                      Examples for program invocation
 @end menu
 
 
-@node Description
-@chapter Description
+@node Basics, Description, Top, Top
+@chapter Basics
+
+This chapter explains the Wake On LAN basics.
+
+@menu
+* How does it work::              Technical explanation of Wake On LAN
+* Wake On LAN requirements::      What is needed to have Wake On LAN?
+* Magic Packet::                  How does a Magic Packet(TM) look like?
+@end menu
+
+
+@node How does it work, Wake On LAN requirements, Basics, Basics
+@section How does it work
+
+If you are intending to switch on a computer, you need his @code{MAC address}.
+This is the 48 bit hardware address of the network card which is written as
+x:x:x:x:x:x, where x is a hexadecimal number between 0 and ff which represents
+one byte of the address, which is in network byte order (big-endian).
+
+@code{wol} assembles a hardware address to a Magic Packet(TM) and
+sends it over the network. The Wake On LAN enabled computer provides enough
+power for the NIC to listen to the attached network and waits for arriving
+Wake On LAN packets. The NIC recognizes the wake up call and turns on.
+
+
+@node Wake On LAN requirements, Magic Packet, How does it work, Basics
+@section Wake On LAN requirements
 
 @code{wol} broadcasts so-called Magic Packet(TM) frames across a network to
 wake up hardware that understands such packets. These are normally NIC's with
@@ -113,15 +139,9 @@ you have to enable Wake On LAN in your systems BIOS (or whatever called). If
 you have a builtin network card with WOL support, you don't have to wire,
 enabling WOL in the BIOS should be enough.
 
-If you are intending to switch on a computer, you need his @code{MAC address}.
-This is the 48 bit hardware address of the network card which is written as
-x:x:x:x:x:x, where x is a hexadecimal number between 0 and ff which represents
-one byte of the address, which is in network byte order (big-endian).
 
-@code{wol} assembles a @code{hardware address} to a Magic Packet(TM) and
-sends it over the network. The Wake On LAN enabled computer provides enough
-power for the NIC to listen to the attached network and waits for arriving
-Wake On LAN packets. The NIC recognizes the wake up call and turns on.
+@node Magic Packet, , Wake On LAN requirements, Basics
+@section Magic Packet
 
 A Magic Packet(TM) consists of a header (6 bytes of 0xff) and 16 times the
 repetition of the MAC address. The optional SecureON(TM) password is attached
@@ -152,6 +172,21 @@ looks like:
 To simplify things @code{wol} encapsulates such Magic Packets(TM) inside an
 UDP packet. This gives various benefits over raw ethernet frames, one is
 OS interoperability.
+
+
+@node Description, Options, Basics, Top
+@chapter Description
+
+@code{wol} is a feature rich Wake On LAN utility. Beyond the basic Wake On LAN
+function it also provides the ability to send a SecureON(TM) password along
+with the Magic Packet(TM). Another useful feature is the capability to read
+MAC addresses and the corresponding IP addresses from a file or from standard
+input. Along with this file you can optionally specify the corresponding
+UDP destination port and a SecureON(TM) password.
+
+An additional AWK script that parses ISC dhcpd's @file{dhcpd.conf} and outputs
+in @code{wol's} native fileformat named @code{wol-dhcpdconf} is also provided.
+You can invoke it as followed: @code{wol-dhcpdconf < /etc/dhcpd.conf | wol -}.
 
 An example of usage is @code{wol MAC-ADDRESS} which assembles a Magic
 Packet(TM) which is intended to wake up the NIC with hardware address

@@ -1,9 +1,15 @@
+2002-03-28	Thomas Krennwallner <krennwallner@aon.at>
+
+	* doc/wol.texi: improvements
+
 2002-03-27	Thomas Krennwallner <krennwallner@aon.at>
 
 	* doc/texi2pod.pl: added
-	* doc/wol.texi: include changes for manpage creation
+	* doc/wol.texi: include changes for manpage creation, direntry fix
 	* doc/Makefile.am: add wol.1 to EXTRA_DIST
 	* po/it.po: fixes and improvements
+	* doc/Makefile.am: rm wol.pod on make clean
+	* debian: initial debianisation ;-)
 
 2002-03-25	Thomas Krennwallner <krennwallner@aon.at>
 

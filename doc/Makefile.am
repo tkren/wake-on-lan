@@ -16,4 +16,4 @@ wol.html: wol.texi
 	texi2html -no-section_navigation wol.texi
 
 clean-local:
-	rm -f wol.pdf wol.html
+	rm -f wol.pdf wol.html wol.pod
