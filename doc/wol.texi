@@ -19,7 +19,7 @@ Free Documentation License''.
 @end ifinfo
 
 
-@set UPDATED 12 February 2002
+@set UPDATED 14 February 2002
 @set EDITION 0.6.0
 @set VERSION 0.6.0
 
@@ -81,9 +81,10 @@ which is in network byte order.
 @item
 -i xxx.xxx.xxx.xxx, --ipaddr=xxx.xxx.xxx.xxx
 
-Broadcast packet to this IP address. This is important, if you want to send
-a packet to another subnet, because not all routers routes packets addressed
-to the default IP address 0.0.0.0.
+Broadcast packet to this IP address. This is important if your wol client is
+a multihomed host and you want to send only to one subnet (default IP address
+is 255.255.255.255).
+
 
 @item
 -p NUM, --port=NUM
@@ -129,9 +130,9 @@ hardware address 00:4F:49:07:0B:5F and 00:4F:50:06:12:4F.
 
 
 @item
-wol -i 192.168.3.0 -p 69 00:4F:49:07:0B:5F 
+wol -i 192.168.3.255 -p 69 00:4F:49:07:0B:5F 
 
-Sends packet addressed to 192.168.3.0:69 and is intended to wake up hardware
+Sends packet addressed to 192.168.3.255:69 and is intended to wake up hardware
 address 00:4F:49:07:0B:5F.
 
 
@@ -153,7 +154,7 @@ File looks like:
 Hardware-Address  IP-Address:Port
 Hardware-Address  IP-Address
 # Comment
-Hardware-Address  IP-Address:Port
+Hardware-Address  IP-Address:Port	SecureON-Password
 @end example
 @end itemize
 

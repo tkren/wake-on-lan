@@ -1,3 +1,7 @@
+2002-02-14	Thomas Krennwallner <krennwallner@aon.at>
+
+	* doc/wol.texi: fixed -i option docu error
+
 2002-02-13	Thomas Krennwallner <krennwallner@aon.at>
 
 	* src/wol.c: document stdin support in help mode
