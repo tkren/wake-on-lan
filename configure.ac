@@ -39,7 +39,7 @@ AC_CHECK_SIZEOF(unsigned char, 1)
 dnl i18n
 dnl ALL_LINGUAS="de fr es it tr"
 ALL_LINGUAS="de fr it"
-AM_GNU_GETTEXT
+AM_GNU_GETTEXT([external])
 
 
 dnl check header files
@@ -56,6 +56,7 @@ AM_FUNC_GETLINE dnl for GNU getline
 AC_CHECK_FUNCS(usleep)
 AC_CHECK_FUNCS(getopt_long) dnl for GNU getopt
 AC_CHECK_FUNCS(getdelim)
+AC_CHECK_FUNCS(ether_hostton)
 AC_CHECK_FUNC(inet_aton, [], [
 	dnl check libresolv for inet_aton() as seen on solaris
 	AC_CHECK_LIB(resolv, inet_aton,
@@ -99,7 +100,7 @@ AC_PATH_PROG(PY, python, "")
 if test x$PY = x ; then
 	AC_MSG_WARN([
 *** Unable to find python.
-*** Because of that, you want be able to run certain tests via 'make check'.])
+*** Because of that, you won't be able to run certain tests via 'make check'.])
 fi
 
 

@@ -1,9 +1,9 @@
 AUTOMAKE_OPTIONS = gnu no-dependencies 1.5
 ACLOCAL_AMFLAGS = -I m4
 
-EXTRA_DIST = autogen.sh debian
+EXTRA_DIST = config.rpath  autogen.sh debian
 
-SUBDIRS = demo doc intl include lib src m4 po check
+SUBDIRS = demo doc include lib src m4 po check
 
 MAINTAINERCLEANFILES = Makefile.in aclocal.m4 config.guess config.h.in \
 config.log config.status config.sub configure depcomp install-sh ltconfig \
