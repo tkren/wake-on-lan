@@ -1,3 +1,13 @@
+2002-04-03	Thomas Krennwallner <krennwallner@aon.at>
+
+	* check/nicfake.py: fixes
+
+2002-04-02	Thomas Krennwallner <krennwallner@aon.at>
+
+	* check/Makefile.am: check testsuite Makefile
+	* check/nic-fake.py: test script
+	* check/test{1,2,3}.sh: test suites
+
 2002-03-28	Thomas Krennwallner <krennwallner@aon.at>
 
 	* doc/wol.texi: improvements

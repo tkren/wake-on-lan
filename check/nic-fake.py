@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 
 
-from os import system
 from socket import *
-from string import split, atoi
 from struct import *
-import sys
-from thread import *
-import threading
+from string import split, atoi
+import os, sys, thread, threading
+
 
 
 
@@ -36,7 +34,7 @@ def wait_for_packet (lck, mac, sec):
 
 	if l < 102:
 		print "Received " + `l` + " octets, too less"
-		sys.exit (1)
+		getout (1)
 
 	data = unpack (`l` + 'B', r)
 
@@ -55,7 +53,6 @@ def wait_for_packet (lck, mac, sec):
 		if h != 0xff:
 			print "Error: Header not conforming"
 			print "Header:   %2x %2x %2x %2x %2x %2x" % (header[0], header[1], header[2], header[3], header[4], header[5])
-			sys.exit (1)
 			getout (1)
 
 	print "Header GOOD"
@@ -78,9 +75,6 @@ def wait_for_packet (lck, mac, sec):
 				getout (1)
 
 		print "SecureON GOOD"
-
-	print "GOOD"
-
 
 
 
@@ -108,7 +102,7 @@ if __name__ == "__main__":
 	lck = threading.Condition ()
 	lck.acquire ()
 
-	start_new_thread (wait_for_packet, (lck, mac , sec))
+	thread.start_new_thread (wait_for_packet, (lck, mac , sec))
 
 	lck.wait ()
 	lck.release ()
@@ -117,6 +111,6 @@ if __name__ == "__main__":
 
 	if sec != []:
 		secstr = "%x-%x-%x-%x-%x-%x" % (sec[0], sec[1], sec[2], sec[3], sec[4], sec[5])
-		system ("../src/wol -i 127.0.0.1 " + macstr + " -P " + secstr)
+		wolout = os.popen ("../src/wol -i 127.0.0.1 " + macstr + " -P " + secstr)
 	else:
-		system ("../src/wol -i 127.0.0.1 " + macstr)
+		wolout = os.popen ("../src/wol -i 127.0.0.1 " + macstr)

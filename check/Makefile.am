@@ -4,4 +4,4 @@ MAINTAINERCLEANFILES = Makefile.in
 
 EXTRA_DIST = nic-fake.py
 
-TESTS = $(srcdir)/test1.sh $(srcdir)/test2.sh
+TESTS = $(srcdir)/test1.sh $(srcdir)/test2.sh $(srcdir)/test3.sh
