@@ -1,3 +1,21 @@
+2003-08-16  Simon Walton  <simonw@matteworld.com>
+
+	* lib/ether.h: Reorder include statements ->
+	sys/types.h should be included before
+	net/ethernet.h to prevent warnings.
+
+2003-08-16  Thomas Krennwallner  <krennwallner@aon.at>
+
+	* doc/wol.texi: Change documentation license to
+	GPL and some documentation enhancements.
+
+	* autogen.sh: Remove --ignore-deps from automake
+	invocation.
+
+	* TODO: Reorder TODO list.
+
+	* Makefile.am (AUTOMAKE_OPTIONS): Remove no-dependencies.
+
 2003-08-13  Thomas Krennwallner  <krennwallner@aon.at>
 
 	* lib/ether.h: Include with guards all possible
