@@ -1,12 +1,62 @@
+2003-08-10  Thomas Krennwallner <krennwallner@aon.at>
+
+	* include/magic.h: include <sys/types.h>
+	* lib/ether.h: fixes for self define struct ether_addr
+	* src/wol.c (parse_args): use size_t instead of int for getpass4
+
+2003-08-09  Thomas Krennwallner <krennwallner@aon.at>
+
+	* Makefile.am: fixes for new gettext 0.12.1, maintainer-clean configure.h.in~
+	* NEWS: reflect all changes
+	* README: added FAQ entry
+	* autogen.sh: gettextize fixes
+	* configure.ac: bump version to 0.7.0, check for various ethernet headers
+	and struct ether_addr members, gettext, explicetly set AC_PROG_AWK
+	* wol.spec: added rpm spec file.
+	Assembled by Thomas Hager <duke@bofh.at>
+	* doc/wol.texi: date update, wol-* scripts descriptions
+	* include/macfile.h (macfile_parse): unsigned int port
+	* lib/Makefile.am: added ether_hostton wrappers, gettext.h, include
+	$(top_srcdir)/include
+	* lib/ether.h: added for ether_hostton support
+	* lib/ether_hostton.c: added for ether_hostton support through ether_hostton.
+	Initial patches by Simon Walton <simonw@matteworld.com> and
+	Andrzej Tobola <san@iem.pw.edu.pl>
+	* lib/gettext.h: added for new gettext 0.12.1
+	* po/Makevars: added
+	* po/de.po: add Password translation, --host update, beautifiers
+	* po/fr.po: fix copyright years, version info
+	* po/it.po: fix copyright years, version info
+	* src/macfile.c (macfile_parse): unsigned int port
+	* src/magic.c (magic_assemble): added /etc/ethers file parsing support
+	* src/magic.c (magic_assemble): return -2 on passwd parsing error
+	* src/wol.c: unsigned int port
+	* src/wol.c (port): declare as unsigned int to prevent 
+	* src/wol.c (parse_args): fix pathname bug (-f FILE and a MAC-ADDRESS was a
+	nogo) due a bugreport from Michael D. Setzer II <mikes@kuentos.guam.net>
+	* src/wol.c (parse_args): add password prompting
+	* src/wol.c (parse_args): add (-h|--host) as -i alias
+	* src/wol.c (assemble_and_send): print invalid password string
+	* src/wol-bootptab.in: use @AWK@ in the sh-script
+	* src/wol-dhcpdconf.in: use @AWK@ in the sh-script
+
+2003-08-08  Thomas Krennwallner <krennwallner@aon.at>
+
+	* config.guess: added
+	* config.sub: added
+	* config.rpath: added
+	* mkinstalldirs: added
+	* po/Makefile.in.in: added because of gettextize
+
 2003-08-07  Thomas Krennwallner <krennwallner@aon.at>
 
-	* configure.ac: use AM_GNU_GETTEXT([external])
+
+* configure.ac: use AM_GNU_GETTEXT([external])
 	* Makefile.am (SUBDIRS): removed intl because of AM_GNU_GETTEXT([external])
 	* src/Makefile.am (wol_LDADD): use @LIBINTL@ instead of @INTLLIBS@
-
-2003-08-07  gettextize  <bug-gnu-gettext@gnu.org>
-
-	* Makefile.am (EXTRA_DIST): Add config.rpath.
+	* lib/getpass4.c: added
+	* lib/getpass4.h: added
+	* lib/Makefile.am: added getpass4.{c,h}
 
 2002-04-23	Thomas Krennwallner <krennwallner@aon.at>
 
