@@ -1,5 +1,8 @@
 dnl Process this file with autoconf to produce a configure script.
 
+dnl we need autoconf 2.52 (this is tested)
+AC_PREREQ(2.52)
+
 AC_INIT(README)
 AM_CONFIG_HEADER(config.h)
 AC_CANONICAL_HOST
