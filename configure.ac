@@ -9,8 +9,8 @@ AC_CANONICAL_HOST
 
 PACKAGE=wol
 MAJOR=0
-MINOR=8
-MICRO=0
+MINOR=7
+MICRO=1
 PATCH=
 VERSION=$MAJOR.$MINOR.$MICRO$PATCH
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
@@ -114,7 +114,7 @@ fi
 
 dnl i18n
 ALL_LINGUAS="de fr it es"
-AM_GNU_GETTEXT
+AM_GNU_GETTEXT([external])
 
 
 dnl check header files
@@ -124,6 +124,7 @@ AC_CHECK_HEADERS(unistd.h getopt.h sys/time.h locale.h libintl.h netinet/ether.h
 	
 
 dnl check system functions
+gl_GETOPT dnl for GNU getopt
 jm_PREREQ_ERROR dnl for GNU error
 jm_FUNC_MALLOC	dnl for GNU xmalloc
 jm_FUNC_REALLOC	dnl for GNU xmalloc
