@@ -9,9 +9,11 @@ AC_CANONICAL_HOST
 
 PACKAGE=wol
 MAJOR=0
-MINOR=6
-MICRO=1
+MINOR=7
+MICRO=0
 VERSION=$MAJOR.$MINOR.$MICRO
+AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
+AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 
@@ -34,18 +36,36 @@ AC_C_BIGENDIAN
 
 dnl check data types
 AC_CHECK_SIZEOF(unsigned char, 1)
+AC_CHECK_TYPE([struct ether_addr], , , [#include <netinet/ether.h>])
+if test "$ac_cv_type_struct_ether_addr" = "yes"; then
+	AC_DEFINE_UNQUOTED(HAVE_STRUCT_ETHER_ADDR, 1)
+fi
 
+
+
+dnl check struct members
+AC_CHECK_MEMBER([struct ether_addr.octet], , , [#include <netinet/ether.h>])
+if test "$ac_cv_member_struct_ether_addr_octet" = "yes"; then
+	AC_DEFINE_UNQUOTED(HAVE_STRUCT_ETHER_ADDR_OCTET, 1)
+fi
+
+AC_CHECK_MEMBER([struct ether_addr.ether_addr_octet], , ,
+								[#include <netinet/ether.h>])
+if test "$ac_cv_member_struct_ether_addr_ether_addr_octet" = "yes"; then
+	AC_DEFINE_UNQUOTED(HAVE_STRUCT_ETHER_ADDR_ETHER_ADDR_OCTET, 1)
+fi
+								
 
 dnl i18n
 dnl ALL_LINGUAS="de fr es it tr"
 ALL_LINGUAS="de fr it"
-AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT
 
 
 dnl check header files
 AC_HEADER_STDC
 AC_HEADER_TIME
-AC_CHECK_HEADERS(unistd.h getopt.h sys/time.h locale.h libintl.h)
+AC_CHECK_HEADERS(unistd.h getopt.h sys/time.h locale.h libintl.h netinet/ether.h)
 
 
 dnl check system functions
@@ -90,18 +110,23 @@ else
 	MY_AWK=$with_myawk
 fi
 if test x$MY_AWK = x ; then
-	AC_MSG_ERROR([
-*** Unable to find your awk, specify it with --with-awk= ***])
+	AC_MSG_ERROR([*** Unable to find your awk, specify it with --with-awk= ***])
 fi
 AC_SUBST(MY_AWK)
 
 dnl check for python
-AC_PATH_PROG(PY, python, "")
-if test x$PY = x ; then
-	AC_MSG_WARN([
-*** Unable to find python.
-*** Because of that, you won't be able to run certain tests via 'make check'.])
-fi
+dnl AC_PATH_PROG(PY, python, "")
+dnl if test x$PY = x ; then
+dnl 	AC_MSG_WARN([
+dnl *** Unable to find python.
+dnl *** Because of that, you won't be able to run certain tests via 'make check'.])
+dnl fi
+
+
+dnl config.h.in defines
+AC_DEFINE([HAVE_STRUCT_ETHER_ADDR], 0, [struct ether_addr])
+AC_DEFINE([HAVE_STRUCT_ETHER_ADDR_ETHER_ADDR_OCTET], 0, [struct ether_addr.ether_addr_octet])
+AC_DEFINE([HAVE_STRUCT_ETHER_ADDR_OCTET], 0, [struct ether_addr.octet])
 
 
 dnl full featured warnings
@@ -109,19 +134,16 @@ CFLAGS="$CFLAGS -W -Wall -Wpointer-arith -Wimplicit-function-declaration"
 
 
 dnl create the Makefiles
-AC_OUTPUT(
+AC_OUTPUT([intl/Makefile po/Makefile.in
 Makefile
-check/Makefile
 demo/Makefile
 doc/Makefile
 include/Makefile
-intl/Makefile
 lib/Makefile
 m4/Makefile
-po/Makefile.in
 src/Makefile
 src/wol-dhcpdconf
-src/wol-bootptab, [chmod +x src/wol-dhcpdconf src/wol-bootptab])
+src/wol-bootptab], [chmod +x src/wol-dhcpdconf src/wol-bootptab])
 
 
 dnl output configuration
@@ -140,5 +162,4 @@ $PACKAGE configuration:
 
 	EXTRA_LIBS: $EXTRA_LIBS
 	ANSI emulation: $with_ansi
-	AWK binary: $MY_AWK
 "
