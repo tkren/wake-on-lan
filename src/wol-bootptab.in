@@ -1,8 +1,8 @@
 #!@MY_AWK@ -f
 #
-#	wol-dhcpdconf - parse a dhcpd.conf and output it in macfile format
+#	wol-bootptab - parse a bootptab and output it in macfile format
 #
-#	$Id: wol-dhcpdconf.in,v 1.1 2002/02/21 17:04:00 wol Exp $
+#	$Id$
 #
 #	Copyright (C) 2002 Thomas Krennwallner <krennwallner@aon.at>
 #
@@ -29,15 +29,25 @@ BEGIN	{
 }
 
 
-/[ \t]*hardware[ \t\n]+ethernet[ \t\n]+[0-9a-zA-Z:]+;/	{
-	sub (/;/, "", $3) # rm semicolon
-	mac = mac " " $3
+/[ \n\t\\a-zA-Z0-9:]+:ha=0x[0-9a-fA-F]+/	{
+	i = match ($0, "ha=0x[0-9a-fA-F]+")
+	macc = substr ($0, i + 5, 12)
+	maco = ""
+	for (i = 1; i < 10; i += 2)
+		maco = maco "" substr (macc, i, 2) ":"
+	
+	maco = maco "" substr (macc, i, 2)
+	
+	mac = mac " " maco
 }
 
 
-/[ \t]*fixed-address[ \t\n]+[0-9a-zA-Z._-]+[ \t\n]*;/	{
-	sub (/;/, "", $2) # rm semicolon
-	ip = ip " " $2
+/[ \n\t\\a-zA-Z0-9:]+:ip=[0-9.-_a-zA-Z]+/	{
+	i = match ($0, "ip=[0-9.-_a-zA-Z]+")
+	ipc = substr ($0, i + 3, RLENGTH)
+	i = match (ipc, ":")
+	ipo = substr (ipc, 1, i - 1)
+	ip = ip " " ipo
 }
 
 

@@ -1,3 +1,17 @@
+2002-04-09	Thomas Krennwallner <krennwallner@aon.at>
+
+	* src/net.{c,h}: add support for resolving names
+	* src/macfile.{c,h}: add support for domain names
+	* src/wol.c: add support for domain names
+	* src/wol-dhcpdconf.in: add support for domain names
+	* src/wol-bootptab.in: add support for parsing bootptab
+	* configure.ac: create wol-bootptab
+	* src/Makefile.am: add wol-bootptab to bin_SCRIPTS
+
+2002-04-08	Thomas Krennwallner <krennwallner@aon.at>
+
+	* po/fr.po: fix untranslated messages
+
 2002-04-04	Thomas Krennwallner <krennwallner@aon.at>
 
 	* doc/wol.texi: remove trademark info

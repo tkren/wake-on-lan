@@ -3,7 +3,7 @@
  *
  *	main program
  * 
- *	$Id: wol.c,v 1.10 2002/03/19 23:27:54 wol Exp $
+ *	$Id: wol.c,v 1.11 2002/03/21 19:18:09 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -53,8 +53,8 @@ char *program_name;
 /* pointer to a MAC address */
 static char *mac_str = NULL;
 
-/* IP Address magic packet is addressed to */
-static char *in_addr_str = DEFAULT_IPADDR;
+/* IP Address or hostname magic packet is addressed to */
+static char *host_str = DEFAULT_IPADDR;
 
 /* filename with mac addresses */
 static char *pathname = NULL;
@@ -99,7 +99,7 @@ Wake On LAN client - wakes up magic packet compliant machines.\n\n\
 -V, --version       output version information and exit\n\
 -v, --verbose       verbose output\n\
 -w, --wait=NUM      wait NUM millisecs after sending\n\
--i, --ipaddr=IPADDR broadcast to this IP address\n\
+-i, --ipaddr=HOST   broadcast to this IP address or hostname\n\
 -p, --port=NUM      broadcast to this UDP port\n\
 -f, --file=FILE     read addresses from file FILE (\"-\" reads from stdin)\n\
 -P, --passwd=PASS   send SecureON password PASS\n\
@@ -196,7 +196,7 @@ parse_args (int argc, char *argv[])
 
 
 					case 'i':
-						in_addr_str = optarg;
+						host_str = optarg;
 						break;
 
 
@@ -256,7 +256,7 @@ parse_args (int argc, char *argv[])
 
 
 static int
-assemble_and_send (struct magic *m, const char *mac_str, const char *ip_str,
+assemble_and_send (struct magic *m, const char *mac_str, const char *host_str,
 										unsigned short portnum, const char *pass_str, int socketfd)
 {
 	if (magic_assemble (m, mac_str, pass_str))
@@ -265,16 +265,16 @@ assemble_and_send (struct magic *m, const char *mac_str, const char *ip_str,
 			return -1;
 		}
 
-	if (net_send (socketfd, ip_str, portnum, m->packet, m->size))
+	if (net_send (socketfd, host_str, portnum, m->packet, m->size))
 		{
 			error (0, errno, _("Cannot send magic packet for '%s' to %s:%d"),
-												mac_str, ip_str, portnum);
+												mac_str, host_str, portnum);
 			return -1;
 		}
 
 	fprintf (stdout, _("Waking up %s"), mac_str);
 	if (verbose)
-		fprintf (stdout, _(" with %s:%d"), ip_str, portnum);
+		fprintf (stdout, _(" with %s:%d"), host_str, portnum);
 	fprintf (stdout, _("...\n"));
 
 	if (msecs)
@@ -314,7 +314,7 @@ main (int argc, char *argv[])
 		{
 			for (; i < argc; i++)
 				{
-					ret -= assemble_and_send (magic, argv[i], in_addr_str, port, passwd,
+					ret -= assemble_and_send (magic, argv[i], host_str, port, passwd,
 																		sockfd);
 				}
 		}
@@ -339,16 +339,16 @@ main (int argc, char *argv[])
 			/* loop through fp */
 			for (;;)
 				{
-					if (macfile_parse (fp, &mac_str, &in_addr_str, &port, &passwd)) break;
+					if (macfile_parse (fp, &mac_str, &host_str, &port, &passwd)) break;
 
 					if (port == 0 || port > 65535)
 						port = DEFAULT_PORT;
 
-					ret -= assemble_and_send (magic, mac_str, in_addr_str, port, passwd,
+					ret -= assemble_and_send (magic, mac_str, host_str, port, passwd,
 																		sockfd);
 
 					XFREE (mac_str);
-					XFREE (in_addr_str);
+					XFREE (host_str);
 					XFREE (passwd);
 				}
 

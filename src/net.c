@@ -1,7 +1,7 @@
 /*
  *	wol - wake on lan client
  *
- *	$Id: net.c,v 1.2 2002/01/10 07:41:18 wol Exp $
+ *	$Id: net.c,v 1.3 2002/03/21 19:18:09 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -20,6 +20,8 @@
  *	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
@@ -30,6 +32,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <error.h>
+#include <netdb.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -38,6 +41,25 @@
 #include "net.h"
 #include "wol.h"
 
+
+
+static int
+net_resolv (const char *hostname, struct in_addr *sin_addr)
+{
+	struct hostent *hent;
+
+	hent = gethostbyname (hostname);
+	if (hent == NULL)
+		{
+			errno = EINVAL;
+			return -1;
+		}
+
+	memcpy ((void *) sin_addr, (const void *) hent->h_addr,
+					(size_t) hent->h_length);
+
+	return 0;
+}
 
 
 int
@@ -94,10 +116,9 @@ net_send (int socket, const char *ip_str, unsigned short int port,
 	
 	memset (&toaddr, 0, sizeof (struct sockaddr_in));
 
-	if (inet_aton (ip_str, (struct in_addr *) &toaddr.sin_addr) == 0)
+	if (net_resolv (ip_str, (struct in_addr *) &toaddr))
 		{
-			errno = EINVAL;
-			error (0, 0, _("Invalid IP address given: %s"), ip_str);
+			error (0, 0, _("Invalid IP address given: %s"), strerror (errno));
 			return -1;
 		}
 

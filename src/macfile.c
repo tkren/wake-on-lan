@@ -3,7 +3,7 @@
  *
  *	parses a macfile and return its tokens
  * 
- *	$Id: macfile.c,v 1.4 2002/03/19 23:00:03 wol Exp $
+ *	$Id: macfile.c,v 1.5 2002/03/25 09:34:01 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -35,7 +35,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <getopt.h>
-#include <assert.h>
 #include <errno.h>
 
 #include "wol.h"
@@ -46,13 +45,13 @@
 
 
 #define MAC_FMT  "%17[0-9a-fA-F:]"
-#define IP_FMT   "%15[0-9.]"
+#define HOST_FMT "%[0-9a-zA-Z._-]"
 #define PORT_FMT ":%5u"
 #define PASS_FMT "%17[0-9a-fA-F-]"
 
 /* parser state */
 #define MAC  0x1
-#define IP   0x2
+#define HOST 0x2
 #define PORT 0x4
 #define PASS 0x8
 
@@ -60,31 +59,32 @@
 
 
 static unsigned int
-get_tokens (const char *str, char *mac, char *ip, unsigned int *port,
+get_tokens (const char *str, char *mac, char *host, unsigned int *port,
 						char *passwd)
 {
-	if (sscanf (str, " # %s", mac) == 1)
+	if (sscanf (str, " # %*s") == 1)
 		return 0;
 
-	if (sscanf (str, " " MAC_FMT " " IP_FMT PORT_FMT " " PASS_FMT,
-											mac, ip, port, passwd) == 4)
+	if (sscanf (str, " " MAC_FMT " " HOST_FMT PORT_FMT " " PASS_FMT,
+											mac, host, port, passwd) == 4)
 		{
-			return MAC | IP | PORT | PASS;
+			return MAC | HOST | PORT | PASS;
 		}
 
-	if (sscanf (str, " " MAC_FMT " " IP_FMT " " PASS_FMT, mac, ip, passwd) == 3)
+	if (sscanf (str, " " MAC_FMT " " HOST_FMT " " PASS_FMT,
+										mac, host, passwd) == 3)
 		{
-			return MAC | IP | PASS;
+			return MAC | HOST | PASS;
 		}
 
-	if (sscanf (str, " " MAC_FMT " " IP_FMT PORT_FMT, mac, ip, port) == 3)
+	if (sscanf (str, " " MAC_FMT " " HOST_FMT PORT_FMT, mac, host, port) == 3)
 		{
-			return MAC | IP | PORT;
+			return MAC | HOST | PORT;
 		}
 
-	if (sscanf (str, " " MAC_FMT " " IP_FMT, mac, ip) == 2)
+	if (sscanf (str, " " MAC_FMT " " HOST_FMT, mac, host) == 2)
 		{
-			return MAC | IP;
+			return MAC | HOST;
 		}
 
 	return 0;
@@ -93,13 +93,13 @@ get_tokens (const char *str, char *mac, char *ip, unsigned int *port,
 
 
 int
-macfile_parse (FILE *fp, char **mac_str, char **ip_str, unsigned short *port,
+macfile_parse (FILE *fp, char **mac_str, char **host_str, unsigned short *port,
 								char **passwd_str)
 {
 	char *willy = NULL;
 	ssize_t ret;
 	size_t whale = 0;
-	char mac[18], ip[16], passwd[18];
+	char mac[18], host[255], passwd[18]; /* FIXME: host sufficient? */
 	unsigned int parsed_tokens = 0;
 
 	*port = 0;
@@ -109,9 +109,9 @@ macfile_parse (FILE *fp, char **mac_str, char **ip_str, unsigned short *port,
 			if ((ret = getline (&willy, &whale, fp)) == -1)
 				return -1;
 
-			if ((parsed_tokens = get_tokens (willy, mac, ip, (unsigned int *) port,
+			if ((parsed_tokens = get_tokens (willy, mac, host, (unsigned int *) port,
 																				passwd)) == 0) continue;	
-	
+
 			XFREE (willy);
 			break;
 		}
@@ -120,7 +120,7 @@ macfile_parse (FILE *fp, char **mac_str, char **ip_str, unsigned short *port,
 		return -1;
 
 	*mac_str = strdup (mac);
-	*ip_str = strdup (ip);
+	*host_str = strdup (host);
 
 	if (parsed_tokens & PASS)
 		*passwd_str = strdup (passwd);

@@ -1,6 +1,9 @@
 [0.6.1]
 * add manpage
-* fixed italian translation
+* fixed italian and french translation
+* can resolv names
+* wol-bootptab reads mac and host from bootptab file
+* wol-dhcpdconf now reads mac and host
 [0.6.0]
 * wol-dhcpdconf reads mac and ip from dhcpd.conf file
 * can read macfiles from stdin

@@ -6,7 +6,7 @@
 @setcontentsaftertitlepage
 
 
-@set UPDATED 04 April 2002
+@set UPDATED 09 April 2002
 @set EDITION 0.6.1
 @set VERSION 0.6.1
 
@@ -208,12 +208,12 @@ Print a summary of the command line options and exit.
 Print the version number of @code{wol} and exit.
 
 
-@item -i xxx.xxx.xxx.xxx
-@itemx --ipaddr==xxx.xxx.xxx.xxx
+@item -i HOST
+@itemx --ipaddr=HOST
 
-Broadcast packet to this IP address. This is important if your wol client is
-a multihomed host and you want to send only to one subnet (default IP address
-is 255.255.255.255).
+Broadcast packet to this IP address or hostname. This is important if your wol
+client is a multihomed host and you want to send only to one subnet
+(default IP address is 255.255.255.255).
 
 
 @item -p NUM

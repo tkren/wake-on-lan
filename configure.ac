@@ -119,7 +119,8 @@ lib/Makefile
 m4/Makefile
 po/Makefile.in
 src/Makefile
-src/wol-dhcpdconf, [chmod +x src/wol-dhcpdconf])
+src/wol-dhcpdconf
+src/wol-bootptab, [chmod +x src/wol-dhcpdconf src/wol-bootptab])
 
 
 dnl output configuration

@@ -1,13 +1,12 @@
-- implement a "make test" -> automate the testing process
+- sitewide config and user config?
+- add option for autoexecuting wol-*?
+- add support for getpass for passwd prompting
+- implement a "make check" -> automate the testing process
+- better resolving error output
 - check if macaddress is valid (look at http://standards.ieee.org/getieee802/)
-- fix fr translation
 - fix documentation
-- debianise it ;-)
-
-
 - wolp (Wake On LAN proxy) support http://etherboot.sf.net/wolp, maybe a
   reimplementation
-- resolv names
 - wol.gmo in hpux isn't here? bug in gettext? -> rm in Makefile ???
 - magic packets > 1 -> put several packets into one buffer for sending over the
 	line
