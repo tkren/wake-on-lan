@@ -3,7 +3,7 @@
 
 echo "Generating configure script using autoconf, automake and gettext"
 
-gettextize --force --intl --no-changelog
+gettextize --intl --no-changelog
 aclocal -I m4
 autoconf
 autoheader
