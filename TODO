@@ -13,6 +13,10 @@
 
 * New features
 
+** Expect ethernet address as 'xx:xx:xx:xx:xx:xx' as well as 'xx-xx-xx-xx-xx-xx'
+
+Some routers and windows use '-' delimiters -> cut 'n paste.
+
 
 ** WOL raw packet support
 
