@@ -1,3 +1,42 @@
+2004-02-05  Thomas Krennwallner  <krennwallner@aon.at>
+
+	* src/wol.c: Add preliminary non-functional proxy support.
+
+	* src/Makefile.am (wol_SOURCES): Add proxy.c.
+
+	* src/macfile.c: Only define _GNU_SOURCE if it is not defined.
+
+	* configure.ac: Bump version to 0.8.0.
+	Add support for md5.
+
+	* include/Makefile.am (noinst_HEADERS): Add proxy.h.
+
+	* src/net.c: Add support for tcp.
+
+	* include/net.h: Add support for tcp.
+
+	* lib/Makefile.am (libwrappers_a_SOURCES): Add md5.c, md5.h and unlocked-io.h.
+
+	* lib/md5.c: New file.
+
+	* lib/md5.h: New file.
+
+	* lib/unlocked-io.h: New file.
+
+	* m4/Makefile.am (EXTRA_DIST): Add md5.m4, unlocked-io.m4, extensions.m4 and onceonly.m4.
+
+	* m4/extensions.m4: New file.
+
+	* m4/md5.m4: New file.
+
+	* m4/onceonly.m4: New file.
+
+	* m4/unlocked-io.m4: New file.
+
+	* src/proxy.c: New file.
+
+	* include/proxy.h: New file.
+
 2003-09-27  Thomas Krennwallner  <krennwallner@aon.at>
 
 	* TODO: Use emacs outline mode. Add new subnet mask
