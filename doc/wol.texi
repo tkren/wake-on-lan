@@ -1,13 +1,21 @@
 \input texinfo
 @setfilename wol.info
 @settitle @code{wol}
+@afourpaper
 @finalout
 @setcontentsaftertitlepage
 
 
-@set UPDATED 20 March 2002
+@set UPDATED 21 March 2002
 @set EDITION 0.6.0
 @set VERSION 0.6.0
+
+
+@comment Tell install-info what to do
+@dircategory Net utilities
+@direntry
+* wol                           Wake On LAN client.
+@end direntry
 
 
 @ifinfo
@@ -23,6 +31,7 @@ Front-Cover Texts, and with no Back-Cover Texts.
 A copy of the license is included in the section entitled ``GNU
 Free Documentation License''.
 @end ifinfo
+
 
 @titlepage
 @title wol
@@ -52,10 +61,12 @@ Free Documentation License''.
 @top wol - Wake On LAN client
 
 This manual gives you an introduction into @code{wol}, the Wake On LAN client.
-It remotely turns on computers that supports Magic Packet(TM) technology (also
-known as Wake On LAN).
+It remotely turns on computers that supports Magic Packet(TM)
+@footnote{Magic Packet is a trademark of Advanced Micro Devices, Inc.}
+technology (also known as Wake On LAN).
 
-Some workstations support SecureON(TM) password feature. These machines only
+Some workstations support SecureON(TM) @footnote{SecureON is a trademark of
+Digital Equipment Corporation.} password feature. These machines only
 wake up if you provide the correct password. @code{wol} also provides this
 feature.
 
@@ -70,11 +81,10 @@ This edition documents version @value{VERSION}.
 @end menu
 
 
-
 @node Description
 @chapter Description
 
-@code{wol} broadcasts so called Magic Packet(TM) frames across a network to
+@code{wol} broadcasts so-called Magic Packet(TM) frames across a network to
 wake up hardware that understands such packets. These are normally NIC's with
 Wake On Lan function. To make use of this feature your motherboard and your
 power supply have to support Wake On LAN. But there are still some things
@@ -90,10 +100,36 @@ This is the 48 bit hardware address of the network card which is written as
 x:x:x:x:x:x, where x is a hexadecimal number between 0 and ff which represents
 one byte of the address, which is in network byte order (big-endian).
 
-@code{wol} assembles this @code{hardware address} to a Magic Packet(TM) and
+@code{wol} assembles a @code{hardware address} to a Magic Packet(TM) and
 sends it over the network. The Wake On LAN enabled computer provides enough
 power for the NIC to listen to the attached network and waits for arriving
 Wake On LAN packets. The NIC recognizes the wake up call and turns on.
+
+A Magic Packet(TM) consists of a header (6 bytes of 0xff) and 16 times the
+repetition of the MAC address. The optional SecureON(TM) password is attached
+at the end of the packet. So if you want to wake up the computer with the
+@code{hardware address 00:E0:98:13:45:E2}, the corresponding Magic Packet(TM)
+looks like:
+
+@multitable {ff} {ff} {ff} {ff} {ff} {ff}
+@item ff @tab ff @tab ff @tab ff @tab ff @tab ff
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@end multitable
 
 To simplify things @code{wol} encapsulates such Magic Packets(TM) inside an
 UDP packet. This gives various benefits over raw ethernet frames, one is
@@ -101,7 +137,7 @@ OS interoperability.
 
 An example of usage is @code{wol MAC-ADDRESS} which assembles a Magic
 Packet(TM) which is intended to wake up the NIC with hardware address
-@code{MAC-ADDRESS}.
+@code{MAC-ADDRESS}. See @ref{Examples} for additional examples.
 
 
 @node Options
@@ -209,6 +245,7 @@ Hardware-Address  IP-Address
 Hardware-Address  IP-Address:Port	SecureON-Password
 @end example
 
+
 @item wol-dhcpdconf < /etc/dhcpd.conf | wol -
 
 @code{wol-dhcpdconf} filters MAC addresses and corresponding IP addresses from
@@ -221,8 +258,8 @@ A valid dhcp entry:
 @example
 host hugo
 @{
-	hardware ethernet 11:ab:e3:5f:7f:8c;
-	fixed-address 10.0.0.1;
+  hardware ethernet 11:ab:e3:5f:7f:8c;
+  fixed-address 10.0.0.1;
 @}
 @end example
 

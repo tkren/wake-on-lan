@@ -3,19 +3,20 @@
    This file is part of the GNU C Library.  Its master source is NOT part of
    the C library, however.  The master source lives in /gd/gnu/lib.
 
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2, or (at your option)
-   any later version.
+   The GNU C Library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Lesser General Public
+   License as published by the Free Software Foundation; either
+   version 2.1 of the License, or (at your option) any later version.
 
-   This program is distributed in the hope that it will be useful,
+   The GNU C Library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Lesser General Public License for more details.
 
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software Foundation,
-   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
+   You should have received a copy of the GNU Lesser General Public
+   License along with the GNU C Library; if not, write to the Free
+   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+   02111-1307 USA.  */
 
 /* Written by David MacKenzie <djm@gnu.ai.mit.edu>.  */
 
@@ -24,9 +25,7 @@
 #endif
 
 #include <stdio.h>
-#if HAVE_LIBINTL_H
-# include <libintl.h>
-#endif
+#include <libintl.h>
 #ifdef _LIBC
 # include <wchar.h>
 # define mbsrtowcs __mbsrtowcs
@@ -53,13 +52,6 @@ void exit ();
 #endif
 
 #include "error.h"
-
-#ifndef HAVE_DECL_STRERROR_R
-"this configure-time declaration test was not run"
-#endif
-#if !HAVE_DECL_STRERROR_R
-char *strerror_r ();
-#endif
 
 #ifndef _
 # define _(String) String
@@ -95,7 +87,7 @@ extern void __error_at_line (int status, int errnum, const char *file_name,
 # define error_at_line __error_at_line
 
 # ifdef USE_IN_LIBIO
-#  include <libio/iolibio.h>
+# include <libio/iolibio.h>
 #  define fflush(s) _IO_fflush (s)
 # endif
 
@@ -186,24 +178,24 @@ error_tail (int status, int errnum, const char *message, va_list args)
   ++error_message_count;
   if (errnum)
     {
-# if defined HAVE_STRERROR_R || _LIBC
+#if defined HAVE_STRERROR_R || _LIBC
       char errbuf[1024];
       char *s = __strerror_r (errnum, errbuf, sizeof errbuf);
-#  if _LIBC && USE_IN_LIBIO
+# if _LIBC && USE_IN_LIBIO
       if (_IO_fwide (stderr, 0) > 0)
 	__fwprintf (stderr, L": %s", s);
       else
-#  endif
-	fprintf (stderr, ": %s", s);
-# else
-      fprintf (stderr, ": %s", strerror (errnum));
 # endif
+	fprintf (stderr, ": %s", s);
+#else
+      fprintf (stderr, ": %s", strerror (errnum));
+#endif
     }
-# if _LIBC && USE_IN_LIBIO
+#if _LIBC && USE_IN_LIBIO
   if (_IO_fwide (stderr, 0) > 0)
     putwc (L'\n', stderr);
   else
-# endif
+#endif
     putc ('\n', stderr);
   fflush (stderr);
   if (status)
@@ -260,17 +252,7 @@ error (status, errnum, message, va_alist)
 
   ++error_message_count;
   if (errnum)
-    {
-# if defined HAVE_STRERROR_R || _LIBC
-      char errbuf[1024];
-      /* Don't use __strerror_r's return value because on some systems
-	 (at least DEC UNIX 4.0[A-D]) strerror_r returns `int'.  */
-      __strerror_r (errnum, errbuf, sizeof errbuf);
-      fprintf (stderr, ": %s", errbuf);
-# else
-      fprintf (stderr, ": %s", strerror (errnum));
-# endif
-    }
+    fprintf (stderr, ": %s", strerror (errnum));
   putc ('\n', stderr);
   fflush (stderr);
   if (status)
@@ -361,17 +343,7 @@ error_at_line (status, errnum, file_name, line_number, message, va_alist)
 
   ++error_message_count;
   if (errnum)
-    {
-# if defined HAVE_STRERROR_R || _LIBC
-      char errbuf[1024];
-      /* Don't use __strerror_r's return value because on some systems
-	 (at least DEC UNIX 4.0[A-D]) strerror_r returns `int'.  */
-      __strerror_r (errnum, errbuf, sizeof errbuf);
-      fprintf (stderr, ": %s", errbuf);
-# else
-      fprintf (stderr, ": %s", strerror (errnum));
-# endif
-    }
+    fprintf (stderr, ": %s", strerror (errnum));
   putc ('\n', stderr);
   fflush (stderr);
   if (status)

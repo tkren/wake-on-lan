@@ -1,10 +1,10 @@
-- add error.c into *.po
-- use GNU error instead of fprintf
+- fix it and fr translation
+
+
+- add manpage
 - wolp (Wake On LAN proxy) support http://etherboot.sf.net/wolp, maybe a
   reimplementation
 - resolv names
-- catch argument cases where no MAC-ADDRESS is given but eg -v
-- fix it and fr translation
 - wol.gmo in hpux isn't here? bug in gettext?
 - magic packets > 1 -> put several packets into one buffer for sending over the
 	line

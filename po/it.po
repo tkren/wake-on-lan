@@ -14,6 +14,10 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
+#: lib/error.c:125
+msgid "Unknown system error"
+msgstr "Errore di sistema sconosciuto"
+
 #: lib/getopt.c:693
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
@@ -79,7 +83,12 @@ msgstr "%s: l'opzione `-W %s' non accetta argomenti\n"
 msgid "memory exhausted"
 msgstr "memoria esaurita"
 
-#: src/wol.c:87
+#: src/wol.c:90
+#, c-format
+msgid "Try `%s --help' for more information.\n"
+msgstr "Usare `%s --help' per ulteriori informazioni.\n"
+
+#: src/wol.c:95
 #, c-format
 msgid ""
 "Usage: %s [OPTION] ... MAC-ADDRESS ...\n"
@@ -115,7 +124,16 @@ msgstr ""
 "fra 0 e ff che representa un byte del indirizzo, che è nel\n"
 "rete byte ordine (big endian).\n"
 
-#: src/wol.c:103
+#: src/wol.c:111
+#, c-format
+msgid ""
+"\n"
+"PASS is written as x-x-x-x-x-x, where x is a hexadecimal number between 0\n"
+"and ff which represents one byte of the password.\n"
+msgstr ""
+
+#: src/wol.c:115
+#, c-format
 msgid ""
 "\n"
 "Report bugs to <krennwallner@aon.at>\n"
@@ -123,7 +141,8 @@ msgstr ""
 "\n"
 "Segnalare i bug a <krennwallner@aon.at>\n"
 
-#: src/wol.c:112
+#: src/wol.c:127
+#, c-format
 msgid ""
 "Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>\n"
 "This is free software; see the source for copying conditions. There is NO\n"
@@ -135,50 +154,51 @@ msgstr ""
 "NON c'è garanzia; neppure di COMMERCIABILITÀ o IDONEITÀ AD UN PARTICOLARE\n"
 "SCOPO.\n"
 
-#: src/wol.c:144
+#: src/wol.c:159
 #, c-format
-msgid ""
-"%s: Too few arguments.\n"
-"Try `%s --help' for more information.\n"
+msgid "Too few arguments."
+msgstr "Troppo pochi argomenti."
+
+#: src/wol.c:191
+#, c-format
+msgid "Invalid time given"
+msgstr "Non valido tempo è dato"
+
+#: src/wol.c:206
+#, c-format
+msgid "Invalid port given"
+msgstr "Non valido port è dato"
+
+#: src/wol.c:229
+#, c-format
+msgid "You must specify at least one MAC-ADDRESS."
 msgstr ""
-"%s: Troppo pochi argomenti.\n"
-"Usare `grep --help' per ulteriori informazioni.\n"
 
-#: src/wol.c:178
+#: src/wol.c:264
 #, c-format
-msgid "%s: Invalid time given\n"
-msgstr "%s: non valido tempo è dato\n"
+msgid "Cannot assemble magic packet for '%s'"
+msgstr "Non puo comporre un magic packet per '%s'"
 
-#: src/wol.c:194
+#: src/wol.c:270
 #, c-format
-msgid "%s: Invalid port given\n"
-msgstr "%s: non valido port è dato\n"
+msgid "Cannot send magic packet for '%s' to %s:%d"
+msgstr "Non puo mandare un magic packet per '%s' a '%s':%d"
 
-#: src/wol.c:252
-#, c-format
-msgid "%s: Cannot assemble magic packet for '%s': %s\n"
-msgstr "s: non puo comporre un magic packet per '%s': %s\n"
-
-#: src/wol.c:260
-#, c-format
-msgid "%s: Cannot send magic packet for '%s' to %s:%d: %s\n"
-msgstr "%s: non puo mandare un magic packet per '%s' a '%s':%d: %s\n"
-
-#: src/wol.c:265
+#: src/wol.c:275
 #, c-format
 msgid "Waking up %s"
-msgstr "si alzi %s"
+msgstr "Si alzi %s"
 
-#: src/wol.c:266
+#: src/wol.c:277
 #, c-format
 msgid " with %s:%d"
 msgstr " con %s:%d"
 
-#: src/wol.c:267
+#: src/wol.c:278
 msgid "...\n"
 msgstr "su...\n"
 
-#: src/net.c:98
+#: src/net.c:100
 #, c-format
-msgid "Invalid IP address given: %s\n"
-msgstr "non valido IP indirizzo è dato: %s\n"
+msgid "Invalid IP address given: %s"
+msgstr "Non valido IP indirizzo è dato: %s"

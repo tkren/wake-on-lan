@@ -3,7 +3,7 @@
  *
  *	main program
  * 
- *	$Id: wol.c,v 1.9 2002/02/25 19:27:01 wol Exp $
+ *	$Id: wol.c,v 1.10 2002/03/19 23:27:54 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -35,6 +35,7 @@
 #include <string.h>
 #include <getopt.h>
 #include <errno.h>
+#include <error.h>
 
 #include "wrappers.h"
 #include "xalloc.h"
@@ -82,9 +83,16 @@ static int sockfd = -1;
 
 
 static void
-usage (void)
+usage (int status)
 {
-	fprintf (stdout, _("\
+	if (status)
+		{
+			fprintf (stderr, _("Try `%s --help' for more information.\n"),
+												program_name);
+		}
+	else
+		{
+			fprintf (stdout, _("\
 Usage: %s [OPTION] ... MAC-ADDRESS ...\n\
 Wake On LAN client - wakes up magic packet compliant machines.\n\n\
 -h, --help          display this help and exit\n\
@@ -100,7 +108,14 @@ Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n\
 between 0 and ff which represents one byte of the address, which is in\n\
 network byte order (big endian).\n"), program_name);
 
-	fprintf (stdout, _("\nReport bugs to <krennwallner@aon.at>\n"));
+			fprintf (stdout, _("\n\
+PASS is written as x-x-x-x-x-x, where x is a hexadecimal number between 0\n\
+and ff which represents one byte of the password.\n"));
+
+			fprintf (stdout, _("\nReport bugs to <krennwallner@aon.at>\n"));
+		}
+
+	exit (status);
 }
 
 
@@ -141,11 +156,10 @@ parse_args (int argc, char *argv[])
 
 	if (argc == 1)
 		{
-			fprintf (stderr, _("\
-%s: Too few arguments.\n\
-Try `%s --help' for more information.\n"), program_name, program_name);
-			exit (1);
+			error (0, 0, _("Too few arguments."));
+			usage (1);
 		}
+
 
 
 	for (;;)
@@ -156,8 +170,7 @@ Try `%s --help' for more information.\n"), program_name, program_name);
 			switch (c)
 				{
 					case 'h':
-						usage ();
-						exit (0);
+						usage (0);
 						break;
 
 
@@ -175,9 +188,8 @@ Try `%s --help' for more information.\n"), program_name, program_name);
 					case 'w':
 						if (sscanf (optarg, "%u", &msecs) != 1)
 							{
-								fprintf (stderr, _("%s: Invalid time given\n"), program_name);
-								usage ();
-								exit (1);
+								error (0, 0, _("Invalid time given"));
+								usage (1);
 							}
 						msecs *= 1000;
 						break;
@@ -191,9 +203,8 @@ Try `%s --help' for more information.\n"), program_name, program_name);
 					case 'p':
 						if ((sscanf (optarg, "%5hu", &port) != 1) || port > 65535)
 							{
-								fprintf (stderr, _("%s: Invalid port given\n"), program_name);
-								usage ();
-								exit (1);
+								error (0, 0, _("Invalid port given"));
+								usage (1);
 							}
 						break; 
 
@@ -210,12 +221,13 @@ Try `%s --help' for more information.\n"), program_name, program_name);
 
 					case '?':
 						break;
-
-
-					default:
-						usage ();
-						exit (1);
 				}
+		}
+
+	if (optind == argc)
+		{
+			error (0, 0, _("You must specify at least one MAC-ADDRESS."));
+			usage (1);
 		}
 
 	/* check if stdin is requested */
@@ -249,24 +261,24 @@ assemble_and_send (struct magic *m, const char *mac_str, const char *ip_str,
 {
 	if (magic_assemble (m, mac_str, pass_str))
 		{
-			fprintf (stderr, _("%s: Cannot assemble magic packet for '%s': %s\n"),
-								program_name, mac_str, strerror (errno));
+			error (0, errno, _("Cannot assemble magic packet for '%s'"), mac_str);
 			return -1;
 		}
 
 	if (net_send (socketfd, ip_str, portnum, m->packet, m->size))
 		{
-			fprintf (stderr,
-								_("%s: Cannot send magic packet for '%s' to %s:%d: %s\n"),
-								program_name, mac_str, ip_str, portnum, strerror (errno));
+			error (0, errno, _("Cannot send magic packet for '%s' to %s:%d"),
+												mac_str, ip_str, portnum);
 			return -1;
 		}
 
 	fprintf (stdout, _("Waking up %s"), mac_str);
-	if (verbose) fprintf (stdout, _(" with %s:%d"), ip_str, portnum);
+	if (verbose)
+		fprintf (stdout, _(" with %s:%d"), ip_str, portnum);
 	fprintf (stdout, _("...\n"));
 
-	usleep (msecs);
+	if (msecs)
+		usleep (msecs);
 
 	return 0;
 }
@@ -321,11 +333,7 @@ main (int argc, char *argv[])
 				{
 					fp = fopen (pathname, "r");
 					if (fp == NULL)
-						{
-							fprintf (stderr, "%s: %s: %s\n",
-																program_name, pathname, strerror (errno));
-							exit (1);
-						}
+						error (1, errno, "%s", pathname);
 				}
 
 			/* loop through fp */

@@ -1,7 +1,7 @@
 [0.6.0]
 * wol-dhcpdconf reads mac and ip from dhcpd.conf file
 * can read macfiles from stdin
-* add SecureON(tm) support to magic packets(tm) and macfile
+* add SecureON(TM) support to magic packets(TM) and macfile
 * added french and italian translation
 * enhanced documentation
 [0.5.1]

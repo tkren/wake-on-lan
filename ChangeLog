@@ -1,4 +1,10 @@
+2002-03-21	Thomas Krennwallner <krennwallner@aon.at>
+
+	* doc/wol.texi: add how a magic packet looks like
+	* doc/Makefile.am: add stuff for making wol.pdf and wol.html
+
 2002-03-20	Thomas Krennwallner <krennwallner@aon.at>
+
 	* m4/error.m4: added
 	* lib/error.{c,h}: GNU error added
 	* configure.ac: jm_PREREQ_ERROR
@@ -7,6 +13,11 @@
 	* lib/getline.c: fixed return values (int != ssize_t on
 		alphaev67-unknown-linux-gnu)
 	* doc/wol.texi: fixes
+	* src/wol.c: use error() instead of fprintf(stderr, ...)
+	* src/net.c: use error() instead of fprintf(stderr, ...)
+	* po/{de,fr,it,tr,es}.po: error() usage fixes
+	* src/wol.c: complain about missing MAC-ADDRESS arguments ;-)
+	* lib/error.{c,h}: taken from glibc-2.2.5
 
 2002-03-19	Thomas Krennwallner <krennwallner@aon.at>
 

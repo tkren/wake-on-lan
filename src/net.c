@@ -1,7 +1,7 @@
 /*
  *	wol - wake on lan client
  *
- *	$Id: net.c,v 1.1.1.1 2001/11/06 19:31:33 wol Exp $
+ *	$Id: net.c,v 1.2 2002/01/10 07:41:18 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -17,8 +17,7 @@
  *
  *	You should have received a copy of the GNU General Public License
  *	along with this program; if not, write to the Free Software
- *	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
- *	USA.
+ *	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
 #ifdef HAVE_CONFIG_H
@@ -30,6 +29,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
+#include <error.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -37,6 +37,8 @@
 
 #include "net.h"
 #include "wol.h"
+
+
 
 int
 net_close (int socket)
@@ -95,7 +97,7 @@ net_send (int socket, const char *ip_str, unsigned short int port,
 	if (inet_aton (ip_str, (struct in_addr *) &toaddr.sin_addr) == 0)
 		{
 			errno = EINVAL;
-			fprintf (stderr, _("Invalid IP address given: %s\n"), ip_str);
+			error (0, 0, _("Invalid IP address given: %s"), ip_str);
 			return -1;
 		}
 
