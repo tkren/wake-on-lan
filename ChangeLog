@@ -1,3 +1,7 @@
+2002-03-25	Thomas Krennwallner <krennwallner@aon.at>
+
+	* src/macfile.c: whale should be size_t, not ssize_t -> fixed
+
 2002-03-21	Thomas Krennwallner <krennwallner@aon.at>
 
 	* doc/wol.texi: add how a magic packet looks like

@@ -3,7 +3,7 @@
  *
  *	parses a macfile and return its tokens
  * 
- *	$Id: macfile.c,v 1.3 2002/02/25 19:27:01 wol Exp $
+ *	$Id: macfile.c,v 1.4 2002/03/19 23:00:03 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -97,7 +97,8 @@ macfile_parse (FILE *fp, char **mac_str, char **ip_str, unsigned short *port,
 								char **passwd_str)
 {
 	char *willy = NULL;
-	ssize_t whale = 0, ret;
+	ssize_t ret;
+	size_t whale = 0;
 	char mac[18], ip[16], passwd[18];
 	unsigned int parsed_tokens = 0;
 
