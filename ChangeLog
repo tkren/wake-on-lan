@@ -1,5 +1,7 @@
 2004-04-18  Thomas Krennwallner  <djmaecki@ull.at>
 
+	* src/wol.c (parse_args): Disable proxy argument.
+
 	* m4/Makefile.am (EXTRA_DIST): Add getopt.m4 and strerror_r.m4.
 
 	* ABOUT-NLS: New file.
