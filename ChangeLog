@@ -1,7 +1,8 @@
-2002-04-11	Thomas Krennwallner <krennwallner@aon.at>
+2002-04-12	Thomas Krennwallner <krennwallner@aon.at>
 
 	* Makefile.am: dist-hook that cleans the debian dir
 	* check/Makefile.am: forgot to add the test?.sh scripts
+	* use autoconf 2.53
 
 2002-04-09	Thomas Krennwallner <krennwallner@aon.at>
 
@@ -186,7 +187,7 @@
 	* schedule 0.5.1 in configure.ac
 	* Makefile.am: use AUTOMAKE_OPTIONS to make sure that at least automake 1.5
 		is being used (due a bugreport from Szabó Péter <petike@inf.elte.hu>)
-	* configure.ac: use AC_PREREQ to make sure that at least autoconf 1.52 is
+	* configure.ac: use AC_PREREQ to make sure that at least autoconf 2.52 is
 		being used (due a bugreport from Szabó Péter <petike@inf.elte.hu>)
 
 2001-11-06	Thomas Krennwallner <krennwallner@aon.at>
