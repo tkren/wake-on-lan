@@ -13,4 +13,6 @@
 #include "getopt.h"
 #endif /* HAVE_GETOPT_LONG */
 
+#include "ether.h"
+
 #endif /* _WRAPPERS_H */
