@@ -1,7 +1,7 @@
 /*
  * wol - wake on lan client
  *
- * $Id: net.c,v 1.6 2004/02/05 18:15:02 wol Exp $
+ * $Id: net.c,v 1.7 2004/04/18 09:34:21 wol Exp $
  *
  * Copyright (C) 2000,2001,2002,2003,2004 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -132,7 +132,7 @@ tcp_open (const char *ip_str,
       return -1;
     }
 
-  if (connect (sockfd, &toaddr, sizeof (toaddr)))
+  if (connect (sockfd, (const struct sockaddr *) &toaddr, sizeof (toaddr)))
     {
       error (0, 0, _("Couldn't connect to %s:%hu: %s"), ip_str, port, strerror (errno));
       close (sockfd);
