@@ -1,3 +1,72 @@
+2004-04-23  Thomas Krennwallner  <djmaecki@ull.at>
+
+	* autogen.sh: Only call gettextize when invoked with --gettext.
+
+	* Makefile.am (MAINTAINERCLEANFILES): Add mkinstalldirs,
+	config.sub and config.guess.
+
+	* debian/changelog: Add new version.
+
+	* config.rpath: New file.
+	* intl/ChangeLog: Likewise.
+	* intl/VERSION: Likewise.
+	* intl/bindtextdom.c: Likewise.
+	* intl/config.charset: Likewise.
+	* intl/dcgettext.c: Likewise.
+	* intl/dcigettext.c: Likewise.
+	* intl/dcngettext.c: Likewise.
+	* intl/dgettext.c: Likewise.
+	* intl/dngettext.c: Likewise.
+	* intl/eval-plural.h: Likewise.
+	* intl/explodename.c: Likewise.
+	* intl/finddomain.c: Likewise.
+	* intl/gettext.c: Likewise.
+	* intl/gettextP.h: Likewise.
+	* intl/gmo.h: Likewise.
+	* intl/hash-string.h: Likewise.
+	* intl/intl-compat.c: Likewise.
+	* intl/l10nflist.c: Likewise.
+	* intl/libgnuintl.h.in: Likewise.
+	* intl/loadinfo.h: Likewise.
+	* intl/loadmsgcat.c: Likewise.
+	* intl/localcharset.c: Likewise.
+	* intl/localcharset.h: Likewise.
+	* intl/locale.alias: Likewise.
+	* intl/localealias.c: Likewise.
+	* intl/localename.c: Likewise.
+	* intl/log.c: Likewise.
+	* intl/ngettext.c: Likewise.
+	* intl/os2compat.c: Likewise.
+	* intl/os2compat.h: Likewise.
+	* intl/osdep.c: Likewise.
+	* intl/plural-exp.c: Likewise.
+	* intl/plural-exp.h: Likewise.
+	* intl/plural.c: Likewise.
+	* intl/plural.y: Likewise.
+	* intl/printf-args.c: Likewise.
+	* intl/printf-args.h: Likewise.
+	* intl/printf-parse.c: Likewise.
+	* intl/printf-parse.h: Likewise.
+	* intl/printf.c: Likewise.
+	* intl/ref-add.sin: Likewise.
+	* intl/ref-del.sin: Likewise.
+	* intl/relocatable.c: Likewise.
+	* intl/relocatable.h: Likewise.
+	* intl/textdomain.c: Likewise.
+	* intl/vasnprintf.c: Likewise.
+	* intl/vasnprintf.h: Likewise.
+	* intl/vasnwprintf.h: Likewise.
+	* intl/wprintf-parse.h: Likewise.
+	* intl/xsize.h: Likewise.
+	* po/Makevars.template: Likewise.
+	* po/Rules-quot: Likewise.
+	* po/boldquot.sed: Likewise.
+	* po/en@boldquot.header: Likewise.
+	* po/en@quot.header: Likewise.
+	* po/insert-header.sin: Likewise.
+	* po/quot.sed: Likewise.
+	* po/remove-potcdate.sin: Likewise.
+	
 2004-04-20  Thomas Krennwallner  <djmaecki@ull.at>
 
 	* NOTES: List current test machines.
@@ -5,8 +74,6 @@
 	* Makefile.am (dist-hook): Clean backup files.
 
 	* NEWS: Fix prerequisite-headers bug.
-
-	* debian/changelog: Add new version.
 
 	* TODO: Fix prerequisite-headers bug.
 
@@ -21,8 +88,6 @@
 	* src/wol.c (parse_args): Disable proxy argument.
 
 	* m4/Makefile.am (EXTRA_DIST): Add getopt.m4 and strerror_r.m4.
-
-	* ABOUT-NLS: New file.
 
 	* NEWS: Update user visible changes for 0.7.1.
 
