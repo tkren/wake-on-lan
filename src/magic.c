@@ -3,9 +3,9 @@
  *
  *	create and assemble magic packets
  *
- *	$Id: magic.c,v 1.7 2003/08/08 22:55:31 wol Exp $
+ *	$Id: magic.c,v 1.8 2003/08/09 19:42:54 wol Exp $
  *
- *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
+ *	Copyright (C) 2000-2003 Thomas Krennwallner <krennwallner@aon.at>
  *
  *	This program is free software; you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -132,7 +132,9 @@ magic_assemble (struct magic *magic_buf, const char *mac_str,
 		{
 			struct ether_addr ea;
 
-			/* lets parse /etc/ethers for ethernet name resolving */
+			/* lets parse /etc/ethers for ethernet name resolving
+			 * FIXME: ether_hostton() is not implemented on every platform
+			 */
 			if (ether_hostton (mac_str, &ea))
 				{
 					errno = EINVAL;
