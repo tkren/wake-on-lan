@@ -1,9 +1,9 @@
 /*
  *	wol - wake on lan client
  *
- *	$Id$
+ *	$Id: magic.h,v 1.1.1.1 2001/11/06 19:31:23 wol Exp $
  *
- *	Copyright (C) 2000-2001 Thomas Krennwallner <krennwallner@aon.at>
+ *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
  *	This program is free software; you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -27,40 +27,31 @@
 #define _MAGIC_H
 
 
-#define MAGIC_HEADER 6
-#define MAC_LEN      6
-#define MAGIC_TIMES  16
+
+#define MAGIC_HEADER    6
+#define MAC_LEN         6
+#define MAGIC_TIMES    16
+#define MAGIC_SECUREON  6
+
 
 
 struct
-magic_header
+magic
 {
-	unsigned char magic_num[MAGIC_HEADER];
+	unsigned char *packet;
+	size_t size;
 };
 
 
-struct
-magic_data
-{
-	unsigned char mac_address[MAGIC_TIMES][MAC_LEN];
-};
+
+struct magic *magic_create (int with_passwd);
 
 
-typedef struct
-{
-	struct magic_header header;
-	struct magic_data data;
-} magic_packet;
+void magic_destroy (struct magic *m);
 
 
-
-magic_packet *magic_create (void);
-
-
-void magic_destroy (magic_packet *m);
-
-
-int magic_assemble (magic_packet *magic_buf, const char *mac_str);
+int magic_assemble (struct magic *magic_buf, const char *mac_str,
+										const char *secureon);
 
 
 #endif /* _MAGIC_H */

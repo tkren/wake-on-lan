@@ -1,3 +1,6 @@
+[0.6.0]
+* new lex macfile parser
+* add SecureON (tm) support to magic packets
 [0.5.1]
 * fixed memory leak in option parsing
 * to simplify things default IP address is now 255.255.255.255

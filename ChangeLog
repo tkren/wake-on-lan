@@ -1,5 +1,15 @@
+2002-01-09	Thomas Krennwallner <krennwallner@aon.at>
+
+	* schedule 0.6.0 in configure.ac
+	* include/magic.h, src/magic.c: add support for SecureON (tm)
+	* src/macfile.l, include/macfile.h: new macfile parser
+	* po/de.po: update changes
+	* doc/wol.texi: document changes, fixed typos
+	* updated copyright year in all files
+
 2002-01-08	Thomas Krennwallner <krennwallner@aon.at>
 
+	* release 0.5.1
 	* src/wol.c: fixed memory leak in parse_args() -> braindead strdups
 
 2001-11-20	Thomas Krennwallner <krennwallner@aon.at>

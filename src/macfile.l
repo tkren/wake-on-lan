@@ -1,7 +1,8 @@
+%{
 /*
  *	wol - wake on lan client
  *
- *	$Id: wol.h,v 1.2 2001/11/21 05:33:37 wol Exp $
+ *	$Id$
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -22,30 +23,68 @@
  */
 
 
-#ifndef _WOL_H
-#define _WOL_H
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif /* HAVE_CONFIG_H */
 
-
-#if defined(HAVE_LOCALE_H)
-#include <locale.h>
-#endif /* HAVE_LOCALE_H */
+#include <stdio.h>
 
 
-/* i18n support */
-#if defined(ENABLE_NLS)
-#include <libintl.h>
-#define _(Text) gettext (Text)
-#else
-#define _(Text) Text
-#endif /* ENABLE_NLS */
+#define YY_DECL \
+				int yylex (char *mac, char *ip, unsigned short *port, char *passwd)
+
+%}
 
 
-#define DEFAULT_PORT 40000
-#define DEFAULT_IPADDR "255.255.255.255"
+%x further
 
 
-#endif /* _WOL_H */
+%%
+
+[[:blank:]]*[0-9a-fA-F]{1,2}:[0-9a-fA-F]{1,2}:[0-9a-fA-F]{1,2}:[0-9a-fA-F]{1,2}:[0-9a-fA-F]{1,2}:[0-9a-fA-F]{1,2}[[:blank:]]+[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}	{
+	sscanf (yytext, " %s %s", mac, ip);
+	BEGIN(further);
+}
+
+<further>{
+
+:[0-9]{1,5}	{
+	sscanf (yytext, ":%u", (unsigned int *) port);
+}
+
+[[:blank:]]+[0-9a-fA-F]{1,2}-[0-9a-fA-F]{1,2}-[0-9a-fA-F]{1,2}-[0-9a-fA-F]{1,2}	{
+	sscanf (yytext, " %s", passwd);
+}
+
+\n|.	{
+	BEGIN(INITIAL);
+	return 0;
+}
+
+}
+
+
+<<EOF>>	{
+	BEGIN(INITIAL);
+	return -1;
+}
+
+
+.	{
+	BEGIN(INITIAL);
+}
+
+
+%%
+
+
+
+int
+macfile_parse (FILE *fp, char *mac, char *ip, unsigned short *port,
+								char *passwd)
+{
+	yyin = fp;
+	yyout = fopen ("/dev/null", "w");
+	return yylex (mac, ip, port, passwd);
+}

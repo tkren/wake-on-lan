@@ -1,9 +1,9 @@
 /*
  *	wol - wake on lan client
  *
- *	$Id: wol.c,v 1.1.1.1 2001/11/06 19:31:37 wol Exp $
+ *	$Id$
  *
- *	Copyright (C) 2000-2001 Thomas Krennwallner <krennwallner@aon.at>
+ *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
  *	This program is free software; you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
  *	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
  *	USA.
  */
+
+
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -40,17 +42,21 @@
 #include "macfile.h"
 
 
+
 /* My name is argv[0] */
-char *name;
+static char *name;
 
 /* IP Address magic packet is addressed to */
-static char *in_addr_str = NULL;
+static char *in_addr_str = DEFAULT_IPADDR;
 
 /* filename with mac addresses */
 static char *pathname = NULL;
 
 /* udp port */
 static unsigned short port = DEFAULT_PORT;
+
+/* SecureON (tm) password */
+static char *passwd = NULL;
 
 /* be verbose */
 static int verbose = 0;
@@ -59,10 +65,10 @@ static int verbose = 0;
 static int msecs = 0;
 
 /* a magic packet */
-magic_packet *magic = NULL;
+static struct magic *magic = NULL;
 
 /* socket file descriptor */
-int sockfd = -1;
+static int sockfd = -1;
 
 
 
@@ -77,9 +83,10 @@ Wake On LAN client - wakes up magic packet compliant machines.\n\n\
 -V, --version       output version information and exit\n\
 -v, --verbose       verbose output\n\
 -w, --wait=NUM      wait NUM millisecs after sending\n\
--i, --ipaddr=IPADDR broadcast to this ip addr\n\
--p, --port=NUM      broadcast to this udp port\n\
--f, --file=FILE     read addresses from file\n\
+-i, --ipaddr=IPADDR broadcast to this IP address\n\
+-p, --port=NUM      broadcast to this UDP port\n\
+-f, --file=FILE     read addresses from file FILE\n\
+-P, --passwd=PASS   send SecureON password PASS\n\
 \n\
 Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n\
 between 0 and ff which represents one byte of the address, which is in\n\
@@ -95,18 +102,10 @@ version (void)
 {
 	fprintf (stdout, PACKAGE " " VERSION "\n\n");
 	fprintf (stdout, _("\
-Copyright (C) 2000-2001 Thomas Krennwallner <krennwallner@aon.at>\n\
+Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>\n\
 This is free software; see the source for copying conditions. There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\
 \n"));
-}
-
-
-
-static void
-cleanup (void)
-{
-		return; /* FIXME: nothing to clean */
 }
 
 
@@ -117,7 +116,7 @@ parse_args (int argc, char *argv[])
 {
 	int c;
 	int option_index;
-	char *options = "hVvw:i:p:f:";
+	char *options = "hVvw:i:p:f:P:";
 	static struct option long_options[] = 
 		{
 			{ "help", no_argument, NULL, 'h' },
@@ -127,6 +126,7 @@ parse_args (int argc, char *argv[])
 			{ "ipaddr", required_argument, NULL, 'i' },
 			{ "port", required_argument, NULL, 'p' },
 			{ "file", required_argument, NULL, 'f' },
+			{ "passwd", required_argument, NULL, 'P' },
 			{ NULL, 0, NULL, 0 }
 		};
 
@@ -139,7 +139,7 @@ Try `%s --help' for more information.\n"), name, name);
 			exit (1);
 		}
 
-	
+
 	for (;;)
 		{
 			c = getopt_long (argc, argv, options, long_options, &option_index);
@@ -195,6 +195,11 @@ Try `%s --help' for more information.\n"), name, name);
 						break;
 
 
+					case 'P':
+						passwd = optarg;
+						break;
+
+
 					case '?':
 						break;
 
@@ -210,18 +215,19 @@ Try `%s --help' for more information.\n"), name, name);
 }
 
 
+
 static int
-assemble_and_send (magic_packet *m, const char *mac_str, const char *ip_str,
-										unsigned short portnum, int socketfd)
+assemble_and_send (struct magic *m, const char *mac_str, const char *ip_str,
+										unsigned short portnum, char *pass_str, int socketfd)
 {
-	if (magic_assemble (m, mac_str))
+	if (magic_assemble (m, mac_str, pass_str))
 		{
 			fprintf (stderr, _("%s: Cannot assemble magic packet for '%s': %s\n"),
 								name, mac_str, strerror (errno));
 			return -1;
 		}
 
-	if (net_send (socketfd, ip_str, portnum, m, sizeof (magic_packet)))
+	if (net_send (socketfd, ip_str, portnum, m->packet, m->size))
 		{
 			fprintf (stderr,
 								_("%s: Cannot send magic packet for '%s' to %s:%d: %s\n"),
@@ -255,13 +261,9 @@ main (int argc, char *argv[])
 	textdomain (PACKAGE);
 #endif /* ENABLE_NLS */
 	
-	atexit (cleanup);
-
 	i = parse_args (argc, argv);
 
-	if (in_addr_str == NULL) in_addr_str = DEFAULT_IPADDR;
-
-	magic = magic_create ();
+	magic = magic_create (passwd != NULL);
 	if (magic == NULL) exit (1);
 
 	sockfd = net_open ();
@@ -271,7 +273,8 @@ main (int argc, char *argv[])
 	/* loop through possible MAC addresses */
 	for (; i < argc; i++)
 		{
-			ret -= assemble_and_send (magic, argv[i], in_addr_str, port, sockfd);
+			ret -= assemble_and_send (magic, argv[i], in_addr_str, port, passwd,
+																sockfd);
 		}
 
 
@@ -280,34 +283,33 @@ main (int argc, char *argv[])
 		{
 			FILE *fp;
 			unsigned short p;
-			char *mac = NULL;
-			char *ip = NULL;
+			char mac[18];
+			char ip[22];
+			char pass[18];
+			char *pass_ptr = NULL;
 
-			fp = macfile_open (pathname);
+			fp = fopen (pathname, "r");
 			if (fp == NULL)
 				{
 					fprintf (stderr, "%s: %s: %s\n",
-													name, pathname, strerror (errno));
+														name, pathname, strerror (errno));
 					exit (1);
 				}
 
 			/* loop through fp */
-			while (!feof (fp) && !ferror (fp))
+			for (;;)
 				{
-					if (macfile_line (fp, &mac, &ip, &p)) break;
+					if (macfile_parse (fp, mac, ip, &p, pass)) break;
 
-					ret -= assemble_and_send (magic, mac, ip, p, sockfd);
-
-					xfree (mac);
-					xfree (ip);
+					ret -= assemble_and_send (magic, mac, ip, p, pass_ptr, sockfd);
 				}
 
-			macfile_close (fp);
+			fclose (fp);
 		}
 
 	net_close (sockfd);
 
 	magic_destroy (magic);
 
-	exit (ret ? 1 : 0);
+	exit (ret != 0);
 }
