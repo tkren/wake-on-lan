@@ -6,9 +6,9 @@
 @setcontentsaftertitlepage
 
 
-@set UPDATED 09 April 2002
-@set EDITION 0.6.1
-@set VERSION 0.6.1
+@set UPDATED 09 August 2003
+@set EDITION 0.7.0
+@set VERSION 0.7.0
 
 
 @comment Tell install-info what to do
@@ -22,7 +22,7 @@
 This file documents wol @value{VERSION}, the Wake On LAN client.
 
 @c man begin COPYRIGHT
-Copyright 2001-2002 Thomas Krennwallner @email{krennwallner@@aon.at}
+Copyright 2001-2003 Thomas Krennwallner @email{krennwallner@@aon.at}
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.1
@@ -57,7 +57,7 @@ GNU info entry for @file{wol}.
 
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{} 2001-2002 Thomas Krennwallner @email{krennwallner@@aon.at}
+Copyright @copyright{} 2001-2003 Thomas Krennwallner @email{krennwallner@@aon.at}
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.1
@@ -182,9 +182,10 @@ MAC addresses and the corresponding IP addresses from a file or from standard
 input. Along with this file you can optionally specify the corresponding
 UDP destination port and a SecureON password.
 
-An additional AWK script that parses ISC dhcpd's @file{dhcpd.conf} and outputs
-in @code{wol's} native fileformat named @code{wol-dhcpdconf} is also provided.
-You can invoke it as followed: @code{wol-dhcpdconf < /etc/dhcpd.conf | wol -}.
+Additional AWK scripts that parses ISC dhcpd's @file{dhcpd.conf} and bootpc's
+@file{bootptab} and outputs in @code{wol's} native fileformat are also provided.
+They are named @code{wol-dhcpdconf} and @code{wol-bootptab}.
+You can invoke it as following: @code{wol-dhcpdconf < /etc/dhcpd.conf | wol -}.
 
 An example of usage is @code{wol MAC-ADDRESS} which assembles a Magic
 Packet which is intended to wake up the NIC with hardware address
@@ -196,19 +197,20 @@ Packet which is intended to wake up the NIC with hardware address
 
 @c man begin OPTIONS
 @table @samp
-@item -h
-@itemx --help
+@item --help
 
-Print a summary of the command line options and exit.
+Print a summary of the command line options.
 
 
 @item -V
 @itemx --version
 
-Print the version number of @code{wol} and exit.
+Print the version number of @code{wol}.
 
 
-@item -i HOST
+@item -h HOST
+@itemx --host=HOST
+@itemx -i HOST
 @itemx --ipaddr=HOST
 
 Broadcast packet to this IP address or hostname. This is important if your wol
@@ -245,17 +247,19 @@ Turns on verbose output.
 @item -w NUM
 @itemx --wait=NUM
 
-Waits NUM milliseconds between Magic Packets. Also known as fuse health
-pack.
+Waits NUM milliseconds between Magic Packets. Also known as fuse health pack.
 
 
-@item -P PASS
-@itemx --passwd=PASS
+@item --passwd[=PASS]
 
 Send a magic packet with SecureON password feature. PASS is written as
 x-x-x-x-x-x, where x is a hexadecimal number between 0 and ff which represents
-one byte of the password. To set the password of your SecureON capable
-NIC, you can use ethtool @url{http://www.sourceforge.net/projects/gkernel/}.
+one byte of the password.
+
+If you don't provide PASS @code{wol} prompts you for a password.
+
+To set the password of your SecureON capable NIC, you can use
+ethtool @url{http://www.sourceforge.net/projects/gkernel/}.
 
 @end table
 @c man end
@@ -268,14 +272,14 @@ NIC, you can use ethtool @url{http://www.sourceforge.net/projects/gkernel/}.
 @table @samp
 @item wol 00:4F:49:07:0B:5F 00:4F:50:06:12:4F
 
-Sends packet addressed to 255.255.255.255:40000 and is intended to wake up
-hardware address 00:4F:49:07:0B:5F and 00:4F:50:06:12:4F.
+Sends packets addressed to 255.255.255.255:40000 and is intended to wake up
+the machines with hardware addresses 00:4F:49:07:0B:5F and 00:4F:50:06:12:4F.
 
 
-@item wol -i 192.168.3.255 -p 69 00:4F:49:07:0B:5F 
+@item wol --host=192.168.3.255 -p 69 00:4F:49:07:0B:5F 
 
-Sends packet addressed to 192.168.3.255:69 and is intended to wake up hardware
-address 00:4F:49:07:0B:5F.
+Sends packet addressed to 192.168.3.255:69 and is intended to wake up the
+NIC with hardware address 00:4F:49:07:0B:5F.
 
 
 @item wol --passwd=09-e6-f5-f3-dc-4e 00:4F:49:07:0B:5F
@@ -284,16 +288,22 @@ Sends packet addressed to 255.255.255.255:40000 with SecureON password
 09-e6-f5-f3-dc-4e.
 
 
+@item wol --passwd beblebroox
+
+Prompts you for a SecureON password and looks up /etc/ethers for the ethernet
+address of host beblebroox.
+
+
 @item wol -f /etc/ethers
 
-Read hardware addresses and corresponding IP addresses from file
+Read hardware addresses and corresponding IP addresses/hostnames from file
 @file{/etc/ethers}.
 
 File looks like:
 
 @example
 Hardware-Address  IP-Address:Port
-Hardware-Address  IP-Address
+Hardware-Address  Hostname
 # Comment
 Hardware-Address  IP-Address:Port	SecureON-Password
 @end example
@@ -301,19 +311,41 @@ Hardware-Address  IP-Address:Port	SecureON-Password
 
 @item wol-dhcpdconf < /etc/dhcpd.conf | wol -
 
-@code{wol-dhcpdconf} filters MAC addresses and corresponding IP addresses from
-@file{/etc/dhcpd.conf} (config file of ISC dhcpd) and outputs it in macfile
-format (native wol format). @code{wol} sends the corresponding
-Magic Packets.
+@code{wol-dhcpdconf} filters MAC addresses and corresponding
+IP addresses/hostnames from @file{/etc/dhcpd.conf} (config file of ISC dhcpd)
+and outputs it in macfile format (native wol format). @code{wol} sends the
+corresponding Magic Packets.
 
-A valid dhcp entry:
+Valid dhcp entries:
 
 @example
-host hugo
+host zaphod
 @{
   hardware ethernet 11:ab:e3:5f:7f:8c;
   fixed-address 10.0.0.1;
 @}
+
+host marvin
+@{
+  hardware ethernet 22:ba:3e:f5:f7:c8;
+  fixed-address marvin.is.depp.at;
+@}
+@end example
+
+
+@item wol-bootptab < /etc/bootptab | wol -
+
+@code{wol-bootptab} filters MAC addresses and corresponding
+IP addresses/hostnames from @file{/etc/bootptab} (config file of bootpc)
+and outputs it in macfile format (native wol format). @code{wol} sends the
+corresponding Magic Packets.
+
+Valid bootp entries:
+
+@example
+xterm1:ha=0x00e4ff76553e:ht=ethernet:bf=vmlinuz:ip=xterm1:tc=.default:
+
+xterm2:ha=0x00e5ee6744e3:ht=ethernet:bf=vmlinuz:ip=10.0.0.25:tc=.default:
 @end example
 
 @end table
