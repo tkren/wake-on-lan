@@ -1,0 +1,141 @@
+# Italian messages for wol.
+# Copyright (C) 2001-2002 Free Software Foundation, Inc.
+# Eva Krennwallner <wally2k@gmx.net>, 2001-2002.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: wol 0.6.0\n"
+"POT-Creation-Date: 2001-11-06 09:58+0100\n"
+"PO-Revision-Date: 2001-09-25 16:31+0200\n"
+"Last-Translator: Eva Krennwallner <wally2k@gmx.net>\n"
+"Language-Team:\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: src/wol.c:73
+#, c-format
+msgid ""
+"Usage: %s [OPTION] ... MAC-ADDRESS ...\n"
+"Wake On LAN client - wakes up magic packet compliant machines.\n"
+"\n"
+"-h, --help          display this help and exit\n"
+"-V, --version       output version information and exit\n"
+"-v, --verbose       verbose output\n"
+"-w, --wait=NUM      wait NUM millisecs after sending\n"
+"-i, --ipaddr=IPADDR broadcast to this IP address\n"
+"-p, --port=NUM      broadcast to this UDP port\n"
+"-f, --file=FILE     read addresses from file FILE\n"
+"-P, --passwd=PASS   send SecureON password PASS\n"
+"\n"
+"Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n"
+"between 0 and ff which represents one byte of the address, which is in\n"
+"network byte order (big endian).\n"
+msgstr ""
+"Uso: %s [OPTIONE] ... MAC-ADDRESS ...\n"
+"Wake On LAN client - wakes up magic packet compliant machines.\n"
+"\n"
+"-h, --help          mostra questo aiuto ed esce\n"
+"-V, --version       stampa le informazioni sulla versione ed esce\n"
+"-v, --verbose       verbose output\n"
+"-w, --wait=NUM      wait NUM millisecs after sending\n"
+"-i, --ipaddr=IPADDR broadcast to this IP address\n"
+"-p, --port=NUM      broadcast to this UDP port\n"
+"-f, --file=FILE     read addresses from file FILE\n"
+"-P, --passwd=PASS   send SecureON password PASS\n"
+"\n"
+"Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n"
+"between 0 and ff which represents one byte of the address, which is in\n"
+"network byte order (big endian).\n"
+#"Benutzung: %s [OPTION] ... MAC-ADRESSE ...\n"
+#"Wake On LAN client - weckt Magic Packet-fähige Maschinen auf.\n"
+#"\n"
+#"-h, --help          Anzeigen dieser Hilfe und beenden\n"
+#"-V, --version       Ausgabe der Versionsinformation und beenden\n"
+#"-v, --verbose       wortreiche Ausgabe\n"
+#"-w, --wait=NUM      warte NUM Millisekunden nach dem Senden\n"
+#"-i, --ipaddr=IPADDR übertrage zu IP Adresse IPADDR\n"
+#"-p, --port=NUM      übertrage zu UDP Anschluss NUM\n"
+#"-f, --file=FILE     lese Adressen von Datei FILE\n"
+#"-P, --passwd=PASS   sende SecureON Passwort PASS\n"
+#"\n"
+#"Jede MAC-ADRESSE wird als x:x:x:x:x:x geschrieben, wobei x eine "
+#"hexadezimale\n"
+#"Zahl zwischen 0 und ff ist, die ein Byte der Adresse repräsentiert, die in\n"
+#"Netzwerk Byte Ordnung (Big Endian) ist.\n"
+
+#: src/wol.c:88
+msgid ""
+"\n"
+"Report bugs to <krennwallner@aon.at>\n"
+msgstr ""
+"\n"
+"Segnalare i bug a <krennwallner@aon.at>\n"
+
+#: src/wol.c:97
+msgid ""
+"Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>\n"
+"This is free software; see the source for copying conditions. There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+"Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>\n"
+"Questo è software libero; si veda il sorgente per le condizioni di copiatura.\n"
+"NON c'è garanzia; neppure di COMMERCIABILITÀ o IDONEITÀ AD UN PARTICOLARE\n"
+"SCOPO.\n"
+
+#: src/wol.c:136
+#, c-format
+msgid ""
+"%s: Too few arguments.\n"
+"Try `%s --help' for more information.\n"
+msgstr ""
+"%s: Troppo pochi argomenti.\n"
+"Usare `grep --help' per ulteriori informazioni.\n"
+
+#: src/wol.c:170
+#, c-format
+msgid "%s: Invalid time given\n"
+msgstr ""
+#msgstr "%s: Falsche Zeit gegeben\n"
+
+#: src/wol.c:186
+#, c-format
+msgid "%s: Invalid port given\n"
+msgstr ""
+#msgstr "%s: Falscher Anschluss gegeben\n"
+
+#: src/wol.c:219
+#, c-format
+msgid "%s: Cannot assemble magic packet for '%s': %s\n"
+msgstr ""
+#msgstr "%s: Kann kein magic packet für »%s« zusammenstellen: %s\n"
+
+#: src/wol.c:227
+#, c-format
+msgid "%s: Cannot send magic packet for '%s' to %s:%d: %s\n"
+msgstr ""
+#msgstr "%s: Kann kein magic packet für »%s« zu %s:%d senden: %s\n"
+
+#: src/wol.c:232
+#, c-format
+msgid "Waking up %s"
+msgstr ""
+#msgstr "Wecke %s"
+
+#: src/wol.c:233
+#, c-format
+msgid " with %s:%d"
+msgstr ""
+#msgstr " mit %s:%d"
+
+#: src/wol.c:234
+msgid "...\n"
+msgstr ""
+#msgstr " auf...\n"
+
+#: src/net.c:98
+#, c-format
+msgid "Invalid IP address given: %s\n"
+msgstr ""
+#msgstr "Ungültige IP Adresse gegeben: %s\n"

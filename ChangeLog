@@ -1,3 +1,14 @@
+2002-02-08	Thomas Krennwallner <krennwallner@aon.at>
+
+	* po/fr.po: french translation mostly done by Birgit and Brigitta Roenig
+	* po/es.po: initial spanish translation
+	* po/it.po: initial italian translation
+
+2002-02-07	Thomas Krennwallner <krennwallner@aon.at>
+
+	* po/de.po: fixed typo in german translation
+	* po/fr.po: initial french translation
+
 2002-01-10	Thomas Krennwallner <krennwallner@aon.at>
 
 	* NOTES: added

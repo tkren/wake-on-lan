@@ -1,6 +1,7 @@
-# German messages for wol.
-# Copyright (C) 2001-2002 Free Software Foundation, Inc.
-# Thomas Krennwallner <krennwallner@aon.at>, 2001-2002.
+# French messages for wol.
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# Birgit Roenig <roenig@uta.net>, 2002.
+# Brigitta Roenig <roenig@uta.net>, 2002.
 #
 #, fuzzy
 msgid ""
@@ -8,7 +9,7 @@ msgstr ""
 "Project-Id-Version: wol 0.6.0\n"
 "POT-Creation-Date: 2001-11-06 09:58+0100\n"
 "PO-Revision-Date: 2001-09-25 16:31+0200\n"
-"Last-Translator: Thomas Krennwallner <krennwallner@aon.at>\n"
+"Last-Translator: Birgit Roenig <roenig@uta.net>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -33,22 +34,21 @@ msgid ""
 "between 0 and ff which represents one byte of the address, which is in\n"
 "network byte order (big endian).\n"
 msgstr ""
-"Benutzung: %s [OPTION] ... MAC-ADRESSE ...\n"
-"Wake On LAN client - weckt Magic Packet-fähige Maschinen auf.\n"
+"Usage: %s [OPTION] ... MAC-ADDRESS ...\n"
+"Wake On LAN client - réveiller des ordinateures supportant Magic Packet.\n"
 "\n"
-"-h, --help          Anzeigen dieser Hilfe und beenden\n"
-"-V, --version       Ausgabe der Versionsinformation und beenden\n"
-"-v, --verbose       wortreiche Ausgabe\n"
-"-w, --wait=NUM      warte NUM Millisekunden nach dem Senden\n"
-"-i, --ipaddr=IPADDR übertrage zu IP Adresse IPADDR\n"
-"-p, --port=NUM      übertrage zu UDP Anschluss NUM\n"
-"-f, --file=FILE     lese Adressen von Datei FILE\n"
-"-P, --passwd=PASS   sende SecureON Passwort PASS\n"
+"-h, --help          afficher l'aide et quitter\n"
+"-V, --version       afficher le nom et la version du logiciel\n"
+"-v, --verbose       verbose output\n"
+"-w, --wait=NUM      attendre NUM millisecondes aprés envoyer\n"
+"-i, --ipaddr=IPADDR publicer à cette IP addresse\n"
+"-p, --port=NUM      publicer à cet UDP port\n"
+"-f, --file=FILE     read addresses from file FILE\n"
+"-P, --passwd=PASS   send SecureON password PASS\n"
 "\n"
-"Jede MAC-ADRESSE wird als x:x:x:x:x:x geschrieben, wobei x eine "
-"hexadezimale\n"
-"Zahl zwischen 0 und ff ist, die ein Byte der Adresse repräsentiert, die in\n"
-"Netzwerk Byte Ordnung (Big Endian) ist.\n"
+"Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n"
+"between 0 and ff which represents one byte of the address, which is in\n"
+"network byte order (big endian).\n"
 
 #: src/wol.c:88
 msgid ""
@@ -56,7 +56,7 @@ msgid ""
 "Report bugs to <krennwallner@aon.at>\n"
 msgstr ""
 "\n"
-"Berichten Sie Fehler an <krennwallner@aon.at>\n"
+"Rapporter toutes anomalies à <krennwallner@aon.at>\n"
 
 #: src/wol.c:97
 msgid ""
@@ -64,11 +64,10 @@ msgid ""
 "This is free software; see the source for copying conditions. There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>\n"
-"Dies ist freie Software. Bitte lesen Sie den Quellcode für Kopierrechte.\n"
-"Es gibt keinerlei Garantien, nicht für Verkaufbarkeit oder auch die "
-"Einsatz-\n"
-"fähigkeit für einen bestimmte Zweck.\n"
+"Copyright © 2000-2002 Thomas Krennwallner <krennwallner@aon.at>\n"
+"Ce logiciel est gratuit; voir les sources pour les conditions de\n"
+"reproduction. AUCUNE garantie n'est donnée; tant pour des raisons\n"
+"COMMERÇIALES que pour RÉPONDRE À UN BESOIN PARTICULIER.\n"
 
 #: src/wol.c:136
 #, c-format
@@ -76,44 +75,44 @@ msgid ""
 "%s: Too few arguments.\n"
 "Try `%s --help' for more information.\n"
 msgstr ""
-"%s: Zu wenige Argumente.\n"
-"Versuchen Sie »%s --help« für weitere Informationen.\n"
+"%s: Trop peu de paramètres.\n"
+"Pour en savoir davantage, faites: `%s --help'.\n"
 
 #: src/wol.c:170
 #, c-format
 msgid "%s: Invalid time given\n"
-msgstr "%s: Falsche Zeit gegeben\n"
+msgstr "%s: Le temps choisé invalide\n"
 
 #: src/wol.c:186
 #, c-format
 msgid "%s: Invalid port given\n"
-msgstr "%s: Falscher Anschluss gegeben\n"
+msgstr "%s: Le port choisé invalide\n"
 
 #: src/wol.c:219
 #, c-format
 msgid "%s: Cannot assemble magic packet for '%s': %s\n"
-msgstr "%s: Kann kein magic packet für »%s« zusammenstellen: %s\n"
+msgstr "%s: Ne peut pas assembler magic packet pour '%s': %s\n"
 
 #: src/wol.c:227
 #, c-format
 msgid "%s: Cannot send magic packet for '%s' to %s:%d: %s\n"
-msgstr "%s: Kann kein magic packet für »%s« zu %s:%d senden: %s\n"
+msgstr "%s: Ne peut pas envoyer magic packet pour '%s' à %s:%d: %s\n"
 
 #: src/wol.c:232
 #, c-format
 msgid "Waking up %s"
-msgstr "Wecke %s"
+msgstr "Réveiller %s"
 
 #: src/wol.c:233
 #, c-format
 msgid " with %s:%d"
-msgstr " mit %s:%d"
+msgstr " avec %s:%d"
 
 #: src/wol.c:234
 msgid "...\n"
-msgstr " auf...\n"
+msgstr "...\n"
 
 #: src/net.c:98
 #, c-format
 msgid "Invalid IP address given: %s\n"
-msgstr "Ungültige IP Adresse gegeben: %s\n"
+msgstr "IP addresse invalide: %s\n"
