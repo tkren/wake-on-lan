@@ -1,3 +1,8 @@
+2002-04-23	Thomas Krennwallner <krennwallner@aon.at>
+
+	* src/wol-dhcpdconf.in: fixed a parsing bug - # doesn't always comment lines
+		out :-( (due a bugreport from FIXME <FIXME@FIXME.COM>)
+
 2002-04-12	Thomas Krennwallner <krennwallner@aon.at>
 
 	* Makefile.am: dist-hook that cleans the debian dir
