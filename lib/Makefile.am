@@ -1,4 +1,4 @@
 noinst_LIBRARIES = libwrappers.a
 libwrappers_a_SOURCES = wrappers.h getopt.h getopt1.c getopt.c usleep.c \
-usleep.h xmalloc.c xalloc.h
+usleep.h xmalloc.c xalloc.h getstr.c getstr.h getline.c getline.h
 MAINTAINERCLEANFILES = Makefile.in

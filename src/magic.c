@@ -3,7 +3,7 @@
  *
  *	create and assemble magic packets
  *
- *	$Id: magic.c,v 1.3 2002/01/11 06:32:51 wol Exp $
+ *	$Id: magic.c,v 1.4 2002/02/13 08:27:44 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -154,11 +154,8 @@ magic_assemble (struct magic *magic_buf, const char *mac_str,
 			if (sscanf (passwd_str, "%2x-%2x-%2x-%2x-%2x-%2x",
 									&s[0], &s[1], &s[2], &s[3], &s[4], &s[5]) != MAGIC_SECUREON)
 				{
-#if 0
 					errno = EINVAL;
 					return -1;
-#endif
-					return 0;
 				}
 
 			if (magic_buf->size != sizeof (struct secureon))

@@ -1,7 +1,7 @@
 /*
  *	wol - wake on lan client
  *
- *	$Id: macfile.h,v 1.1.1.1 2001/11/06 19:31:23 wol Exp $
+ *	$Id: macfile.h,v 1.2 2002/01/10 07:47:49 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -27,7 +27,7 @@
 
 #include <stdio.h>
 
-int macfile_parse (FILE *fp, char *mac, char *ip, unsigned short *port,
-										char *passwd);
+int macfile_parse (FILE *fp, char **mac_str, char **ip, unsigned short *port,
+										char **passwd);
 
 #endif /* _MACFILE_H */

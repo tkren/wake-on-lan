@@ -1,7 +1,7 @@
 This is wol, the Wake On Lan client. It wakes up magic packet compliant
-machines such as boxes with wake-on-lan ethernet-cards. Some Compaq
-workstations provides SecureON which extends wake-on-lan with a password. This
-feature is also provided by wol.
+machines such as boxes with wake-on-lan ethernet-cards. Some workstations
+provides SecureON which extends wake-on-lan with a password. This feature
+is also provided by wol.
 
 wol has a homepage at http://ahh.sourceforge.net/wol/
 

@@ -1,3 +1,19 @@
+2002-02-25	Thomas Krennwallner <krennwallner@aon.at>
+
+	* demo/nic-fake.py: added SecureON support and some improvements
+	* src/macfile.c: bugfixes
+	* src/magic.c: error return fixes
+
+2002-02-23	Thomas Krennwallner <krennwallner@aon.at>
+
+	* src/macfile.l: remove
+	* src/macfile.c: added old version of my own parser with GNU getline support
+		and SecureON password support
+	* m4/getline.m4: added
+	* lib/getstr.{c,h}: added
+	* lib/getline.{c,h}: added
+	* configure.ac: AM_FUNC_GETLINE
+
 2002-02-21	Thomas Krennwallner <krennwallner@aon.at>
 
 	* src/wol-dhcpdconf.in: new awk script for dhcpd.conf parsing

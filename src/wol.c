@@ -3,7 +3,7 @@
  *
  *	main program
  * 
- *	$Id: wol.c,v 1.7 2002/02/13 08:27:44 wol Exp $
+ *	$Id: wol.c,v 1.8 2002/02/13 18:36:50 wol Exp $
  *
  *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -44,9 +44,6 @@
 #include "macfile.h"
 
 
-#define MAC_STRING_LEN 22
-#define IP_STRING_LEN 18
-#define PASSWD_STRING_LEN 18
 
 
 /* My name is argv[0] */
@@ -331,22 +328,21 @@ main (int argc, char *argv[])
 						}
 				}
 
-			mac_str = (char *) xmalloc (MAC_STRING_LEN);
-			in_addr_str = (char *) xmalloc (IP_STRING_LEN);
-			passwd = (char *) xmalloc (PASSWD_STRING_LEN);
-
 			/* loop through fp */
 			for (;;)
 				{
-					if (macfile_parse (fp, mac_str, in_addr_str, &port, passwd)) break;
+					if (macfile_parse (fp, &mac_str, &in_addr_str, &port, &passwd)) break;
+
+					if (port == 0 || port > 65535)
+						port = DEFAULT_PORT;
 
 					ret -= assemble_and_send (magic, mac_str, in_addr_str, port, passwd,
 																		sockfd);
-				}
 
-			XFREE (mac_str);
-			XFREE (in_addr_str);
-			XFREE (passwd);
+					XFREE (mac_str);
+					XFREE (in_addr_str);
+					XFREE (passwd);
+				}
 
 			fclose (fp);
 		}

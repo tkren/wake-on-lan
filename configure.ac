@@ -24,7 +24,6 @@ AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-AM_PROG_LEX
 AC_PROG_RANLIB
 
 
@@ -51,6 +50,7 @@ AC_CHECK_HEADERS(unistd.h getopt.h sys/time.h locale.h libintl.h)
 dnl check system functions
 jm_FUNC_MALLOC
 jm_FUNC_REALLOC
+AM_FUNC_GETLINE
 AC_CHECK_FUNCS(usleep)
 AC_CHECK_FUNCS(getopt_long)
 AC_CHECK_FUNC(inet_aton, [], [
