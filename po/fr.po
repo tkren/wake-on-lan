@@ -7,8 +7,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: wol 0.6.0\n"
-"POT-Creation-Date: 2002-04-12 08:53+0200\n"
+"Project-Id-Version: wol 0.7.0\n"
+"Report-Msgid-Bugs-To: krennwallner@aon.at\n"
+"POT-Creation-Date: 2003-08-08 21:51+0200\n"
 "PO-Revision-Date: 2002-04-08 13:06+0200\n"
 "Last-Translator: Florian Träxler <traexler.josef@aon.at>\n"
 "Language-Team:\n"
@@ -40,19 +41,16 @@ msgstr "%s: l'option `%c%s' ne permet pas d'argument\n"
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: l'option `%s' requiert un argument\n"
 
-#. --option
 #: lib/getopt.c:770
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: l'option `--%s' n'est pas reconnue\n"
 
-#. +option or -option
 #: lib/getopt.c:774
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: l'option `%c%s' n'est pas reconnue\n"
 
-#. 1003.2 specifies the format of this message.
 #: lib/getopt.c:800
 #, c-format
 msgid "%s: illegal option -- %c\n"
@@ -63,7 +61,6 @@ msgstr "%s: l'option -- %c est illégale\n"
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: l'option -- %c est invalide\n"
 
-#. 1003.2 specifies the format of this message.
 #: lib/getopt.c:833 lib/getopt.c:963
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
@@ -79,8 +76,6 @@ msgstr "%s: l'option `-W %s est ambiguë\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: l'option `-W %s' ne permet pas d'argument\n"
 
-#. If XALLOC_FAIL_FUNC is NULL, or does return, display this message
-#. before exiting when memory is exhausted.  Goes through gettext.
 #: lib/xmalloc.c:66
 msgid "memory exhausted"
 msgstr "mémoire épuisée"
@@ -91,19 +86,21 @@ msgid "Try `%s --help' for more information.\n"
 msgstr "Pour en savoir davantage, faites: `%s --help'.\n"
 
 #: src/wol.c:95
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Usage: %s [OPTION] ... MAC-ADDRESS ...\n"
 "Wake On LAN client - wakes up magic packet compliant machines.\n"
 "\n"
-"-h, --help          display this help and exit\n"
+"    --help          display this help and exit\n"
 "-V, --version       output version information and exit\n"
 "-v, --verbose       verbose output\n"
 "-w, --wait=NUM      wait NUM millisecs after sending\n"
-"-i, --ipaddr=HOST   broadcast to this IP address or hostname\n"
+"-h, --host=HOST     broadcast to this IP address or hostname\n"
+"-i, --ipaddr=HOST   same as --host\n"
 "-p, --port=NUM      broadcast to this UDP port\n"
 "-f, --file=FILE     read addresses from file FILE (\"-\" reads from stdin)\n"
-"-P, --passwd=PASS   send SecureON password PASS\n"
+"    --passwd[=PASS] send SecureON password PASS (if no PASS is given, you\n"
+"                    will be prompted for the password)\n"
 "\n"
 "Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n"
 "between 0 and ff which represents one byte of the address, which is in\n"
@@ -127,7 +124,7 @@ msgstr ""
 "entre 0 et ff qui représents un octet de l'adresse, qui est dans\n"
 "réseau octet composition (big endian).\n"
 
-#: src/wol.c:111
+#: src/wol.c:113
 msgid ""
 "\n"
 "PASS is written as x-x-x-x-x-x, where x is a hexadecimal number between 0\n"
@@ -137,7 +134,7 @@ msgstr ""
 "PASS est écrit comme x-x-x-x-x-x, où x est un hexadecimal nombre entre 0 et\n"
 "ff qui représents un octet de mot de passe.\n"
 
-#: src/wol.c:115
+#: src/wol.c:117
 msgid ""
 "\n"
 "Report bugs to <krennwallner@aon.at>\n"
@@ -145,54 +142,59 @@ msgstr ""
 "\n"
 "Rapporter toutes anomalies à <krennwallner@aon.at>\n"
 
-#: src/wol.c:127
+#: src/wol.c:129
+#, fuzzy
 msgid ""
-"Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>\n"
+"Copyright (C) 2000-2003 Thomas Krennwallner <krennwallner@aon.at>\n"
 "This is free software; see the source for copying conditions. There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"Copyright © 2000-2002 Thomas Krennwallner <krennwallner@aon.at>\n"
+"Copyright © 2000-2003 Thomas Krennwallner <krennwallner@aon.at>\n"
 "Ce logiciel est gratuit; voir les sources pour les conditions de\n"
 "reproduction. AUCUNE garantie n'est donnée; tant pour des raisons\n"
 "COMMERÇIALES que pour RÉPONDRE À UN BESOIN PARTICULIER.\n"
 
-#: src/wol.c:159
+#: src/wol.c:163
 msgid "Too few arguments."
 msgstr "Trop peu de paramètres."
 
-#: src/wol.c:191
+#: src/wol.c:195
 msgid "Invalid time given"
 msgstr "Le temps choisé invalide"
 
-#: src/wol.c:206
+#: src/wol.c:211
 msgid "Invalid port given"
 msgstr "Le port choisé invalide"
 
-#: src/wol.c:229
+#: src/wol.c:230
+msgid "Password"
+msgstr ""
+
+#: src/wol.c:248
 msgid "You must specify at least one MAC-ADDRESS."
 msgstr "Vous devez sélectionner au minimum une MAC-ADDRESS."
 
-#: src/wol.c:264
+#: src/wol.c:283
 #, c-format
 msgid "Cannot assemble magic packet for '%s'"
 msgstr "Ne peut pas assembler magic packet pour '%s'"
 
-#: src/wol.c:270
+#: src/wol.c:289
 #, c-format
 msgid "Cannot send magic packet for '%s' to %s:%d"
 msgstr "Ne peut pas envoyer magic packet pour '%s' à %s:%d"
 
-#: src/wol.c:275
+#: src/wol.c:294
 #, c-format
 msgid "Waking up %s"
 msgstr "Réveille %s"
 
-#: src/wol.c:277
+#: src/wol.c:296
 #, c-format
 msgid " with %s:%d"
 msgstr " avec %s:%d"
 
-#: src/wol.c:278
+#: src/wol.c:297
 msgid "...\n"
 msgstr "...\n"
 
