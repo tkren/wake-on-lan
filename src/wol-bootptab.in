@@ -2,7 +2,7 @@
 #
 #	wol-bootptab - parse a bootptab and output it in macfile format
 #
-#	$Id: wol-bootptab.in,v 1.2 2003/08/09 08:53:52 wol Exp $
+#	$Id: wol-bootptab.in,v 1.1 2002/04/12 05:53:00 wol Exp $
 #
 #	Copyright (C) 2002 Thomas Krennwallner <krennwallner@aon.at>
 #
@@ -24,30 +24,28 @@
 @AWK@ '
 
 BEGIN	{
+	RS = "\\"
+	FS = ":"
 	mac = "" # all MAC Addresses are stored in this string
 	ip = ""  # all IP Addresses are stored in this string
 }
 
 
-/^[^#]+[ \n\t\\a-zA-Z0-9:]+:ha=0x[0-9a-fA-F]+/	{
-	i = match ($0, "ha=0x[0-9a-fA-F]+")
-	macc = substr ($0, i + 5, 12)
-	maco = ""
-	for (i = 1; i < 10; i += 2)
-		maco = maco "" substr (macc, i, 2) ":"
-	
-	maco = maco "" substr (macc, i, 2)
-	
-	mac = mac " " maco
-}
-
-
-/^[^#]+[ \n\t\\a-zA-Z0-9:]+:ip=[0-9.-_a-zA-Z]+/	{
-	i = match ($0, "ip=[0-9.-_a-zA-Z]+")
-	ipc = substr ($0, i + 3, RLENGTH)
-	i = match (ipc, ":")
-	ipo = substr (ipc, 1, i - 1)
-	ip = ip " " ipo
+/ha=0x[0-9a-fA-F]+/	{
+	for (i = 1; i < NF; ++i)
+		{
+			if (match ($i, "ha=0x[0-9a-fA-F]+") != 0)
+				{
+					gsub ("ha=0x", "", $i)
+					gsub (/[0-9a-fA-F][0-9a-fA-F]/, ":&", $i)
+					mac = mac " " substr ($i, 2)
+				}
+			if (match ($i, "ip=[0-9.-_a-zA-Z]+") != 0)
+				{
+					gsub ("ip=", "", $i)
+					ip = ip " " $i
+				}
+		}
 }
 
 
