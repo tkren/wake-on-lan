@@ -6,9 +6,9 @@
 @setcontentsaftertitlepage
 
 
-@set UPDATED 14 August 2003
-@set EDITION 0.7.0
-@set VERSION 0.7.0
+@set UPDATED 18 April 2004
+@set EDITION 0.7.1
+@set VERSION 0.7.1
 
 
 @comment Tell install-info what to do
@@ -64,7 +64,7 @@ GNU info entry for @file{wol}.
 
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{} 2001-2003 Thomas Krennwallner
+Copyright @copyright{} 2001,2002,2003,2004 Thomas Krennwallner
 @email{krennwallner@@aon.at}
 
 This document may be distributed and modified under the terms of the GNU
@@ -171,7 +171,7 @@ looks like:
 @multitable {ff} {ff} {ff} {ff} {ff} {ff} {ff}
 @item @strong{00} @tab ff @tab ff @tab ff @tab ff @tab ff @tab ff
 @item @strong{06} @tab 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
-@item @strong{14} @tab 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
+@item @strong{12} @tab 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
 @item @strong{**} @tab  @tab  @tab  @tab  @tab  @tab
 @item @strong{96} @tab 00 @tab E0 @tab 98 @tab 13 @tab 45 @tab E2
 @end multitable
