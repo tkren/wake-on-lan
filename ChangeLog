@@ -13,6 +13,9 @@
 	* m4/uintmax_t.m4: New file, from gettext-0.12.1.
 	* m4/ulonglong.m4: New file, from gettext-0.12.1.
 
+	* intl: New direcotry to prevent gettextize annoyances.
+	* intl/Makefile.in: New file to prevent gettextize annoynces.
+	
 2003-08-11  Magin Lopez  <magin@giodental.com>
 
 	* po/es.po: Fix spanish translation.
