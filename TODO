@@ -1,3 +1,4 @@
+- document stdin mode
 - hack nu macfile.l and SecureON support
 - try a win32 port
 - wol.gmo in hpux isn't here? bug in gettext?
