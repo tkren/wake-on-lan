@@ -1,7 +1,73 @@
 2004-04-18  Thomas Krennwallner  <djmaecki@ull.at>
 
-	* TODO: error.c depends on libintl.h.
+	* NEWS: Update user visible changes for 0.7.1.
 
+	* autogen.sh: Remove --force invocation of gettextize.
+
+	* po/de.po: Update messages.
+	* po/es.po: Likewise.
+	* po/fr.po: Likewise.
+	* po/it.po: Likewise.
+
+	* src/net.c (tcp_open): Gettextize error message.
+
+	* wol.spec: Bump version to 0.7.1.
+
+	* doc/wol.texi (Magic Packet): Fix byte offset
+	documentation (closes sf-bug #793030).
+
+	* m4/strerror_r.m4: New file.
+
+	* lib/error.c: Update from todays gnulib CVS to fix --disable-nls
+	configure option bug (due to a bugreport from Johan Fredin
+	<griffin@legonet.org>).
+	* lib/error.h: Likewise.
+	* m4/error.m4: Likewise.
+
+	* src/Makefile.am (wol_SOURCES): Comment out proxy.c since it's
+	not ready yet.
+
+	* src/proxy.c: Better error checks.
+
+	* po/Makefile.in.in: Update from gettext 0.14.1.
+	
+	* intl/Makefile.in: Update from gettext 0.14.1.
+	
+	* lib/gettext.h: Update from todays gnulib CVS.
+
+	* m4/gettext.m4: Update from todays gnulib CVS.
+	* m4/lib-ld.m4: Likewise.
+	* m4/ulonglong.m4: Likewise.
+	* m4/po.m4: Likewise.
+	* m4/lib-prefix.m4: Likewise.
+
+	* m4/xsize.m4: New file.
+	* m4/wint_t.m4: Likewise.
+	* m4/wchar_t.m4: Likewise.
+	* m4/size_max.m4: Likewise.
+	* m4/signed.m4: Likewise.
+	* m4/printf-posix.m4: Likewise.
+	* m4/longlong.m4: Likewise.
+	* m4/longdouble.m4: Likewise.
+	* m4/intmax.m4: Likewise.
+
+	* configure.ac: Add gl_GETOPT.
+	Add gl_ERROR.
+	Bump version to 0.7.1.
+
+	* lib/Makefile.am (libwrappers_a_SOURCES): Add getopt_int.h.
+
+	* m4/getopt.m4: New file.
+
+	* lib/getopt1.c: Update from todays gnulib CVS.
+	* lib/getopt.h: Likewise.
+	* lib/getopt.c: Likewise.
+
+	* lib/getopt_int.h: New file.
+
+	* TODO: error.c depends on libintl.h.
+	Remove disable-nls bug.
+	
 2004-04-17  Thomas Krennwallner  <krennwallner@aon.at>
 
 	* TODO: Add disable-nls bug.
