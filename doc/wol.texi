@@ -5,7 +5,7 @@
 @setcontentsaftertitlepage
 
 
-@set UPDATED 19 March 2002
+@set UPDATED 20 March 2002
 @set EDITION 0.6.0
 @set VERSION 0.6.0
 
@@ -109,12 +109,14 @@ Packet(TM) which is intended to wake up the NIC with hardware address
 
 @table @option
 @item -h
-@item --help
+@itemx --help
+
 Print a summary of the command line options and exit.
 
 
 @item -V
 @itemx --version
+
 Print the version number of @code{wol} and exit.
 
 

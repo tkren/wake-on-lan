@@ -6,6 +6,7 @@
 		to program_name and destatic it ;-)
 	* lib/getline.c: fixed return values (int != ssize_t on
 		alphaev67-unknown-linux-gnu)
+	* doc/wol.texi: fixes
 
 2002-03-19	Thomas Krennwallner <krennwallner@aon.at>
 
