@@ -22,7 +22,7 @@
 This file documents wol @value{VERSION}, the Wake On LAN client.
 
 @c man begin COPYRIGHT
-Copyright (C) 2001-2003 Thomas Krennwallner @email{krennwallner@@aon.at}
+Copyright (C) 2001,2002,2003,2004 Thomas Krennwallner @email{krennwallner@@aon.at}
 
 This document may be distributed and modified under the terms of the GNU
 General Public License.
