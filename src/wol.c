@@ -3,7 +3,7 @@
  *
  *	main program
  * 
- *	$Id: wol.c,v 1.13 2003/08/08 23:00:18 wol Exp $
+ *	$Id: wol.c,v 1.14 2003/08/09 08:25:12 wol Exp $
  *
  *	Copyright (C) 2000-2003 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -279,16 +279,26 @@ static int
 assemble_and_send (struct magic *m, const char *mac_str, const char *host_str,
 										unsigned int portnum, const char *pass_str, int socketfd)
 {
-	if (magic_assemble (m, mac_str, pass_str))
+	int ret = magic_assemble (m, mac_str, pass_str);
+	
+	switch (ret)
 		{
-			error (0, errno, _("Cannot assemble magic packet for '%s'"), mac_str);
-			return -1;
+			case -1:
+				error (0, errno, _("Cannot assemble magic packet for '%s'"), mac_str);
+				errno = 0;
+				return -1;
+
+			case -2:
+				error (0, 0, _("Invalid password given for '%s'"), mac_str);
+				errno = 0;
+				return -1;
 		}
 
 	if (net_send (socketfd, host_str, portnum, m->packet, m->size))
 		{
 			error (0, errno, _("Cannot send magic packet for '%s' to %s:%d"),
 												mac_str, host_str, portnum);
+			errno = 0;
 			return -1;
 		}
 
