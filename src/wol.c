@@ -3,7 +3,7 @@
  *
  *	main program
  * 
- *	$Id: wol.c,v 1.14 2003/08/09 08:25:12 wol Exp $
+ *	$Id: wol.c,v 1.15 2003/08/09 19:26:45 wol Exp $
  *
  *	Copyright (C) 2000-2003 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -223,10 +223,10 @@ parse_args (int argc, char *argv[])
 					case 'P':
 						if (optarg == NULL)
 							{
+								size_t n;
+
 								if (password_set)
 									break;
-
-								int n;
 
 								if (getpass4 (_("Password"), &passwd, &n, stdin) == -1)
 									{
