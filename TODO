@@ -1,12 +1,14 @@
+- fix translations
+- fix documentation
 - fix version infos and dates in .po
 - add support for getpass for passwd prompting
+- add is_valid_passwd
 - implement a "make check" -> automate the testing process
 - better resolving error output
 - maybe a "wol hugo" and look at macfile for host hugo?
-- sitewide config and user config?
-- add option for autoexecuting wol-*?
+- sitewide config (/etc/wol/wol.config) and user config ($HOME/.wolrc)?
+- add option for autoexecuting wol-*? -> install wol-* to $(libexecdir)
 - check if macaddress is valid (look at http://standards.ieee.org/getieee802/)
-- fix documentation
 - wolp (Wake On LAN proxy) support http://etherboot.sf.net/wolp, maybe a reimplementation
 - wol.gmo in hpux isn't here? bug in gettext? -> rm in Makefile ???
 - magic packets > 1 -> put several packets into one buffer for sending over the line
