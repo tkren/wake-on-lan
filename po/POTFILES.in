@@ -1,0 +1,3 @@
+# list of translatable files
+src/wol.c
+src/net.c

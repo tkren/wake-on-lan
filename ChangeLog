@@ -1,0 +1,111 @@
+2001-11-06	Thomas Krennwallner <krennwallner@aon.at>
+
+	* release 0.5.0
+	* update NEWS
+	* demo/nic-fake.py: give socket.bind method 1 arg and not 2 -> works now with
+		python >= 1.5.2
+	* tested on i386-unknown-freebsd4.4
+
+2001-11-05	Thomas Krennwallner <krennwallner@aon.at>
+
+	* doc/wol.texi: some renicers
+
+2001-11-04	Thomas Krennwallner <krennwallner@aon.at>
+
+	* src/macfile.c: check fileptr after get_line looping to get the right file
+		status after looping
+	* lib/select.{c,h}: some renicers :-)
+	* include/wol.h: added DEFAULT_IPADDR
+	* src/wol.c: use DEFAULT_IPADDR
+
+2001-10-24	Thomas Krennwallner <krennwallner@aon.at>
+
+	* src/magic.c: #include <string.h> to suppress a warning with memset() on
+		HP-UX
+	* tested on sparc-sun-solaris2.8, hppa2.0w-hp-hpux11.00
+	* configure.ac: fixed for compiling on solaris (inet_aton in libsocket) and
+		some improvements
+
+2001-10-23	Thomas Krennwallner <krennwallner@aon.at>
+
+	* tested on following platforms: i586-pc-openbsd2.9, powerpc-apple-darwin1.4
+	* src/Makefile.am: add @INTLLIBS@ to wol_LDADD to support
+		--with-included-gettext and for systems that doesn't have gettext
+
+2001-10-20	Thomas Krennwallner <krennwallner@aon.at>
+
+	* check i18n support and edit the src to check the newly included config.h
+		support
+	* doc/wol.texi: fixed typos
+
+2001-10-10	Thomas Krennwallner <krennwallner@aon.at>
+
+	* doc/wol.texi: created wol texinfo page
+
+2001-09-30	Thomas Krennwallner <krennwallner@aon.at>
+
+	* use autoconf 2.52, automake 1.5 and gettext 0.10.40
+	* rename configure.in to configure.ac to force using autoconf 2.50++
+
+2001-09-27	Thomas Krennwallner <krennwallner@aon.at>
+
+	* lib/Makefile.am: include all sources 
+	* lib/wrappers.h: create it
+	* src/xmalloc.c: create it
+	* include/xmalloc.h: create it
+	* src/mac_file.c: new file format -> XX:XX:XX:XX:XX:XX x.x.x.x:port
+
+2001-09-17	Thomas Krennwallner <krennwallner@aon.at>
+
+	* ChangeLog: GNU-style
+	* Makefile.am: MAINTAINERCLEANFILES
+	* autogen.sh
+	* demo/nic-fake.py: new output format
+
+2001-08-02	Thomas Krennwallner <krennwallner@aon.at>
+
+	* added net.c and magic.c
+	* removed -m option
+	* better auto*
+	* remove shtool
+	* start complete rewrite
+
+2000-08-13	Thomas Krennwallner <krennwallner@aon.at>
+
+	* release 0.4.1
+	* code cleanups
+	* added -q for non verbose output
+	* added -w for waiting msecs between packet sends 
+	* you will never run out of file descriptors while waking up 50000 PC's ;-)
+	* auto* improvements
+	* updated man page
+	* make static getopt lib and link it, when needed 
+
+2000-08-09	Thomas Krennwallner <krennwallner@aon.at>
+
+	* release 0.4.0
+	* fixed a stupid bug in file reading mode
+	* various auto* stuff 
+	* solaris support comes closer
+	* man page update
+
+2000-07-30	Thomas Krennwallner <krennwallner@aon.at>
+
+	* release 0.3.0
+	* compiles and works on FreeBSD
+	* various auto* fixes
+	* input file support
+	* forgot to add port to htons()
+
+2000-07-29	Thomas Krennwallner <krennwallner@aon.at>
+
+	* release 0.2.0
+	* initial port to FreeBSD (getopt_long)
+	* better auto* support
+	* shtool version creates fresh version strings
+	* initial documentation
+
+2000-07-25	Thomas Krennwallner <krennwallner@aon.at>
+
+	* works on linux
+	* tested with Intel EtherExpress Pro 100 and Realtek 8139

@@ -1,0 +1,3 @@
+- cleanup macfile.c -> it works, but I think it's ugly
+- wol.gmo in hpux isn't here? bug in gettext?
+- ipv6? only for interest, cause there is no ipv6-only host out there, huh?

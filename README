@@ -1,0 +1,12 @@
+This is wol, the Wake On Lan client. It wakes up magic packet compliant
+machines such as boxes with wake on lan ethernet-cards.
+
+See the file NEWS for a list of major changes in the current release.
+
+See the file INSTALL for compilation and installation instructions.
+
+See the file ABOUT-NLS for National Language Support. If your system doesn't
+provide nls support, configure wol with "./configure --with-included-gettext".
+Use "./configure --disable-nls" if you don't want NLS support.
+
+Mail suggestions and bugs to krennwallner@aon.at
