@@ -82,9 +82,8 @@ msgstr "memoria agotada"
 msgid "Try `%s --help' for more information.\n"
 msgstr "Usar `%s --help' para más información.\n"
 
-# FIXME
 #: src/wol.c:95
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: %s [OPTION] ... MAC-ADDRESS ...\n"
 "Wake On LAN client - wakes up magic packet compliant machines.\n"
@@ -105,18 +104,19 @@ msgid ""
 "network byte order (big endian).\n"
 msgstr ""
 "Uso: %s [OPCION] ... MAC-ADDRESS ...\n"
-"cliente Wake On LAN - enciende maquinas compatibles con  magic packet.\n"
+"cliente Wake On LAN - enciende maquinas compatibles con magic packet.\n"
 "\n"
 "    --help          muestra esta ayuda y termina\n"
 "-V, --version       muestra información de la versión y termina\n"
 "-v, --verbose       verbose output\n"
 "-w, --wait=NUM      espera NUM de milisegundos después del envío\n"
-"-h, --host=HOST     broadcast a esta dirección HOST\n"
-"-i, --ipaddr=HOST   FIXME\n"
+"-h, --host=HOST     broadcast a esta dirección ip o nombre de host\n"
+"-i, --ipaddr=HOST   igual que --host\n"
 "-p, --port=NUM      broadcast a este puerto UDP\n"
 "-f, --file=FILE     lee las direcciones del archivo FILE (\"-\" lee desde "
 "stdin)\n"
-"-P, --passwd=PASS   envía SecureON contraseña PASS\n"
+"-P, --passwd[=PASS] envía SecureON con la contraseña PASS (si PASS no es\n"
+"                    proporcionado la contraseña le será solicitada)\n"		       
 "\n"
 "Cada MAC-ADDRESS es escrita como x:x:x:x:x:x, donde x es un valor "
 "hexadecimal\n"
@@ -165,10 +165,9 @@ msgstr "El tiempo introducido no es válido"
 msgid "Invalid port given"
 msgstr "El puerto introducido no es válido"
 
-# FIXME
 #: src/wol.c:231
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #: src/wol.c:249
 msgid "You must specify at least one MAC-ADDRESS."
@@ -179,11 +178,10 @@ msgstr "Debes especificar al menos una dirección MAC."
 msgid "Cannot assemble magic packet for '%s'"
 msgstr "No se puede crear un  magic packet para '%s'"
 
-# FIXME
 #: src/wol.c:292
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid password given for '%s'"
-msgstr "El puerto introducido no es válido"
+msgstr "Contraseña no válida para '%s'"
 
 #: src/wol.c:299
 #, c-format
