@@ -1,6 +1,12 @@
+wol (0.7.1-1) unstable; urgency=low
+
+  * New version.
+
+ -- Thomas Krennwallner <krennwallner@aon.at>  Tue, 20 Apr 2004 21:26:34 +0200
+
 wol (0.7.0-1) unstable; urgency=low
 
-  * New version
+  * New version.
 
  -- Thomas Krennwallner <krennwallner@aon.at>  Sat,  8 Aug 2003 10:36:45 +0200
 
