@@ -113,7 +113,7 @@ fi
 
 
 dnl i18n
-ALL_LINGUAS="de fr it es"
+ALL_LINGUAS="de fr it es sv"
 dnl don't pass symbol [external] since it will disable local intl directory
 AM_GNU_GETTEXT
 
