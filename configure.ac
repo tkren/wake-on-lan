@@ -89,9 +89,18 @@ else
 	MY_AWK=$with_myawk
 fi
 if test x$MY_AWK = x ; then
-	AC_MSG_ERROR([*** Unable to find your awk, specify it with --with-awk= ***])
+	AC_MSG_ERROR([
+*** Unable to find your awk, specify it with --with-awk= ***])
 fi
 AC_SUBST(MY_AWK)
+
+dnl check for python
+AC_PATH_PROG(PY, python, "")
+if test x$PY = x ; then
+	AC_MSG_WARN([
+*** Unable to find python.
+*** Because of that, you want be able to run certain tests via 'make check'.])
+fi
 
 
 dnl full featured warnings
@@ -101,6 +110,7 @@ CFLAGS="$CFLAGS -W -Wall -Wpointer-arith -Wimplicit-function-declaration"
 dnl create the Makefiles
 AC_OUTPUT(
 Makefile
+check/Makefile
 demo/Makefile
 doc/Makefile
 include/Makefile

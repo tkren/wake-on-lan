@@ -3,7 +3,7 @@ ACLOCAL_AMFLAGS = -I m4
 
 EXTRA_DIST = autogen.sh debian
 
-SUBDIRS = demo doc intl include lib src m4 po
+SUBDIRS = demo doc intl include lib src m4 po check
 
 MAINTAINERCLEANFILES = Makefile.in aclocal.m4 config.guess config.h.in \
 config.log config.status config.sub configure depcomp install-sh ltconfig \
