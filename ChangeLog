@@ -1,3 +1,10 @@
+2002-03-20	Thomas Krennwallner <krennwallner@aon.at>
+	* m4/error.m4: added
+	* lib/error.{c,h}: GNU error added
+	* configure.ac: jm_PREREQ_ERROR
+	* src/wol.c: GNU error needs global program_name symbol -> rename name
+		to program_name and destatic it ;-)
+
 2002-03-19	Thomas Krennwallner <krennwallner@aon.at>
 
 	* demo/nic-fake.py: improvements
