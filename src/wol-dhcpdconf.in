@@ -1,8 +1,8 @@
-#!@MY_AWK@ -f
+#!@AWK@ -f
 #
 #	wol-dhcpdconf - parse a dhcpd.conf and output it in macfile format
 #
-#	$Id: wol-dhcpdconf.in,v 1.2 2002/04/12 05:53:00 wol Exp $
+#	$Id: wol-dhcpdconf.in,v 1.3 2002/04/23 19:51:49 wol Exp $
 #
 #	Copyright (C) 2002 Thomas Krennwallner <krennwallner@aon.at>
 #

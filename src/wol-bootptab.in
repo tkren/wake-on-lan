@@ -1,8 +1,8 @@
-#!@MY_AWK@ -f
+#!@AWK@ -f
 #
 #	wol-bootptab - parse a bootptab and output it in macfile format
 #
-#	$Id$
+#	$Id: wol-bootptab.in,v 1.1 2002/04/12 05:53:00 wol Exp $
 #
 #	Copyright (C) 2002 Thomas Krennwallner <krennwallner@aon.at>
 #
@@ -29,7 +29,7 @@ BEGIN	{
 }
 
 
-/[ \n\t\\a-zA-Z0-9:]+:ha=0x[0-9a-fA-F]+/	{
+/^[^#]+[ \n\t\\a-zA-Z0-9:]+:ha=0x[0-9a-fA-F]+/	{
 	i = match ($0, "ha=0x[0-9a-fA-F]+")
 	macc = substr ($0, i + 5, 12)
 	maco = ""
@@ -42,7 +42,7 @@ BEGIN	{
 }
 
 
-/[ \n\t\\a-zA-Z0-9:]+:ip=[0-9.-_a-zA-Z]+/	{
+/^[^#]+[ \n\t\\a-zA-Z0-9:]+:ip=[0-9.-_a-zA-Z]+/	{
 	i = match ($0, "ip=[0-9.-_a-zA-Z]+")
 	ipc = substr ($0, i + 3, RLENGTH)
 	i = match (ipc, ":")
