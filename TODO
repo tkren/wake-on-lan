@@ -14,6 +14,11 @@
 getopt.c doesn't check ENABLE_NLS so if someone has libintl.h
 installed it enables NLS even if someone called --disable-nls
 
+** lib/error.c:28
+
+error.c forces users to install libintl.h. Should we include it?
+
+
 
 * New features
 
