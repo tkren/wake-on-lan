@@ -1,3 +1,7 @@
+2004-04-17  Thomas Krennwallner  <krennwallner@aon.at>
+
+	* TODO: Add disable-nls bug.
+
 2004-02-05  Thomas Krennwallner  <krennwallner@aon.at>
 
 	* src/wol.c: Add preliminary non-functional proxy support.
