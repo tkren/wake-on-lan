@@ -1,7 +1,7 @@
 /*
  * wol - wake on lan client
  *
- * $Id: net.c,v 1.8 2004/04/20 19:51:18 wol Exp $
+ * $Id: net.c,v 1.9 2004/05/09 10:50:52 wol Exp $
  *
  * Copyright (C) 2000,2001,2002,2003,2004 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -37,6 +37,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <netpacket/packet.h>
 
 #include "net.h"
 #include "wol.h"
@@ -81,12 +82,12 @@ raw_open (void)
   int optval;
   int sockfd;
 
-  sockfd = socket(PF_PACKET, SOCK_RAW, 0);
+  sockfd = socket (PF_PACKET, SOCK_RAW, 0);
   if (sockfd < 0)
     {
       if (errno == EPERM)
 	{
-	  error (0, 0, "No root privilegious");
+	  error (0, 0, "No root privileges");
 	}
       else
 	{
@@ -178,9 +179,52 @@ tcp_open (const char *ip_str,
 }
 
 
+ssize_t 
+raw_send (int sock,
+	  const void *buf,
+	  size_t len)
+{
+  struct sockaddr_ll toaddr;
+  ssize_t sendret;
+
+  if (buf == NULL)
+    {
+      return -1;
+    }
+	
+  memset (&toaddr, 0, sizeof (toaddr));
+
+  toaddr.sll_family = AF_PACKET;
+
+  /* maybe we need to set more data */
+#if 0
+  struct ifreq ifr;
+  strncpy(ifr.ifr_name, ifname, sizeof(ifr.ifr_name));
+  if (ioctl(s, SIOCGIFINDEX, &ifr) == -1) {
+    fprintf(stderr, "SIOCGIFINDEX on %s failed: %s\n", ifname,
+	    strerror(errno));
+    return 1;
+  }
+  memset(&whereto, 0, sizeof(whereto));
+  whereto.sll_family = AF_PACKET;
+  whereto.sll_ifindex = ifr.ifr_ifindex;
+  /* The manual page incorrectly claims the address must be filled.
+     We do so because the code may change to match the docs. */
+  whereto.sll_halen = ETH_ALEN;
+  memcpy(whereto.sll_addr, outpack, ETH_ALEN);
+#endif /* 0 */
+
+  /* keep on sending and check for possible errors */
+  sendret = sendto (sock, buf, len, 0, (struct sockaddr *) &toaddr,
+		    sizeof (toaddr));
+
+  return sendret == -1 ? sendret : 0;
+}
+
+
 
 ssize_t 
-udp_send (int socket,
+udp_send (int sock,
 	  const char *ip_str,
 	  unsigned short int port,
 	  const void *buf,
@@ -195,7 +239,7 @@ udp_send (int socket,
       return -1;
     }
 	
-  memset (&toaddr, 0, sizeof (struct sockaddr_in));
+  memset (&toaddr, 0, sizeof (toaddr));
 
   if (net_resolv (ip_str, &toaddr.sin_addr))
     {
@@ -207,8 +251,8 @@ udp_send (int socket,
   toaddr.sin_port = htons (port);
 
   /* keep on sending and check for possible errors */
-  sendret = sendto (socket, buf, len, 0, (struct sockaddr *) &toaddr,
-		    sizeof (struct sockaddr_in));
+  sendret = sendto (sock, buf, len, 0, (struct sockaddr *) &toaddr,
+		    sizeof (toaddr));
 
   return sendret == -1 ? sendret : 0;
 }

@@ -1,7 +1,7 @@
 /*
  * wol - wake on lan client
  *
- * $Id: net.h,v 1.4 2004/02/05 18:20:07 wol Exp $
+ * $Id: net.h,v 1.5 2004/05/09 10:50:35 wol Exp $
  *
  * Copyright (C) 2000,2001,2002,2004 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -49,5 +49,8 @@ ssize_t udp_send (int socket,
 		  unsigned short int port,
 		  const void *buf, size_t len);
 
+ssize_t raw_send (int socket,
+		  const void *buf,
+		  size_t len);
 
 #endif /* _NET_H */
