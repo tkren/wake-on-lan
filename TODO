@@ -1,4 +1,6 @@
 - cleanup macfile.c -> it works, but I think it's ugly
 - wol.gmo in hpux isn't here? bug in gettext?
 - parse dhcpd.conf
+- magic packets > 1 -> put several packets into one buffer for sending over the
+	line
 - ipv6? only for interest, cause there is no ipv6-only host out there, huh?

@@ -1,7 +1,7 @@
 /*
  *	wol - wake on lan client
  *
- *	$Id$
+ *	$Id: wol.h,v 1.1.1.1 2001/11/06 19:31:23 wol Exp $
  *
  *	Copyright (C) 2000-2001 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -45,7 +45,7 @@
 
 
 #define DEFAULT_PORT 40000
-#define DEFAULT_IPADDR "0.0.0.0"
+#define DEFAULT_IPADDR "255.255.255.255"
 
 
 #endif /* _WOL_H */
