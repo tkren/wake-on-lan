@@ -208,7 +208,6 @@ NIC, you can use ethtool @url{http://www.sourceforge.net/projects/gkernel/}.
 @end table
 
 
-
 @node Examples
 @chapter Examples
 
