@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wol 0.7.1\n"
 "Report-Msgid-Bugs-To: krennwallner@aon.at\n"
-"POT-Creation-Date: 2004-04-29 05:02+0200\n"
-"PO-Revision-Date: 2004-04-29 04:20+0200\n"
+"POT-Creation-Date: 2004-05-15 09:40+0200\n"
+"PO-Revision-Date: 2004-05-15 09:43+0200\n"
 "Last-Translator: Johan Fredin <griffin@legonet.org>\n"
 "Language-Team:\n"
 "MIME-Version: 1.0\n"
@@ -77,13 +77,13 @@ msgstr "%s: flaggan `-W %s' tar inget argument\n"
 msgid "memory exhausted"
 msgstr "minnet slut"
 
-#: src/wol.c:93
+#: src/wol.c:101
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Försök med \"%s --help\" för mer information.\n"
 
-#: src/wol.c:97
-#, c-format
+#: src/wol.c:105
+#, fuzzy, c-format
 msgid ""
 "Usage: %s [OPTION] ... MAC-ADDRESS ...\n"
 "Wake On LAN client - wakes up magic packet compliant machines.\n"
@@ -98,6 +98,9 @@ msgid ""
 "-f, --file=FILE     read addresses from file FILE (\"-\" reads from stdin)\n"
 "    --passwd[=PASS] send SecureON password PASS (if no PASS is given, you\n"
 "                    will be prompted for the password)\n"
+"-r, --raw           send raw ethernet magic packet\n"
+"-s, --proxy=HOST    send wake up information to wolp proxy HOST\n"
+"-u, --udp           send udp magic packet\n"
 "\n"
 "Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n"
 "between 0 and ff which represents one byte of the address, which is in\n"
@@ -117,11 +120,11 @@ msgstr ""
 "    --passwd[=PASS] skicka SecureON lösenord PASS (om inget lösenord anges,\n"
 "                    kommer du att efterfrågas det vid en lösenordsprompt)\n"
 "\n"
-"Varje MAC-ADRESS skrivs på formen x:x:x:x:x:x, där x är ett hexadecimalttal "
-"mellan 0 och ff som representerar en byte av adressen, och är i\n"
+"Varje MAC-ADRESS skrivs på formen x:x:x:x:x:x, där x är ett hexadecimalt\n"
+"tal mellan 0 och ff som representerar en byte av adressen, och är i\n"
 "nätverksbyteordning (big endian).\n"
 
-#: src/wol.c:115
+#: src/wol.c:126
 #, c-format
 msgid ""
 "\n"
@@ -132,7 +135,7 @@ msgstr ""
 "PASS skrivs på formen x-x-x-x-x-x, där x är ett hexadecimalt tal\n"
 "mellan 0 och ff som representerar en byte av lösenordet.\n"
 
-#: src/wol.c:119
+#: src/wol.c:130
 #, c-format
 msgid ""
 "\n"
@@ -141,7 +144,7 @@ msgstr ""
 "\n"
 "Rapportera buggar (på engelska, med LC_ALL=C) till <krennwallner@aon.at>\n"
 
-#: src/wol.c:131
+#: src/wol.c:142
 #, c-format
 msgid ""
 "Copyright (C) 2000-2004 Thomas Krennwallner <krennwallner@aon.at>\n"
@@ -153,62 +156,62 @@ msgstr ""
 "finns INGEN garanti, även underförstådd garanti vid KÖP, eller\n"
 "LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL.\n"
 
-#: src/wol.c:166
+#: src/wol.c:179
 msgid "Too few arguments."
 msgstr "För få argument."
 
-#: src/wol.c:198
+#: src/wol.c:211
 msgid "Invalid time given"
 msgstr "Felaktig tid angiven"
 
-#: src/wol.c:217
+#: src/wol.c:243
 msgid "Invalid port given"
 msgstr "Felaktig port angiven"
 
-#: src/wol.c:236
+#: src/wol.c:262 src/wol.c:356
 msgid "Password"
 msgstr "Lösenord"
 
-#: src/wol.c:256
+#: src/wol.c:282
 msgid "You must specify at least one MAC-ADDRESS."
 msgstr "Du måste ange åtminstone en MAC-ADRESSE."
 
-#: src/wol.c:301
+#: src/wol.c:329 src/wol.c:383
 #, c-format
 msgid "Cannot assemble magic packet for '%s'"
 msgstr "Kan inte skapa Magic Packet för '%s'"
 
-#: src/wol.c:306
+#: src/wol.c:334 src/wol.c:388
 #, c-format
 msgid "Invalid password given for '%s'"
 msgstr "Felaktigt lösenord angivet för '%s'"
 
-#: src/wol.c:313
+#: src/wol.c:341 src/wol.c:370
 #, c-format
 msgid "Cannot send magic packet for '%s' to %s:%d"
 msgstr "Kan inte skicka Magic Packet för '%s' till %s:%d"
 
-#: src/wol.c:319
+#: src/wol.c:396
 #, c-format
 msgid "Waking up %s"
 msgstr "Väcker %s"
 
-#: src/wol.c:322
+#: src/wol.c:399
 #, c-format
 msgid " with %s:%d"
 msgstr " med %s:%d"
 
-#: src/wol.c:324
+#: src/wol.c:401
 #, c-format
 msgid "...\n"
 msgstr "...\n"
 
-#: src/net.c:121 src/net.c:167
+#: src/net.c:157 src/net.c:246
 #, c-format
 msgid "Invalid IP address given: %s"
 msgstr "Felaktig IP-adress angiven: %s"
 
-#: src/net.c:137
+#: src/net.c:173
 #, c-format
 msgid "Couldn't connect to %s:%hu: %s"
 msgstr "Kunde inte ansluta till %s:%hu: %s"
