@@ -1,3 +1,12 @@
+2004-05-08  Thomas Krennwallner  <djmaecki@ull.at>
+
+	* TODO: Updates for proxy support.
+
+	* src/wol.c: Add proxy help message and getopt support.
+	(assemble_and_send): Add proxy sending support.
+
+	* src/Makefile.am (wol_SOURCES): Re-add proxy.c.
+
 2004-04-30  Thomas Krennwallner  <djmaecki@ull.at>
 
 	Release 0.7.1.
