@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wol 0.6.0\n"
-"POT-Creation-Date: 2002-03-27 09:04+0100\n"
+"POT-Creation-Date: 2002-04-12 08:53+0200\n"
 "PO-Revision-Date: 2002-04-08 13:06+0200\n"
 "Last-Translator: Florian Träxler <traexler.josef@aon.at>\n"
 "Language-Team:\n"
@@ -17,7 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: lib/error.c:117
-#, c-format
 msgid "Unknown system error"
 msgstr "Erreur système inconnue."
 
@@ -129,7 +128,6 @@ msgstr ""
 "réseau octet composition (big endian).\n"
 
 #: src/wol.c:111
-#, c-format
 msgid ""
 "\n"
 "PASS is written as x-x-x-x-x-x, where x is a hexadecimal number between 0\n"
@@ -140,7 +138,6 @@ msgstr ""
 "ff qui représents un octet de mot de passe.\n"
 
 #: src/wol.c:115
-#, c-format
 msgid ""
 "\n"
 "Report bugs to <krennwallner@aon.at>\n"
@@ -149,7 +146,6 @@ msgstr ""
 "Rapporter toutes anomalies à <krennwallner@aon.at>\n"
 
 #: src/wol.c:127
-#, c-format
 msgid ""
 "Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>\n"
 "This is free software; see the source for copying conditions. There is NO\n"
@@ -161,22 +157,18 @@ msgstr ""
 "COMMERÇIALES que pour RÉPONDRE À UN BESOIN PARTICULIER.\n"
 
 #: src/wol.c:159
-#, c-format
 msgid "Too few arguments."
 msgstr "Trop peu de paramètres."
 
 #: src/wol.c:191
-#, c-format
 msgid "Invalid time given"
 msgstr "Le temps choisé invalide"
 
 #: src/wol.c:206
-#, c-format
 msgid "Invalid port given"
 msgstr "Le port choisé invalide"
 
 #: src/wol.c:229
-#, c-format
 msgid "You must specify at least one MAC-ADDRESS."
 msgstr "Vous devez sélectionner au minimum une MAC-ADDRESS."
 
@@ -204,7 +196,7 @@ msgstr " avec %s:%d"
 msgid "...\n"
 msgstr "...\n"
 
-#: src/net.c:100
+#: src/net.c:121
 #, c-format
 msgid "Invalid IP address given: %s"
 msgstr "IP adresse invalide: %s"

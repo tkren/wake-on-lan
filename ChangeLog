@@ -1,3 +1,8 @@
+2002-04-11	Thomas Krennwallner <krennwallner@aon.at>
+
+	* Makefile.am: dist-hook that cleans the debian dir
+	* check/Makefile.am: forgot to add the test?.sh scripts
+
 2002-04-09	Thomas Krennwallner <krennwallner@aon.at>
 
 	* src/net.{c,h}: add support for resolving names

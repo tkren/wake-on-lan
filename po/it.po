@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wol 0.6.0\n"
-"POT-Creation-Date: 2002-03-27 09:04+0100\n"
+"POT-Creation-Date: 2002-04-12 08:53+0200\n"
 "PO-Revision-Date: 2001-09-25 16:31+0200\n"
 "Last-Translator: Eva Krennwallner <wally2k@gmx.net>\n"
 "Language-Team:\n"
@@ -194,7 +194,7 @@ msgstr " con %s:%d"
 msgid "...\n"
 msgstr "...\n"
 
-#: src/net.c:100
+#: src/net.c:121
 #, c-format
 msgid "Invalid IP address given: %s"
 msgstr "Non valido IP indirizzo è dato: %s"
