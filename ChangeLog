@@ -1,4 +1,4 @@
-2003-08-13  Thomas Krennwallner  <djmaecki@localhost>
+2003-08-13  Thomas Krennwallner  <krennwallner@aon.at>
 
 	* lib/ether.h: Include with guards all possible
 	ether_hostton header files.
