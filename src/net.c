@@ -1,9 +1,9 @@
 /*
  *	wol - wake on lan client
  *
- *	$Id: net.c,v 1.3 2002/03/21 19:18:09 wol Exp $
+ *	$Id: net.c,v 1.4 2002/04/12 05:53:00 wol Exp $
  *
- *	Copyright (C) 2000-2002 Thomas Krennwallner <krennwallner@aon.at>
+ *	Copyright (C) 2000-2003 Thomas Krennwallner <krennwallner@aon.at>
  *
  *	This program is free software; you can redistribute it and/or modify
  *	it under the terms of the GNU General Public License as published by
@@ -116,7 +116,7 @@ net_send (int socket, const char *ip_str, unsigned short int port,
 	
 	memset (&toaddr, 0, sizeof (struct sockaddr_in));
 
-	if (net_resolv (ip_str, (struct in_addr *) &toaddr))
+	if (net_resolv (ip_str, &toaddr.sin_addr))
 		{
 			error (0, 0, _("Invalid IP address given: %s"), strerror (errno));
 			return -1;
