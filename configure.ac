@@ -29,6 +29,21 @@ AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 AC_PROG_AWK
 
+do_pod2texi=""
+AC_PATH_PROG(PL, perl, "")
+if test x$PL = x ; then
+  AC_MSG_WARN([*** Unable to find perl. Disabling manpage creation ***])
+else
+  AC_PATH_PROG(P2M, pod2man, "")
+	if test x$P2M = x ; then
+    AC_MSG_WARN([*** Unable to find pod2man. Disabling manpage creation ***])
+	else
+	  do_pod2texi="true"
+	fi
+fi
+AM_CONDITIONAL([POD2TEXI], [test x$do_pod2texi = xtrue])
+
+
 
 dnl check compiler characteristic
 AC_C_CONST
@@ -82,11 +97,16 @@ AC_CHECK_FUNC(inet_aton, [], [
 	dnl check libresolv for inet_aton() as seen on solaris
 	AC_CHECK_LIB(resolv, inet_aton,
 								EXTRA_LIBS="$EXTRA_LIBS -lresolv", EXTRA_LIBS="$EXTRA_LIBS")
-	])
+])
 AC_CHECK_FUNC(socket, [], [
 	dnl check libsocket for socket() as seen on solaris
 	AC_CHECK_LIB(socket, socket,
 								EXTRA_LIBS="$EXTRA_LIBS -lsocket", EXTRA_LIBS="$EXTRA_LIBS")
+])
+AC_CHECK_FUNC(gethostbyname, [], [
+  dnl check libnsl for gethostbyname() as seen on solaris
+	AC_CHECK_LIB(nsl, gethostbyname,
+	              EXTRA_LIBS="$EXTRA_LIBS -lnsl", EXTRA_LIBS="$EXTRA_LIBS")
 ])
 AC_SUBST(EXTRA_LIBS)
 
