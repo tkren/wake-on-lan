@@ -7,7 +7,6 @@
 - catch argument cases where no MAC-ADDRESS is given but eg -v
 - fix it and fr translation
 - wol.gmo in hpux isn't here? bug in gettext?
-- uses rpl_realloc on hpux? not working realloc -> what then??
 - magic packets > 1 -> put several packets into one buffer for sending over the
 	line
 - ipv6? only for interest, cause there is no ipv6-only host out there, huh?
