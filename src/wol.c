@@ -3,7 +3,7 @@
  *
  * main program
  * 
- * $Id: wol.c,v 1.18 2004/04/18 11:42:11 wol Exp $
+ * $Id: wol.c,v 1.19 2004/05/08 09:25:45 wol Exp $
  *
  * Copyright (C) 2000,2001,2002,2003,2004 Thomas Krennwallner <krennwallner@aon.at>
  *
@@ -72,8 +72,15 @@ static int request_stdin = 0;
 /* be verbose */
 static int verbose = 0;
 
-/* send proxy packet */
-static int proxy_mode = 0;
+
+/* send udp / raw / proxy packet */
+
+#define UDP_MODE 0x1
+#define RAW_MODE 0x2
+#define PROXY_MODE 0x4
+
+static unsigned int packet_mode = UDP_MODE;
+
 
 /* how long to wait between packets */
 static int msecs = 0;
@@ -108,7 +115,9 @@ Wake On LAN client - wakes up magic packet compliant machines.\n\n\
 -f, --file=FILE     read addresses from file FILE (\"-\" reads from stdin)\n\
     --passwd[=PASS] send SecureON password PASS (if no PASS is given, you\n\
                     will be prompted for the password)\n\
+-r, --raw           send raw ethernet magic packet\n\
 -s, --proxy=HOST    send wake up information to wolp proxy HOST\n\
+-u, --udp           send udp magic packet\n\
 \n\
 Each MAC-ADDRESS is written as x:x:x:x:x:x, where x is a hexadecimal number\n\
 between 0 and ff which represents one byte of the address, which is in\n\
@@ -146,7 +155,7 @@ parse_args (int argc, char *argv[])
   int c;
   int option_index;
   int password_set = 0;
-  char *options = "Vvw:h:i:p:f:s:-";
+  char *options = "Vvw:h:i:p:f:s:ru-";
   static struct option long_options[] = 
     {
       { "help", no_argument, NULL, 'H' },
@@ -159,6 +168,8 @@ parse_args (int argc, char *argv[])
       { "file", required_argument, NULL, 'f' },
       { "passwd", optional_argument, NULL, 'P' },
       { "proxy", required_argument, NULL, 's' },
+      { "raw", no_argument, NULL, 'r' },
+      { "udp", no_argument, NULL, 'u' },
       { NULL, 0, NULL, 0 }
     };
 
@@ -204,8 +215,21 @@ parse_args (int argc, char *argv[])
 	  break;
 
 
+	case 'u':
+	  packet_mode |= UDP_MODE;
+	  packet_mode &= ~(RAW_MODE | PROXY_MODE);
+	  break;
+
+
+	case 'r':
+	  packet_mode |= RAW_MODE;
+	  packet_mode &= ~(UDP_MODE | PROXY_MODE);
+	  break;
+
+
 	case 's':
-	  proxy_mode = 1;
+	  packet_mode |= PROXY_MODE;
+	  packet_mode &= ~(UDP_MODE | RAW_MODE);
 	case 'h':
 	case 'i':
 	  host_str = optarg;
@@ -295,7 +319,7 @@ assemble_and_send (struct magic *m,
 		   const char *pass_str,
 		   int socketfd)
 {
-  if (!proxy_mode)
+  if (packet_mode & UDP_MODE)
     {
       int ret = magic_assemble (m, mac_str, pass_str);
 	
@@ -320,7 +344,7 @@ assemble_and_send (struct magic *m,
 	  return -1;
 	}
     }
-  else /* proxy_mode */
+  else if (packet_mode & PROXY_MODE)
     {
       size_t n;
       char *proxy_pass = (char *) pass_str;
@@ -348,6 +372,25 @@ assemble_and_send (struct magic *m,
 	  errno = 0;
 	  return -1;
 	}
+    }
+  else /* RAW_MODE */
+    {
+      int ret = magic_assemble (m, mac_str, pass_str);
+	
+      switch (ret)
+	{
+	case -1:
+	  error (0, errno, _("Cannot assemble magic packet for '%s'"), mac_str);
+	  errno = 0;
+	  return -1;
+	  
+	case -2:
+	  error (0, 0, _("Invalid password given for '%s'"), mac_str);
+	  errno = 0;
+	  return -1;
+	}
+
+      raw_send (socketfd, m->packet, m->size);
     }
 
   fprintf (stdout, _("Waking up %s"), mac_str);
@@ -390,13 +433,17 @@ main (int argc, char *argv[])
       exit (1);
     }
 
-  if (!proxy_mode)
+  if (packet_mode & UDP_MODE)
     {
       sockfd = udp_open ();
     }
-  else /* proxy_mode needs tcp socket */
+  else if (packet_mode & PROXY_MODE)
     {
       sockfd = tcp_open (host_str, port);
+    }
+  else /* RAW_MODE */
+    {
+      sockfd = raw_open ();
     }
 
   if (sockfd < 0)
