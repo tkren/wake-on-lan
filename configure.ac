@@ -118,11 +118,68 @@ dnl don't pass symbol [external] since it will disable local intl directory
 AM_GNU_GETTEXT
 
 
+dnl
 dnl check header files
+dnl
+
 AC_HEADER_STDC
 AC_HEADER_TIME
-AC_CHECK_HEADERS(unistd.h getopt.h sys/time.h locale.h libintl.h netinet/ether.h net/ethernet.h sys/socket.h net/if.h netinet/in.h netinet/if_ether.h)
-	
+AC_CHECK_HEADERS([stdio.h unistd.h getopt.h locale.h libintl.h])
+
+
+dnl
+dnl check ethernet definitions
+dnl
+
+AC_CHECK_HEADERS([netinet/ether.h net/ethernet.h netinet/in.h])
+
+
+dnl `net/if.h'
+dnl     On Darwin, this file requires that `stdio.h' and `sys/socket.h' be
+dnl     included beforehand.  One should run:
+
+AC_CHECK_HEADERS([sys/socket.h])
+AC_CHECK_HEADERS([net/if.h], [], [],
+                 [#include <stdio.h>
+                  #if STDC_HEADERS
+                  # include <stdlib.h>
+                  # include <stddef.h>
+                  #else
+                  # if HAVE_STDLIB_H
+                  #  include <stdlib.h>
+                  # endif
+                  #endif
+                  #if HAVE_SYS_SOCKET_H
+                  # include <sys/socket.h>
+                  #endif
+                 ])
+
+dnl `netinet/if_ether.h'
+dnl     On Darwin, this file requires that `stdio.h' and `sys/socket.h' be
+dnl     included beforehand.  One should run:
+
+AC_CHECK_HEADERS([sys/socket.h])
+AC_CHECK_HEADERS([netinet/if_ether.h], [], [],
+                 [#include <stdio.h>
+                  #if STDC_HEADERS
+                  # include <stdlib.h>
+                  # include <stddef.h>
+                  #else
+                  # if HAVE_STDLIB_H
+                  #  include <stdlib.h>
+                  # endif
+                  #endif
+                  #if HAVE_SYS_SOCKET_H
+                  # include <sys/socket.h>
+                  #endif
+                  #if HAVE_NET_IF_H
+                  # include <net/if.h>
+                  #endif
+                  #if HAVE_NETINET_IN_H
+                  # include <netinet/in.h>
+                  #endif
+                 ])
+
 
 dnl check system functions
 gl_GETOPT dnl for GNU getopt
