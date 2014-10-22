@@ -60,6 +60,12 @@ AC_C_BIGENDIAN
 dnl check data types
 AC_CHECK_SIZEOF(unsigned char, 1)
 
+dnl config.h.in defines
+AC_DEFINE([HAVE_STRUCT_ETHER_ADDR], 0, [struct ether_addr])
+AC_DEFINE([HAVE_STRUCT_ETHER_ADDR_ETHER_ADDR_OCTET], 0, [struct ether_addr.ether_addr_octet])
+AC_DEFINE([HAVE_STRUCT_ETHER_ADDR_OCTET], 0, [struct ether_addr.octet])
+AC_DEFINE([HAVE_ETHER_HOSTTON], 0, [ether_hostton])
+
 ether_includes=""
 AC_CHECK_TYPE([struct ether_addr], , , [#include <netinet/ether.h>]) dnl Linux
 if test "$ac_cv_type_struct_ether_addr" = "yes"; then
@@ -239,13 +245,6 @@ dnl 	AC_MSG_WARN([
 dnl *** Unable to find python.
 dnl *** Because of that, you won't be able to run certain tests via 'make check'.])
 dnl fi
-
-
-dnl config.h.in defines
-AC_DEFINE([HAVE_STRUCT_ETHER_ADDR], 0, [struct ether_addr])
-AC_DEFINE([HAVE_STRUCT_ETHER_ADDR_ETHER_ADDR_OCTET], 0, [struct ether_addr.ether_addr_octet])
-AC_DEFINE([HAVE_STRUCT_ETHER_ADDR_OCTET], 0, [struct ether_addr.octet])
-AC_DEFINE([HAVE_ETHER_HOSTTON], 0, [ether_hostton])
 
 
 dnl full featured warnings
