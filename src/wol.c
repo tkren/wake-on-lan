@@ -54,6 +54,9 @@ char *program_name;
 /* pointer to a MAC address */
 static char *mac_str = NULL;
 
+/* network interface name. */
+static char *if_name = NULL;
+
 /* IP Address or hostname magic packet is addressed to */
 static char *host_str = DEFAULT_IPADDR;
 
@@ -115,7 +118,7 @@ Wake On LAN client - wakes up magic packet compliant machines.\n\n\
 -f, --file=FILE     read addresses from file FILE (\"-\" reads from stdin)\n\
     --passwd[=PASS] send SecureON password PASS (if no PASS is given, you\n\
                     will be prompted for the password)\n\
--r, --raw           send raw ethernet magic packet\n\
+-r, --raw=IF        send raw ethernet magic packet through interface IF\n\
 -s, --proxy=HOST    send wake up information to wolp proxy HOST\n\
 -u, --udp           send udp magic packet\n\
 \n\
@@ -155,7 +158,7 @@ parse_args (int argc, char *argv[])
   int c;
   int option_index;
   int password_set = 0;
-  char *options = "Vvw:h:i:p:f:s:ru-";
+  char *options = "Vvw:h:i:p:f:s:r:u-";
   static struct option long_options[] = 
     {
       { "help", no_argument, NULL, 'H' },
@@ -168,7 +171,7 @@ parse_args (int argc, char *argv[])
       { "file", required_argument, NULL, 'f' },
       { "passwd", optional_argument, NULL, 'P' },
       { "proxy", required_argument, NULL, 's' },
-      { "raw", no_argument, NULL, 'r' },
+      { "raw", required_argument, NULL, 'r' },
       { "udp", no_argument, NULL, 'u' },
       { NULL, 0, NULL, 0 }
     };
@@ -224,6 +227,7 @@ parse_args (int argc, char *argv[])
 	case 'r':
 	  packet_mode |= RAW_MODE;
 	  packet_mode &= ~(UDP_MODE | PROXY_MODE);
+	  if_name = optarg;
 	  break;
 
 
@@ -390,7 +394,8 @@ assemble_and_send (struct magic *m,
 	  return -1;
 	}
 
-      raw_send (socketfd, m->packet, m->size);
+      /* FIXME: if_name is a global variable. */
+      raw_send (socketfd, if_name, m->packet, m->size);
     }
 
   fprintf (stdout, _("Waking up %s"), mac_str);

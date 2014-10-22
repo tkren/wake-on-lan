@@ -27,6 +27,7 @@
 #endif /* HAVE_CONFIG_H */
 
 
+#include <assert.h>
 #include <stdio.h>
 #include <errno.h>
 #include <unistd.h>
@@ -38,9 +39,16 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netpacket/packet.h>
+#include <net/if.h>
+#include <net/ethernet.h>
+#include <sys/ioctl.h>
 
 #include "net.h"
 #include "wol.h"
+
+#if ! defined (ETH_P_WOL)
+    #define ETH_P_WOL 0x0842
+#endif
 
 
 static int
@@ -79,30 +87,12 @@ net_close (int socket)
 int
 raw_open (void)
 {
-  int optval;
   int sockfd;
 
-  sockfd = socket (PF_PACKET, SOCK_RAW, 0);
+  sockfd = socket (PF_PACKET, SOCK_DGRAM, htons (ETH_P_WOL));
   if (sockfd < 0)
     {
-      if (errno == EPERM)
-	{
-	  error (0, 0, "No root privileges");
-	}
-      else
-	{
-	  perror ("socket() failed");
-	}
-
-      return -1;
-    }
-
-  optval = 1;
-
-  if (setsockopt (sockfd, SOL_SOCKET, SO_BROADCAST, &optval, sizeof (optval)))
-    {
-      perror ("setsockopt() failed");
-      close (sockfd);
+      perror ("socket() failed");
       return -1;
     }
 
@@ -181,38 +171,50 @@ tcp_open (const char *ip_str,
 
 ssize_t 
 raw_send (int sock,
+          const char *if_name,
 	  const void *buf,
 	  size_t len)
 {
+  struct ifreq ifr;
+  int if_idx = -1;
+  const unsigned char broadcast[ETHER_ADDR_LEN] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
   struct sockaddr_ll toaddr;
   ssize_t sendret;
 
-  if (buf == NULL)
+  if (if_name == NULL || buf == NULL)
     {
       return -1;
     }
-	
+
+  /* Find out index of the interface. */
+  size_t if_name_len = strlen(if_name);
+  memset (&ifr, sizeof (ifr), 0);
+  if (if_name_len >= sizeof(ifr.ifr_name))
+    {
+      error (0, 0, _("Interface name too long"));
+      return -1;
+    }
+  strcpy (ifr.ifr_name, if_name);
+  if (ioctl (sock, SIOCGIFINDEX, &ifr))
+    {
+      error (0, 0, _("Couldn't find interface %s: %s"), if_name, strerror (errno));
+      return -1;
+    }
+  if_idx = ifr.ifr_ifindex;
+
   memset (&toaddr, 0, sizeof (toaddr));
 
   toaddr.sll_family = AF_PACKET;
 
-  /* maybe we need to set more data */
-#if 0
-  struct ifreq ifr;
-  strncpy(ifr.ifr_name, ifname, sizeof(ifr.ifr_name));
-  if (ioctl(s, SIOCGIFINDEX, &ifr) == -1) {
-    fprintf(stderr, "SIOCGIFINDEX on %s failed: %s\n", ifname,
-	    strerror(errno));
-    return 1;
-  }
-  memset(&whereto, 0, sizeof(whereto));
-  whereto.sll_family = AF_PACKET;
-  whereto.sll_ifindex = ifr.ifr_ifindex;
-  /* The manual page incorrectly claims the address must be filled.
-     We do so because the code may change to match the docs. */
-  whereto.sll_halen = ETH_ALEN;
-  memcpy(whereto.sll_addr, outpack, ETH_ALEN);
-#endif /* 0 */
+  /* Construct ll address. */
+  memset (&toaddr, sizeof (toaddr), 0);
+  toaddr.sll_family = AF_PACKET;
+  toaddr.sll_protocol = htons (ETH_P_WOL);
+  toaddr.sll_ifindex = if_idx;
+  toaddr.sll_pkttype = PACKET_BROADCAST;
+  assert (ETHER_ADDR_LEN <= sizeof (toaddr.sll_addr));
+  toaddr.sll_halen = ETHER_ADDR_LEN;
+  memcpy (toaddr.sll_addr, broadcast, ETHER_ADDR_LEN);
 
   /* keep on sending and check for possible errors */
   sendret = sendto (sock, buf, len, 0, (struct sockaddr *) &toaddr,

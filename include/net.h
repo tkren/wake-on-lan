@@ -50,6 +50,7 @@ ssize_t udp_send (int socket,
 		  const void *buf, size_t len);
 
 ssize_t raw_send (int socket,
+		  const char *if_name,
 		  const void *buf,
 		  size_t len);
 
