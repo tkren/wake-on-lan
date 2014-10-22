@@ -1,3 +1,5 @@
+[0.8.0]
+* add raw ethernet packet sending with -r IF / --raw=IF
 [0.7.1]
 * fix --disable-gettext bug
 * fix documentation

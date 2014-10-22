@@ -1,3 +1,4 @@
 wol - Wake On Lan client
 
-wol ... Thomas Krennwallner <krennwallner@aon.at>
+wol: Thomas Krennwallner <krennwallner@aon.at>
+raw ethernet support: Van de Bugger <van.de.bugger@gmail.com>

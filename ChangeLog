@@ -1,3 +1,14 @@
+2014-10-22  Van de Bugger  <van.de.bugger@gmail.com>
+
+	* include/net.h: Add support for raw ethernet packet sending.
+	* src/net.c: Likewise.
+
+	* src/wol.c: Add -r, --raw=IF option for choosing the raw ethernet
+	interface.
+
+	* configure.ac: Fix definition of HAVE_STRUCT_ETHER_ADDR and
+	friends.
+
 2004-07-21  Thomas Krennwallner  <djmaecki@ull.at>
 
 	* TODO: Support '-' delimited ethernet addresses.
